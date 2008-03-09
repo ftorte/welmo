@@ -19,26 +19,33 @@
 				android:layout_width="fill_parent" 
 				android:text="" />
 				
-			<TextView android:id="@+id/MonLabel"
+			<Button android:id="@+id/MonLabel"
 				android:layout_height="wrap_content"
+				style="@style/DoorButton"
 				android:layout_width="fill_parent" android:text="Mo" />
-			<TextView android:id="@+id/TweLbel"
+			<Button android:id="@+id/TweLbel"
 				android:layout_height="wrap_content"
+				style="@style/DoorButton"
 				android:layout_width="fill_parent" android:text="Tw" />
-			<TextView android:id="@+id/WenLabel"
+			<Button android:id="@+id/WenLabel"
 				android:layout_height="wrap_content"
+				style="@style/DoorButton"
 				android:layout_width="fill_parent" android:text="We" />
-			<TextView android:id="@+id/TueLabel"
+			<Button android:id="@+id/TueLabel"
 				android:layout_height="wrap_content"
+				style="@style/DoorButton"
 				android:layout_width="fill_parent" android:text="Tu" />
-			<TextView android:id="@+id/FriLabel"
+			<Button android:id="@+id/FriLabel"
 				android:layout_height="wrap_content"
+				style="@style/DoorButton"
 				android:layout_width="fill_parent" android:text="Fr" />
-			<TextView android:id="@+id/SatLabel"
+			<Button android:id="@+id/SatLabel"
 				android:layout_height="wrap_content"
+				style="@style/DoorButton"
 				android:layout_width="fill_parent" android:text="Sa" />
 			<TextView android:id="@+id/SunLabel"
 				android:layout_height="wrap_content"
+				style="@style/DoorButton"
 				android:layout_width="fill_parent" android:text="Su" />
 		</TableRow> 
 	
