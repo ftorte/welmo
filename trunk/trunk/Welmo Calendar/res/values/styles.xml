@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources> 
+    <style name="DoorButton"> 
+        <!-- Replaces the complex BackGround to a simple color 
+        <item name="android:background">#00FF0000</item> 
+		--> 
+        <!-- Text-Style --> 
+        <item name="android:textSize">16px</item> 
+        <item name="android:textStyle">bold</item> 
+        
+        <!-- Text-Color --> 
+        <item name="android:textColor">#FF00FF00</item> 
+        
+        <!-- Spacing between the Buttons --> 
+        <item name="android:padding">2px</item> 
+        <item name="android:paddingTop">2px</item> 
+    </style>
+</resources>
