@@ -3,6 +3,8 @@ package com.welmo.calendar;
 import java.util.Map;
 
 import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.View;
@@ -16,6 +18,7 @@ public class CalendarDay extends TextView{
 	int mOrgWidth;
 	int mOrgHeight;
 	int flag=0;
+	private Paint mTextPaint;
 	
 	public CalendarDay(Context context, AttributeSet attrs, Map inflateParams) {
 		super(context, attrs, inflateParams);
@@ -40,7 +43,8 @@ public class CalendarDay extends TextView{
 			}		
 		});
 		setAlignment(android.text.Layout.Alignment.ALIGN_CENTER);
-		defaultBackground = this.getBackground();	
+		defaultBackground = this.getBackground();
+		mTextPaint = new Paint();
 	}
 
 	public CalendarDay(Context context) {
@@ -52,11 +56,66 @@ public class CalendarDay extends TextView{
         Toast.makeText(mContext,Msg,Toast.LENGTH_SHORT).show();
 	}
 
-	@Override
-	protected void onMeasure(int arg0, int arg1) {
-		// TODO Auto-generated method stub
-		super.onMeasure(arg0, arg1);
-		//setMeasuredDimension(arg0, arg1);
+	/* (non-Javadoc)
+	 * @see android.widget.TextView#onMeasure(int, int)
+	 */
+	
+
+	
+	@Override    
+	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec){
+		super.onMeasure(widthMeasureSpec,heightMeasureSpec);
+		setMeasuredDimension(getMeasuredWidth(),getMeasuredHeight()*2);
+	}    
+	/**     * Determines the width of this view     * 
+	 * @param measureSpec A measureSpec packed into an int     
+	 * @return The width of the view, honoring constraints from measureSpec    
+	 * */   
+	/*private int measureWidth(int measureSpec){        
+		int result = 0;
+		int specMode = MeasureSpec.getMode(measureSpec);   
+		int specSize = MeasureSpec.getSize(measureSpec);   
+		if (specMode == MeasureSpec.EXACTLY) {    
+			// We were told how big to be          
+			result = specSize;    
+		}
+		else
+		{           
+			// Measure the text  
+			//
+			result = (int) mTextPaint.measureText(getText().toString()) + mPaddingLeft                    
+				+ mPaddingRight;
+			if (specMode == MeasureSpec.AT_MOST) {  
+				// Respect AT_MOST value if that was what is called for by measureSpec   
+				result = Math.min(result, specSize);  
+			}        
+		}        
+		return result;    
+	} 
+	/**     * Determines the height of this view    
+	 *  * @param measureSpec A measureSpec packed into an int   
+	 *    * @return The height of the view, honoring constraints from measureSpec    
+	 *     */  
+	/*private int measureHeight(int measureSpec) {   
+		int result = 0;   
+		int specMode = MeasureSpec.getMode(measureSpec);      
+		int specSize = MeasureSpec.getSize(measureSpec);   
+		int mAscent = (int) mTextPaint.ascent();      
+		if (specMode == MeasureSpec.EXACTLY) {       
+			// We were told how big to be          
+			result = specSize;        } else {     
+				// Measure the text (beware: ascent is a negative number)      
+				result = (int) (-mAscent + mTextPaint.descent()) + mPaddingTop    
+				+ mPaddingBottom;            if (specMode == MeasureSpec.AT_MOST) {  
+					// Respect AT_MOST value if that was what is called for by measureSpec     
+					result = Math.min(result, specSize);        
+				}      
+			}     
+		return result;    
 	}
-	    
+	/*@Override    
+	protected void onDraw(Canvas canvas) {        
+		super.onDraw(canvas);        
+		//canvas.drawText(getText().toString(), mPaddingLeft, mPaddingTop - (int) mTextPaint.ascent(), mTextPaint);    
+	}*/
 }
