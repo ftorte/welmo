@@ -3,16 +3,20 @@ package com.welmo.calendar;
 import java.util.Map;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Toast;
-import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class CalendarDay extends TextView{
 
+	Drawable defaultBackground;
+	int mOrgWidth;
+	int mOrgHeight;
+	int flag=0;
+	
 	public CalendarDay(Context context, AttributeSet attrs, Map inflateParams) {
 		super(context, attrs, inflateParams);
 		setOnClickListener(new OnClickListener (){ 
@@ -28,14 +32,15 @@ public class CalendarDay extends TextView{
 			@Override
 			public void onFocusChanged(View v, boolean b){
 				int id = v.getId();
-				ShowMessge("Calendar Day On Focus Catched: "+id);
+				//ShowMessge("Calendar Day On Focus Catched: "+id);
 				if(b)
-					v.setBackgroundColor(0xFF00FF00);
+					v.setBackgroundColor(0xffedd400);
 				else
-					v.setBackgroundColor(0xFF000000);
+					v.setBackground(defaultBackground);
 			}		
 		});
 		setAlignment(android.text.Layout.Alignment.ALIGN_CENTER);
+		defaultBackground = this.getBackground();	
 	}
 
 	public CalendarDay(Context context) {
@@ -45,6 +50,13 @@ public class CalendarDay extends TextView{
 	
 	void ShowMessge(String Msg){
         Toast.makeText(mContext,Msg,Toast.LENGTH_SHORT).show();
+	}
+
+	@Override
+	protected void onMeasure(int arg0, int arg1) {
+		// TODO Auto-generated method stub
+		super.onMeasure(arg0, arg1);
+		//setMeasuredDimension(arg0, arg1);
 	}
 	    
 }
