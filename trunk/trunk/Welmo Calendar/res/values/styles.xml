@@ -15,4 +15,22 @@
         <item name="android:padding">2px</item> 
         <item name="android:paddingTop">2px</item> 
     </style>
+    
+    <style name="clendarworkingdaylable">
+        <item name="android:textSize">16px</item> 
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAlign">center</item> 
+        <item name="android:textColor">#FF00FF00</item>
+        <item name="android:background">#AFFF0F00</item> 
+    </style>
+    <style name="clendarworkingdaylable_old">
+        <item name="android:padding">2dip</item>
+        <item name="android:textSize">16px</item> 
+        <item name="android:textStyle">bold</item> 
+        <item name="android:textColor">#FF00FF00</item> 
+		<item name="android:background">#AF00FFFF</item>
+        <item name="android:src">@drawable/workingdaylabel</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:gravity">center_horizontal</item>
+    </style>
 </resources>
