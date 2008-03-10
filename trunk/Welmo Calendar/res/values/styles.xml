@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources> 
     <style name="clendarworkingdaylable">
-        <item name="android:textSize">16px</item> 
+        <item name="android:textSize">12px</item> 
         <item name="android:textStyle">bold</item>
         <item name="android:textAlign">center</item> 
         <item name="android:textColor">#FF00FF00</item>
-        <item name="android:background">#AFFF0F00</item> 
+        <item name="android:background">#0FFF0F00</item> 
     </style>
     <style name="clendaremptydaylable">
         <item name="android:textSize">16px</item> 
         <item name="android:textStyle">bold</item>
         <item name="android:textAlign">center</item> 
         <item name="android:textColor">#FF00FF00</item>
-        <item name="android:background">#FF000000</item> 
+        <item name="android:background">#0F000000</item> 
     </style>
     <style name="calendarweek">
        ²<item name="android:orientation">vertical</item>
@@ -21,7 +21,7 @@
         <item name="android:textStyle">bold</item>
         <item name="android:textAlign">center</item> 
         <item name="android:textColor">#ffedd400</item>
-        <item name="android:background">#FF888A85</item> 
+        <item name="android:background">#0F888A85</item> 
     </style>
     <style name="clendarworkingday">
         <item name="android:textSize">12px</item> 
