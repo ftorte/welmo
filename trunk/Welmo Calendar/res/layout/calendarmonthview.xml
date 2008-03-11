@@ -4,10 +4,11 @@
 	android:layout_height="fill_parent"
 	android:textSize="22px">
 	
-	<TableLayout
+	<com.welmo.calendar.CalendarMonth
 		android:id="@+id/Calendar"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
+		android:stretchColumns="3"
 		android:shrinkColumns="3"
 		android:clickable="true">
 		
@@ -44,9 +45,9 @@
 				android:layout_height="wrap_content"
 				android:layout_width="wrap_content" android:text="2008" />
 		</TableRow> 
-	</TableLayout>
+	</com.welmo.calendar.CalendarMonth>
 	
-	<TableLayout
+	<com.welmo.calendar.CalendarMonth
 		android:id="@+id/Month"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content" 
@@ -284,5 +285,5 @@
 				android:text="5" 
 				style="@style/clendaroutofmonth"/>
 		</TableRow> 
-	</TableLayout>
+	</com.welmo.calendar.CalendarMonth>
 </LinearLayout>

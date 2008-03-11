@@ -3,7 +3,11 @@ package com.welmo.calendar;
 import java.util.Map;
 
 import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.RectF;
+import android.graphics.Paint.Style;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -37,41 +41,65 @@ public class CalendarMonth extends TableLayout{
 	void ShowMessge(String Msg){
         Toast.makeText(mContext,Msg,Toast.LENGTH_SHORT).show();
 	}
-	    
-	/* (non-Javadoc)
-	 * @see android.view.View#setOnClickListener(android.view.View.OnClickListener)
-	 */
-	@Override
-	public void setOnClickListener(OnClickListener l) {
-		// TODO Auto-generated method stub
-		super.setOnClickListener(l);
-	}
+	@Override    
+	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec){
+		super.onMeasure(widthMeasureSpec,heightMeasureSpec);
+		setMeasuredDimension(getMeasuredWidth(),getMeasuredHeight() +10);
+		//setMeasuredDimension(35,getMeasuredHeight());
+	}    
 
-	/* (non-Javadoc)
-	 * @see android.view.View#setOnFocusChangeListener(android.view.View.OnFocusChangeListener)
-	 */
-	@Override
-	public void setOnFocusChangeListener(OnFocusChangeListener l) {
-		// TODO Auto-generated method stub
-		super.setOnFocusChangeListener(l);
-	}
+	@Override    
+	protected void onDraw(Canvas canvas) {        
+		super.onDraw(canvas);        
+		//canvas.drawText(getText().toString(), mPaddingLeft, mPaddingTop - (int) mTextPaint.ascent(), mTextPaint);    
+		//draw the occupation bar
+		int bar_pad = 2; 	//reserve 1 2 pixel around the bar
+		int bar_tick = 6; 	//tickness of the occupation bar
+		int n_seg = 6;		// nb of segments
+		
+		int w_width = getMeasuredWidth();
+		int w_height = getMeasuredHeight();
+		int tick_w = (w_width - 2*bar_pad - (w_width-2*bar_pad)%n_seg)/n_seg; // width on one bar elements
+		
+		//setup position of first rectangle
+		int seg_lefth 	= bar_pad;
+		int seg_top 	= w_height -  bar_tick -  bar_pad;
+		int seg_right 	= seg_lefth + tick_w;
+		int seg_bottom 	= seg_top + bar_tick;
+			
+		Paint paint = new Paint(); 
+		paint.setStyle(Style.FILL); 
+		
+		//0%
+		paint.setColor(0xFFD3D7CF); 
+		RectF rect = new RectF(seg_lefth,seg_top,seg_right,seg_bottom);
+		canvas.drawRect(rect, paint); 
+		//25%
+		paint.setColor(0xFF73D216); 
+		rect = new RectF(seg_lefth + tick_w,seg_top,seg_right + tick_w,seg_bottom);
+		canvas.drawRect(rect, paint); 
 
-	/* (non-Javadoc)
-	 * @see android.view.View#setOnLongClickListener(android.view.View.OnLongClickListener)
-	 */
-	@Override
-	public void setOnLongClickListener(OnLongClickListener l) {
-		// TODO Auto-generated method stub
-		super.setOnLongClickListener(l);
-	}
+		//50%
+		paint.setColor(0xFF729FCF); 
+		rect = new RectF(seg_lefth + 2*tick_w,seg_top,seg_right + 2*tick_w,seg_bottom);
+		canvas.drawRect(rect, paint); 
 
-	/* (non-Javadoc)
-	 * @see android.view.View#onFocusChanged(boolean, int, android.graphics.Rect)
-	 */
-	@Override
-	protected void onFocusChanged(boolean gainFocus, int direction,
-			Rect previouslyFocusedRect) {
-		// TODO Auto-generated method stub
-		super.onFocusChanged(gainFocus, direction, previouslyFocusedRect);
+
+		//75%
+		paint.setColor(0xFF204887); 
+		rect = new RectF(seg_lefth + 3*tick_w,seg_top,seg_right + 3*tick_w,seg_bottom);
+		canvas.drawRect(rect, paint); 
+
+
+		//100%
+		paint.setColor(0xFFA40000); 
+		rect = new RectF(seg_lefth + 4*tick_w,seg_top,seg_right + 4*tick_w,seg_bottom);
+		canvas.drawRect(rect, paint); 
+
+
+		//0%
+		paint.setColor(0xFFD3D7CF); 
+		rect = new RectF(seg_lefth + 5*tick_w,seg_top,seg_right + 5*tick_w,seg_bottom);
+		canvas.drawRect(rect, paint); 
 	}
 }

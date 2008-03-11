@@ -16,4 +16,6 @@ public class CalendarMonthView extends Activity {
         super.onCreate(icicle);
         setContentView(R.layout.calendarmonthview);
     }
+    
+    
 }
