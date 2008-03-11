@@ -4,7 +4,7 @@
 	android:layout_height="fill_parent"
 	android:textSize="22px">
 	
-	<com.welmo.calendar.CalendarMonth
+	<TableLayout
 		android:id="@+id/Calendar"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
@@ -13,13 +13,6 @@
 		android:clickable="true">
 		
 		<TableRow>
-			<!-- 
-			<TextView android:id="@+id/week0" 		
-				android:layout_height="wrap_content" 
-				android:layout_width="wrap_content"
-				style="@style/clendaremptydaylable"
-				android:text="" />
-			-->
 			<ImageView 
 				android:id="@+id/PrevMonth"
 				android:layout_height="10px"
@@ -45,8 +38,9 @@
 				android:layout_height="wrap_content"
 				android:layout_width="wrap_content" android:text="2008" />
 		</TableRow> 
-	</com.welmo.calendar.CalendarMonth>
-	
+
+	</TableLayout>
+		
 	<com.welmo.calendar.CalendarMonth
 		android:id="@+id/Month"
 		android:layout_width="fill_parent"
