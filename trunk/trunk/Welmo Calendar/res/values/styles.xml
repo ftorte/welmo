@@ -5,7 +5,7 @@
         <item name="android:textStyle">bold</item>
         <item name="android:textAlign">center</item> 
         <item name="android:textColor">#FF00FF00</item>
-        <item name="android:background">#0FFF0F00</item> 
+        <item name="android:background">#5FA40000</item> 
     </style>
     <style name="clendaremptydaylable">
         <item name="android:textSize">16px</item> 

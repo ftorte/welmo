@@ -25,6 +25,29 @@ public class CalendarDay extends TextView{
 	private Paint mTextPaint;
 	
 	
+	//manage dimension
+	protected boolean	fixedDimension	= false;
+	protected int 		mWidth			=0;
+	protected int		mHeigth			=0;
+	//manage colors
+	protected int 		mFocusedBackground		=0xFFFFFFFF;
+	protected int 		mLongSelectedBackground	=0xFFFFFFFF;
+	//manage day constants
+	protected int 		mTheDay			=0;
+	protected int 		mTheMonth		=0;
+	protected int 		mTheYear		=0;
+	//manage occupation map
+	protected int 		mBarPpad 		=2; 	//reserve 1 2 pixel around the bar
+	protected int	 	mBarTick 		=6; 	//tickness of the occupation bar
+	protected int 		mNbBarPeriods 	=6;		// nb of segments
+	
+	protected int 		mSeg_lefth		=0;
+	protected int 		mSeg_top 		=0;
+	protected int 		mSeg_right 		=0;
+	protected int 		mSeg_bottom 	=0;
+	protected Paint 	mPaint 			= new Paint(); 
+	
+	
 	public CalendarDay(Context context, AttributeSet attrs, Map inflateParams) {
 		super(context, attrs, inflateParams);
 		setOnClickListener(new OnClickListener (){ 
@@ -85,7 +108,8 @@ public class CalendarDay extends TextView{
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec){
 		super.onMeasure(widthMeasureSpec,heightMeasureSpec);
 		setMeasuredDimension(getMeasuredWidth(),getMeasuredHeight() +10);
-		//setMeasuredDimension(35,getMeasuredHeight());
+		mWidth = getMeasuredWidth();
+		mHeigth = getMeasuredHeight();		
 	}    
 
 	@Override    
@@ -93,22 +117,15 @@ public class CalendarDay extends TextView{
 		super.onDraw(canvas);        
 		//canvas.drawText(getText().toString(), mPaddingLeft, mPaddingTop - (int) mTextPaint.ascent(), mTextPaint);    
 		//draw the occupation bar
-		int bar_pad = 2; 	//reserve 1 2 pixel around the bar
-		int bar_tick = 6; 	//tickness of the occupation bar
-		int n_seg = 6;		// nb of segments
 		
-		int w_width = getMeasuredWidth();
-		int w_height = getMeasuredHeight();
 		int tick_w = (w_width - 2*bar_pad - (w_width-2*bar_pad)%n_seg)/n_seg; // width on one bar elements
 		
 		//setup position of first rectangle
-		int seg_lefth 	= bar_pad;
-		int seg_top 	= w_height -  bar_tick -  bar_pad;
-		int seg_right 	= seg_lefth + tick_w;
-		int seg_bottom 	= seg_top + bar_tick;
-			
-		Paint paint = new Paint(); 
-		paint.setStyle(Style.FILL); 
+		mSeg_lefth 	= bar_pad;
+		mSeg_top 	= w_height -  bar_tick -  bar_pad;
+		mSeg_right 	= mSeg_lefth + tick_w;
+		mSeg_bottom = mSeg_top + bar_tick;	
+		mPaint.setStyle(Style.FILL); 
 		
 		//0%
 		paint.setColor(0xFFD3D7CF); 
@@ -141,5 +158,71 @@ public class CalendarDay extends TextView{
 		paint.setColor(0xFFD3D7CF); 
 		rect = new RectF(seg_lefth + 5*tick_w,seg_top,seg_right + 5*tick_w,seg_bottom);
 		canvas.drawRect(rect, paint); 
+	}
+	
+	private void paintOccupationTag(Canvas canvas,int N, int color)
+	{
+		mPaint.setColor(color); 
+		RectF rect = new RectF(	mSeg_lefth + N*tick_w,
+								mSeg_top,
+								mSeg_right + 5*tick_w,
+								mSeg_bottom);
+		canvas.drawRect(rect, mPaint); 
+	}
+
+	public boolean isFixedDimension() {
+		return fixedDimension;
+	}
+	public void setFixedDimension(boolean fixedDimension) {
+		this.fixedDimension = fixedDimension;
+	}
+	
+	public int getMWidth() {
+		return mWidth;
+	}
+	public void setMWidth(int width) {
+		mWidth = width;
+	}
+	public int getMHeigth() {
+		return mHeigth;
+	}
+	public void setMHeigth(int heigth) {
+		mHeigth = heigth;
+	}
+	public int getMFocusedBackground() {
+		return mFocusedBackground;
+	}
+	public void setMFocusedBackground(int focusedBackground) {
+		mFocusedBackground = focusedBackground;
+	}
+	public int getMLongSelectedBackground() {
+		return mLongSelectedBackground;
+	}
+	public void setMLongSelectedBackground(int longSelectedBackground) {
+		mLongSelectedBackground = longSelectedBackground;
+	}
+	public int getMTheDay() {
+		return mTheDay;
+	}
+	public void setMTheDay(int theDay) {
+		mTheDay = theDay;
+	}
+	public int getMTheMonth() {
+		return mTheMonth;
+	}
+	public void setMTheMonth(int theMonth) {
+		mTheMonth = theMonth;
+	}
+	public int getMTheYear() {
+		return mTheYear;
+	}
+	public void setMTheYear(int theYear) {
+		mTheYear = theYear;
+	}
+	public int getMNbPeriods() {
+		return mNbPeriods;
+	}
+	public void setMNbPeriods(int nbPeriods) {
+		mNbPeriods = nbPeriods;
 	}
 }
