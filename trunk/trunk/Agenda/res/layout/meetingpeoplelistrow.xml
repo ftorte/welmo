@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+	<TableLayout
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		android:stretchColumns="1"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent">
+		<TableRow>
+			<ImageView android:id="@+id/Status"
+	        	android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:src="@drawable/list_add16x16"
+		        android:padding="3dip"/>
+		     <TextView android:id="@+id/Name"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="......"
+		        android:minLines="1"
+		        android:maxLines="1"
+		        android:textSize="24px"
+		        android:padding="3dip"/>
+		     <ImageButton android:id="@+id/Call"
+		      	android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:src="@drawable/list_add16x16"
+		        android:padding="3dip"/>
+		      <ImageButton android:id="@+id/Del"
+		      	android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:src="@drawable/trash16x16"
+		        android:padding="3dip"/>
+		</TableRow>
+	</TableLayout>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest 
+	xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.tft.myoffice">
+    
+    
+    
+    
+    <application 
+  		android:background ="@drawable/ferrai"> 
+
+        <activity 
+        	android:name=".meeting.MeetingDayView" 
+        	android:label="@string/activity_sample_code"
+        	android:icon="@drawable/tft01icon">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity 
+        	android:name=".meeting.MeetingView" 
+        	android:label="Meeting Edit" 
+        	android:icon="@drawable/appointmentnew32x32">
+        	<intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.LAUNCHER" />
+         	</intent-filter>
+       </activity>
+       <activity android:name=".contacts.ContactsList" 
+       				android:label="Contacts List" 
+       				android:icon="@drawable/icon_contacts">
+        	<intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.LAUNCHER" />
+         	</intent-filter>
+       </activity>
+       <activity android:name=".mail.SendMailView" 
+       		android:label="Send Mail" 
+       		android:clearOnBackground="false" 
+       		android:icon="@drawable/mail_forward" 
+       		android:multiprocess="false" 
+       		android:launchMode="multiple">
+        	<intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.LAUNCHER" />
+         	</intent-filter>
+       </activity>
+
+       <activity android:name=".util.CheckBoxListTest" 
+       		android:label="CheckBoxTest"> 
+       		<intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.LAUNCHER" />
+         	</intent-filter>
+       </activity>
+       <activity android:name=".util.CheckBoxListTest" 
+       		android:label="CheckBoxTest"> 
+       		<intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.LAUNCHER" />
+         	</intent-filter>
+       </activity>
+    </application>       
+
+<uses-permission android:name="android.permission.WRITE_CONTACTS"></uses-permission>
+<uses-permission android:name="android.permission.READ_CONTACTS"></uses-permission>
+</manifest>
+
+
+

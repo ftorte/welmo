@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+	<ScrollView style="@style/scroll_style">
+		<LinearLayout
+			xmlns:android="http://schemas.android.com/apk/res/android"
+			android:orientation="vertical" android:layout_width="fill_parent"
+			android:layout_height="fill_parent">
+			<TextView android:layout_width="fill_parent"
+				android:layout_height="wrap_content" android:text="Mail Username" />
+			<EditText android:id="@+id/userid"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content" android:text="25apr1945@gmail.com"
+				android:password="false" />
+			<TextView android:layout_width="fill_parent"
+				android:layout_height="wrap_content" android:text="Mail Password" />
+			<EditText android:id="@+id/password"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content" android:text="TFTsw0801" android:password="true" />
+			<TextView android:layout_width="fill_parent"
+				android:layout_height="wrap_content" android:text="From" />
+			<EditText android:id="@+id/from"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content" android:text="25apr1945@gmail.com" 
+				android:password="false" />
+			<TextView android:layout_width="fill_parent"
+				android:layout_height="wrap_content" android:text="To" />
+			<EditText android:id="@+id/to"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content" 
+				android:text="25apr1945@gmail.com"
+				android:password="false" />
+			<TextView android:layout_width="fill_parent"
+				android:layout_height="wrap_content" android:text="Subject" />
+			<EditText android:id="@+id/subject2"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content" 
+				android:text="Test Subject"
+				android:password="false" />
+			<TextView android:layout_width="fill_parent"
+				android:layout_height="wrap_content" android:text="Body" />
+			<EditText android:id="@+id/body2"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content" 
+				android:text="Test Body II"
+				android:password="false" />
+			<Button android:id="@+id/send"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content" 
+				android:text="Send"/>
+		</LinearLayout>
+	</ScrollView>
+</LinearLayout>

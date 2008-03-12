@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<ScrollView style="@style/scroll_style">
+<LinearLayout style="@style/main_layout" 
+		xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <RelativeLayout style="@style/sync_layout">
+		<ImageView android:id="@+id/contacts_shape" style="@style/sync_shape"/>
+		<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    	              style="@style/sync_linear_lh">	
+    		<ImageView android:src="@drawable/icon_contacts" style="@style/sync_icon"/>
+			<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	                      style="@style/sync_linear_lv">   	
+    			<TextView style="@style/sync_title" android:text="Contacts"/>
+  				<TextView android:id="@+id/sync_message_contacts" 
+  				          android:text="" style="@style/sync_message" />
+			</LinearLayout>
+			<ImageView style="@style/sync_arrow" android:id="@+id/contacts_arrow" />
+		</LinearLayout>
+	</RelativeLayout>
+	
+	<RelativeLayout style="@style/sync_layout">
+		<ImageView android:id="@+id/calendar_shape" style="@style/sync_shape"/>
+		<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    	              style="@style/sync_linear_lh">	    
+    		<ImageView android:src="@drawable/icon_calendar" style="@style/sync_icon"/>
+			<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	                      style="@style/sync_linear_lv">    	
+    			<TextView style="@style/sync_title" android:text="Calendar"/>
+  				<TextView android:id="@+id/sync_message_calendar" 
+  				          android:text="Not supported (yet)..." style="@style/sync_message" />
+			</LinearLayout>
+			<ImageView style="@style/sync_arrow" android:id="@+id/calendar_arrow" />
+		</LinearLayout>
+	</RelativeLayout>
+	
+	<RelativeLayout style="@style/sync_layout">
+		<ImageView android:id="@+id/tasks_shape" style="@style/sync_shape"/>
+		<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    	              style="@style/sync_linear_lh">	
+    		<ImageView android:src="@drawable/icon_tasks" style="@style/sync_icon"/>
+			<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	                      style="@style/sync_linear_lv">	
+    			<TextView style="@style/sync_title" android:text="Tasks"/>
+  				<TextView android:id="@+id/sync_message_tasks" 
+  				          android:text="Not supported (yet)..." style="@style/sync_message" />
+			</LinearLayout>
+			<ImageView style="@style/sync_arrow" android:id="@+id/tasks_arrow" />
+		</LinearLayout>
+	</RelativeLayout>
+	
+	<RelativeLayout style="@style/sync_layout">
+		<ImageView android:id="@+id/notes_shape" style="@style/sync_shape" />
+		 
+		<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    	              style="@style/sync_linear_lh">	
+    		<ImageView android:src="@drawable/icon_notes" style="@style/sync_icon"/>
+			<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	                      style="@style/sync_linear_lv">
+    			<TextView style="@style/sync_title" android:text="Notes"/>
+  				<TextView android:id="@+id/sync_message_notes" 
+  				          android:text="Not supported (yet)..." style="@style/sync_message" />
+			</LinearLayout>
+			<ImageView style="@style/sync_arrow" android:id="@+id/notes_arrow" />
+		</LinearLayout>	
+	</RelativeLayout>
+		
+</LinearLayout>
+</ScrollView>
