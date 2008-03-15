@@ -1,58 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:orientation="vertical" android:layout_width="fill_parent"
-	android:layout_height="fill_parent"
-	android:textSize="22px">
-	
-	<TableLayout
-		android:id="@+id/Calendar"
+	android:layout_height="fill_parent" android:textSize="22px">
+
+	<TableLayout android:id="@+id/Calendar"
 		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:stretchColumns="3"
-		android:shrinkColumns="3"
-		android:clickable="true">
-		
+		android:layout_height="wrap_content" android:stretchColumns="3"
+		android:shrinkColumns="3" android:clickable="true">
+
 		<TableRow>
-			<ImageView 
-				android:id="@+id/PrevMonth"
-				android:layout_height="10px"
-				android:src="@drawable/go_previous"
-				android:layout_width="wrap_content"
-			/>
-			<TextView android:id="@+id/TweLbel"
+			<ImageView android:id="@+id/PrevMonth"
+				android:layout_height="10px" android:src="@drawable/go_previous"
+				android:layout_width="wrap_content" />
+			<TextView android:id="@+id/MontLabel"
 				android:layout_height="wrap_content"
 				android:layout_width="wrap_content" android:text="Januarry" />
-			<ImageView 
-				android:id="@+id/PrevMonth"
-				android:layout_height="10px"
-				android:src="@drawable/go_next"
-				android:layout_width="wrap_content"
-			/>
+			<ImageView android:id="@+id/PrevMonth"
+				android:layout_height="10px" android:src="@drawable/go_next"
+				android:layout_width="wrap_content" />
 
-			<TextView android:id="@+id/SunLabel"
+			<TextView 
 				android:layout_height="wrap_content"
 				android:layout_width="wrap_content" android:text="" />
 
 
-			<TextView android:id="@+id/SatLabel"
+			<TextView android:id="@+id/YearLabel"
 				android:layout_height="wrap_content"
 				android:layout_width="wrap_content" android:text="2008" />
-		</TableRow> 
+		</TableRow>
 
 	</TableLayout>
-		
-	<com.welmo.calendar.CalendarMonth
-		android:id="@+id/Month"
+
+	<com.welmo.calendar.CalendarMonth android:id="@+id/Month"
 		android:layout_width="fill_parent"
-		android:layout_height="wrap_content" 
-		android:stretchColumns="*"
-		android:shrinkColumns="*"
-		android:clickable="true">
-		
-		<TableRow
-			android:id="@+id/MonthRow0"> 
+		android:layout_height="wrap_content" android:stretchColumns="*"
+		android:shrinkColumns="*" android:clickable="true">
+
+		<TableRow android:id="@+id/MonthRow0">
 			<!-- 
-			<TextView android:id="@+id/week0" 		
+				<TextView android:id="@+id/week0" 		
 				android:layout_height="wrap_content" 
 				android:layout_width="wrap_content"
 				style="@style/clendaremptydaylable"
@@ -86,198 +72,168 @@
 				android:layout_height="wrap_content"
 				style="@style/clendarworkingdaylable"
 				android:layout_width="wrap_content" android:text="Su" />
-		</TableRow> 
-	
-		
-		<TableRow
-			android:id="@+id/MonthRow1" 
-			android:focusable="true"
-			android:clickable="true"> 
+		</TableRow>
+
+
+		<com.welmo.calendar.CalendarWeek android:id="@+id/MonthRow1"
+			android:focusable="true" android:clickable="true">
 			<!-- 
-			<TextView android:id="@+id/week1" 		
+				<TextView android:id="@+id/week1" 		
 				android:layout_width="wrap_content" 
 				android:text="W1" 
 				style="@style/calendarweek"/>
 			-->
 			<com.welmo.calendar.CalendarDay android:id="@+id/Mon1"
-				android:text="26" 
-				style="@style/clendaroutofmonth"/>
+				android:text="26" style="@style/clendaroutofmonth" />
 			<com.welmo.calendar.CalendarDay android:id="@+id/Twe1"
-				android:text="27" 
-				style="@style/clendaroutofmonth"/>
+				android:text="27" style="@style/clendaroutofmonth" />
 			<com.welmo.calendar.CalendarDay android:id="@+id/Wen1"
-				android:text="28" 
-				style="@style/clendaroutofmonth"/>
+				android:text="28" style="@style/clendaroutofmonth" />
 			<com.welmo.calendar.CalendarDay android:id="@+id/Tue1"
-				android:text="29" 
-				style="@style/clendaroutofmonth"/>
+				android:text="29" style="@style/clendaroutofmonth" />
 			<com.welmo.calendar.CalendarDay android:id="@+id/Fri1"
-				android:text="30" 
-				style="@style/clendaroutofmonth"/>
+				android:text="30" style="@style/clendaroutofmonth" />
 			<com.welmo.calendar.CalendarDay android:id="@+id/Sat1"
-				android:text="31" 
-				style="@style/clendaroutofmonth"/>
+				android:text="31" style="@style/clendaroutofmonth" />
 			<com.welmo.calendar.CalendarDay android:id="@+id/Sun1"
-				android:text="1" 
-				style="@style/clendarfreeday"/>
-		</TableRow> 
-		
-		<TableRow
-			android:id="@+id/MonthRow2" > 
+				android:text="1" style="@style/clendarfreeday" />
+		</com.welmo.calendar.CalendarWeek>
+
+		<com.welmo.calendar.CalendarWeek android:id="@+id/MonthRow2">
 			<!-- 
-			<TextView android:id="@+id/week2" 		
+				<TextView android:id="@+id/week2" 		
 				android:layout_width="wrap_content" 
 				android:text="W2" 
 				style="@style/calendarweek"/>
 			-->
 			<com.welmo.calendar.CalendarDay android:id="@+id/Mon2"
-				android:text="2" 
-				style="@style/clendarworkingday"/>
+				android:text="2" style="@style/clendarworkingday" />
 			<com.welmo.calendar.CalendarDay android:id="@+id/Twe2"
-				android:text="3" 
-				style="@style/clendarworkingday"/>
+				android:text="3" style="@style/clendarworkingday" />
 			<com.welmo.calendar.CalendarDay android:id="@+id/Wen2"
-				android:text="4" 
-				style="@style/clendarworkingday"/>
+				android:text="4" style="@style/clendarworkingday" />
 			<com.welmo.calendar.CalendarDay android:id="@+id/Tue2"
-				android:text="5" 
-				style="@style/clendarworkingday"/>
+				android:text="5" style="@style/clendarworkingday" />
 			<com.welmo.calendar.CalendarDay android:id="@+id/Fri2"
-				android:text="6" 
-				style="@style/clendarworkingday"/>
+				android:text="6" style="@style/clendarworkingday" />
 			<com.welmo.calendar.CalendarDay android:id="@+id/Sat2"
-				android:text="7" 
-				style="@style/clendarfreeday"/>
+				android:text="7" style="@style/clendarfreeday" />
 			<com.welmo.calendar.CalendarDay android:id="@+id/Sun2"
-				android:text="8" 
-				style="@style/clendarfreeday"/>
-		</TableRow> 
-		
-		<TableRow
-			android:id="@+id/MonthRow3" > 
+				android:text="8" style="@style/clendarfreeday" />
+		</com.welmo.calendar.CalendarWeek>
+
+		<com.welmo.calendar.CalendarWeek android:id="@+id/MonthRow3">
 			<!-- 
-			<TextView android:id="@+id/week3" 		
+				<TextView android:id="@+id/week3" 		
 				android:layout_width="wrap_content" 
 				android:text="W3" 
 				style="@style/calendarweek"/>
 			-->
 			<com.welmo.calendar.CalendarDay android:id="@+id/Mon3"
-				android:text="9" 
-				style="@style/clendarworkingday"/>
+				android:text="9" style="@style/clendarworkingday" />
 			<com.welmo.calendar.CalendarDay android:id="@+id/Twe3"
-				android:text="10" 
-				style="@style/clendarworkingday"/>
+				android:text="10" style="@style/clendarworkingday" />
 			<com.welmo.calendar.CalendarDay android:id="@+id/Wen3"
-				android:text="11" 
-				style="@style/clendarworkingday"/>
+				android:text="11" style="@style/clendarworkingday" />
 			<com.welmo.calendar.CalendarDay android:id="@+id/Tue3"
-				android:text="12" 
-				style="@style/clendarworkingday"/>
+				android:text="12" style="@style/clendarworkingday" />
 			<com.welmo.calendar.CalendarDay android:id="@+id/Fri3"
-				android:text="13" 
-				style="@style/clendarworkingday"/>
+				android:text="13" style="@style/clendarworkingday" />
 			<com.welmo.calendar.CalendarDay android:id="@+id/Sat3"
-				android:text="14" 
-				style="@style/clendarfreeday"/>
+				android:text="14" style="@style/clendarfreeday" />
 			<com.welmo.calendar.CalendarDay android:id="@+id/Sun3"
-				android:text="15" 
-				style="@style/clendarfreeday"/>
-		</TableRow> 
-		
-		
-		
-		<TableRow
-			android:id="@+id/MonthRow4" >  
+				android:text="15" style="@style/clendarfreeday" />
+		</com.welmo.calendar.CalendarWeek>
+		<com.welmo.calendar.CalendarWeek android:id="@+id/MonthRow4">
 			<!-- 
-			<TextView android:id="@+id/week4" 		
+				<TextView android:id="@+id/week4" 		
 				android:layout_height="wrap_content" 
 				android:layout_width="wrap_content" 
 				android:text="W4" 
 				style="@style/calendarweek"/>
 			-->
 			<com.welmo.calendar.CalendarDay android:id="@+id/Mon4"
-				android:text="16" 
-				style="@style/clendarworkingday"/>
+				android:text="16" style="@style/clendarworkingday" />
 			<com.welmo.calendar.CalendarDay android:id="@+id/Twe4"
-				android:text="17" 
-				style="@style/clendarworkingday"/>
+				android:text="17" style="@style/clendarworkingday" />
 			<com.welmo.calendar.CalendarDay android:id="@+id/Wen4"
-				android:text="18" 
-				style="@style/clendarworkingday"/>
+				android:text="18" style="@style/clendarworkingday" />
 			<com.welmo.calendar.CalendarDay android:id="@+id/Tue4"
-				android:text="19" 
-				style="@style/clendarworkingday"/>
+				android:text="19" style="@style/clendarworkingday" />
 			<com.welmo.calendar.CalendarDay android:id="@+id/Fri4"
-				android:text="20" 
-				style="@style/clendarworkingday"/>
+				android:text="20" style="@style/clendarworkingday" />
 			<com.welmo.calendar.CalendarDay android:id="@+id/Sat4"
-				android:text="21" 
-				style="@style/clendarfreeday"/>
+				android:text="21" style="@style/clendarfreeday" />
 			<com.welmo.calendar.CalendarDay android:id="@+id/Sun4"
-				android:text="22" 
-				style="@style/clendarfreeday"/>
-		</TableRow> 
-	
-		<TableRow android:id="@+id/MonthRow5" >
+				android:text="22" style="@style/clendarfreeday" />
+		</com.welmo.calendar.CalendarWeek>
+
+		<com.welmo.calendar.CalendarWeek android:id="@+id/MonthRow5">
 			<!-- 
-			<TextView android:id="@+id/week5" 		
+				<TextView android:id="@+id/week5" 		
 				android:layout_height="wrap_content" 
 				android:layout_width="wrap_content" 
 				android:text="w5" 
 				style="@style/calendarweek"/>
 			-->
 			<com.welmo.calendar.CalendarDay android:id="@+id/Mon5"
-				android:text="23" 
-				style="@style/clendarworkingday"/>
+				android:text="23" style="@style/clendarworkingday" />
 			<com.welmo.calendar.CalendarDay android:id="@+id/Twe5"
-				android:text="24" 
-				style="@style/clendarworkingday"/>
+				android:text="24" style="@style/clendarworkingday" />
 			<com.welmo.calendar.CalendarDay android:id="@+id/Wen5"
-				android:text="25" 
-				style="@style/clendarworkingday"/>
+				android:text="25" style="@style/clendarworkingday" />
 			<com.welmo.calendar.CalendarDay android:id="@+id/Tue5"
-				 android:text="26" 
-				style="@style/clendarworkingday"/>
+				android:text="26" style="@style/clendarworkingday" />
 			<com.welmo.calendar.CalendarDay android:id="@+id/Fri5"
-				 android:text="27" 
-				style="@style/clendarworkingday"/>
+				android:text="27" style="@style/clendarworkingday" />
 			<com.welmo.calendar.CalendarDay android:id="@+id/Sat5"
-				android:text="28" 
-				style="@style/clendarfreeday"/>
+				android:text="28" style="@style/clendarfreeday" />
 			<com.welmo.calendar.CalendarDay android:id="@+id/Sun5"
-				android:text="29" 
-				style="@style/clendarfreeday"/>
-		</TableRow> 
-		
-		<TableRow android:id="@+id/MonthRow6" >
+				android:text="29" style="@style/clendarfreeday" />
+		</com.welmo.calendar.CalendarWeek>
+
+		<com.welmo.calendar.CalendarWeek android:id="@+id/MonthRow6">
 			<!-- 
-			<TextView android:id="@+id/week6" 		
+				<TextView android:id="@+id/week6" 		
 				android:layout_height="wrap_content" 
 				android:layout_width="wrap_content" 
 				android:text="w6" 
 				style="@style/calendarweek"/>
 			-->
 			<com.welmo.calendar.CalendarDay android:id="@+id/Mon6"
-				android:text="30" 
-				style="@style/clendarworkingday"/>
+				android:text="30" style="@style/clendarworkingday" />
 			<com.welmo.calendar.CalendarDay android:id="@+id/Twe6"
-				android:text="31" 
-				style="@style/clendarworkingday"/>
+				android:text="31" style="@style/clendarworkingday" />
 			<com.welmo.calendar.CalendarDay android:id="@+id/Wen6"
-				android:text="1" 
-				style="@style/clendaroutofmonth"/>
+				android:text="1" style="@style/clendaroutofmonth" />
 			<com.welmo.calendar.CalendarDay android:id="@+id/Tue6"
-				android:text="2" 
-				style="@style/clendaroutofmonth"/>
+				android:text="2" style="@style/clendaroutofmonth" />
 			<com.welmo.calendar.CalendarDay android:id="@+id/Fri6"
-				android:text="3" 
-				style="@style/clendaroutofmonth"/>
+				android:text="3" style="@style/clendaroutofmonth" />
 			<com.welmo.calendar.CalendarDay android:id="@+id/Sat6"
-				android:text="4" 
-				style="@style/clendaroutofmonth"/>
+				android:text="4" style="@style/clendaroutofmonth" />
 			<com.welmo.calendar.CalendarDay android:id="@+id/Sun6"
-				android:text="5" 
-				style="@style/clendaroutofmonth"/>
-		</TableRow> 
+				android:text="5" style="@style/clendaroutofmonth" />
+		</com.welmo.calendar.CalendarWeek>
 	</com.welmo.calendar.CalendarMonth>
+	
+	<LinearLayout
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		android:orientation="vertical" 
+		android:id="@+id/MeetingDayShort"
+		android:layout_width="fill_parent" 
+		android:layout_height="fill_parent"
+		android:layout_weight="1"
+		android:textSize="22px">
+		<com.welmo.calendar.CalendarDayMeetingListShort 
+			android:id="@android:id/list"
+			android:layout_width="fill_parent"
+			android:layout_height="fill_parent">
+		</com.welmo.calendar.CalendarDayMeetingListShort>
+		<!-- 
+		<TextView android:id="@+id/android:empty"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content" />
+		-->	
+	</LinearLayout>
 </LinearLayout>

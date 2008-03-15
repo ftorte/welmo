@@ -5,13 +5,11 @@ import java.util.Map;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Paint.Style;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,7 +20,9 @@ public class CalendarDay extends TextView{
 	int mOrgWidth;
 	int mOrgHeight;
 	int flag=0;
+	int waitFocus=500; // wait for focus fixed for a minimu time of xMS to shot details
 	private Paint mTextPaint;
+	private int mDayOfMonth;
 	
 	
 	//manage dimension
@@ -37,16 +37,37 @@ public class CalendarDay extends TextView{
 	protected int 		mTheMonth		=0;
 	protected int 		mTheYear		=0;
 	//manage occupation map
-	protected int 		mBarPpad 		=2; 	//reserve 1 2 pixel around the bar
-	protected int	 	mBarTick 		=6; 	//tickness of the occupation bar
-	protected int 		mNbBarPeriods 	=6;		// nb of segments
+	protected int 		mBarPad 		=2; 	//reserve 1 2 pixel around the bar
+	protected int	 	mBarTick 		=12; 	//tickness of the occupation bar
+	protected int 		mNbBarPeriods 	=6;		//nb of segments
 	
 	protected int 		mSeg_lefth		=0;
 	protected int 		mSeg_top 		=0;
 	protected int 		mSeg_right 		=0;
 	protected int 		mSeg_bottom 	=0;
+	protected int 		mSeg_width 		=0;
 	protected Paint 	mPaint 			= new Paint(); 
 	
+	FocusHandler fh = new FocusHandler();
+	
+	protected class FocusHandler implements Runnable{
+		private boolean activited=false;
+		public int objectID=0;
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			if(activited)
+				ShowMessge("Handle Focus on object:" + objectID);
+			activited=false;
+		}
+		public void Activate(){
+			activited=true;
+			//android.os.SystemClock.uptimeMillis();
+		}
+		public void Cancelled(){
+			activited=false;	
+		}
+	}
 	
 	public CalendarDay(Context context, AttributeSet attrs, Map inflateParams) {
 		super(context, attrs, inflateParams);
@@ -54,34 +75,39 @@ public class CalendarDay extends TextView{
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
-				int id = arg0.getId();
-				ShowMessge("Calendar Day Clik Catched: "+id + " :" + getMeasuredWidth() + getMeasuredHeight());
+				//int id = arg0.getId();
+				//ShowMessge("Calendar Day Clik Catched: "+id + " :" + getMeasuredWidth() + getMeasuredHeight());
 				boolean getfocus = arg0.requestFocus();
+				ShowMessge("Calendar Day Clik Catched: "+ getfocus);
+				
 			}
 		});
 		setOnFocusChangeListener(new OnFocusChangeListener (){
 			@Override
 			public void onFocusChanged(View v, boolean b){
 				//ShowMessge("Calendar Day On Focus Catched: "+id);
-				if(b)
+				if(b){
+					fh.objectID = v.getId();
+					fh.Activate();
+					v.postDelayed(fh, waitFocus);
 					v.setBackgroundColor(0xffedd400);
-				else
+				}
+				else{
+					fh.Cancelled();
 					v.setBackground(defaultBackground);
+				}
 			}		
 		});
 		setOnLongClickListener(new OnLongClickListener(){
 			@Override
 			public boolean onLongClick(View arg0){
-				TableRow theParent = (TableRow) arg0.getParent();
-				theParent.setBackgroundColor(0xAF3465A4);
-				/*if(theParent.getChildCount() > 0)
-					for(int index = 0; index < theParent.getChildCount(); index++ )
-						theParent.getChildAt(index).setBackgroundColor(0x3F4E9A06);
-				*/
-				ShowMessge("Calendar Day Long Clik Catched: ");
-				long i= 100000;
-	            while(i > 0)
-	        			i= i-1;
+				CalendarWeek theParent = (CalendarWeek) arg0.getParent();
+				if(!theParent.isCurrentWeekFocused()){
+					theParent.HideOtherWeeks();
+					boolean getfocus = arg0.requestFocus();
+				}
+				else
+					theParent.ShowOtherWeeks();
 				//theParent.setBackgroundColor(0x00000000);
 				return true;
 			}
@@ -118,54 +144,54 @@ public class CalendarDay extends TextView{
 		//canvas.drawText(getText().toString(), mPaddingLeft, mPaddingTop - (int) mTextPaint.ascent(), mTextPaint);    
 		//draw the occupation bar
 		
-		int tick_w = (w_width - 2*bar_pad - (w_width-2*bar_pad)%n_seg)/n_seg; // width on one bar elements
+		mSeg_width = (mWidth - 2*mBarPad - (mWidth-2*mBarPad)%mNbBarPeriods)/mNbBarPeriods; // width on one bar elements
 		
 		//setup position of first rectangle
-		mSeg_lefth 	= bar_pad;
-		mSeg_top 	= w_height -  bar_tick -  bar_pad;
-		mSeg_right 	= mSeg_lefth + tick_w;
-		mSeg_bottom = mSeg_top + bar_tick;	
+		mSeg_lefth 	= mBarPad;
+		mSeg_top 	= mHeigth -  mBarTick -  mBarPad;
+		mSeg_right 	= mSeg_lefth + mSeg_width;
+		mSeg_bottom = mSeg_top + mBarTick;	
 		mPaint.setStyle(Style.FILL); 
 		
+		
 		//0%
-		paint.setColor(0xFFD3D7CF); 
-		RectF rect = new RectF(seg_lefth,seg_top,seg_right,seg_bottom);
-		canvas.drawRect(rect, paint); 
+		paintOccupationTag(canvas,0,0); 
 		//25%
-		paint.setColor(0xFF73D216); 
-		rect = new RectF(seg_lefth + tick_w,seg_top,seg_right + tick_w,seg_bottom);
-		canvas.drawRect(rect, paint); 
-
+		paintOccupationTag(canvas,1,50); 
 		//50%
-		paint.setColor(0xFF729FCF); 
-		rect = new RectF(seg_lefth + 2*tick_w,seg_top,seg_right + 2*tick_w,seg_bottom);
-		canvas.drawRect(rect, paint); 
-
-
+		paintOccupationTag(canvas,2,25); 
 		//75%
-		paint.setColor(0xFF204887); 
-		rect = new RectF(seg_lefth + 3*tick_w,seg_top,seg_right + 3*tick_w,seg_bottom);
-		canvas.drawRect(rect, paint); 
-
-
+		paintOccupationTag(canvas,3,75); 
 		//100%
-		paint.setColor(0xFFA40000); 
-		rect = new RectF(seg_lefth + 4*tick_w,seg_top,seg_right + 4*tick_w,seg_bottom);
-		canvas.drawRect(rect, paint); 
-
-
+		paintOccupationTag(canvas,4,100); 
 		//0%
-		paint.setColor(0xFFD3D7CF); 
-		rect = new RectF(seg_lefth + 5*tick_w,seg_top,seg_right + 5*tick_w,seg_bottom);
-		canvas.drawRect(rect, paint); 
+		paintOccupationTag(canvas,5,25); 
 	}
 	
-	private void paintOccupationTag(Canvas canvas,int N, int color)
-	{
-		mPaint.setColor(color); 
-		RectF rect = new RectF(	mSeg_lefth + N*tick_w,
-								mSeg_top,
-								mSeg_right + 5*tick_w,
+	private void paintOccupationTag(Canvas canvas,int N, int pct){
+		switch(pct){
+		case 0:
+			mPaint.setColor(0x5FD3D7CF); 
+			break;
+		case 25:
+			mPaint.setColor(0x5F73D216); 
+			break;
+		case 50:
+			mPaint.setColor(0x5F729FCF); 
+			break;
+		case 75:
+			mPaint.setColor(0x5F204887); 
+			break;
+		case 100:
+			mPaint.setColor(0x5FA40000); 
+			break;
+		default:
+			mPaint.setColor(0x5FD3D7CF); 
+			break;			
+		}
+		RectF rect = new RectF(	mSeg_lefth + N*mSeg_width,
+								mSeg_bottom - pct/25*2,
+								mSeg_right + N*mSeg_width,
 								mSeg_bottom);
 		canvas.drawRect(rect, mPaint); 
 	}
@@ -219,10 +245,14 @@ public class CalendarDay extends TextView{
 	public void setMTheYear(int theYear) {
 		mTheYear = theYear;
 	}
-	public int getMNbPeriods() {
-		return mNbPeriods;
+	public int getMbBarPeriods() {
+		return mNbBarPeriods;
 	}
-	public void setMNbPeriods(int nbPeriods) {
-		mNbPeriods = nbPeriods;
+	public void setMbBarPeriods(int nbPeriods) {
+		mNbBarPeriods = nbPeriods;
+	}
+	public void setDayNumber(int DayOfMonth){
+		mDayOfMonth = DayOfMonth;
+		this.setText(Integer.toString(DayOfMonth));
 	}
 }

@@ -1,0 +1,13 @@
+On Calendar once the week is focused and so other weeks hided 
+if the user change the month or the year the program must show the hided weeks  
+
+On focus change in the day the dey is updated only when focus is 
+changed for and not moved
+
+occupation map as follow 
+
+    x
+  x x
+ xxxxx
+xxxxxx
+							
