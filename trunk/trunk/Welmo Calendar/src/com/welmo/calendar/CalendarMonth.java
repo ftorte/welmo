@@ -1,25 +1,23 @@
 package com.welmo.calendar;
 
+import java.util.Calendar;
 import java.util.Map;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.Rect;
-import android.graphics.RectF;
-import android.graphics.Paint.Style;
-import android.os.Bundle;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.TableLayout;
+import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemLongClickListener;
 
 public class CalendarMonth extends TableLayout{
 
+	protected int 	mYear			= 1970; //default year
+	protected int 	mMonth			= Calendar.JANUARY;	
+	protected int	mFistDayWeek 	= Calendar.MONDAY;
+	
+	
 	public CalendarMonth(Context context, AttributeSet attrs, Map inflateParams) {
 		super(context, attrs, inflateParams);
 		setOnClickListener(new OnClickListener (){ 
@@ -53,53 +51,68 @@ public class CalendarMonth extends TableLayout{
 		super.onDraw(canvas);        
 		//canvas.drawText(getText().toString(), mPaddingLeft, mPaddingTop - (int) mTextPaint.ascent(), mTextPaint);    
 		//draw the occupation bar
-		int bar_pad = 2; 	//reserve 1 2 pixel around the bar
-		int bar_tick = 6; 	//tickness of the occupation bar
-		int n_seg = 6;		// nb of segments
-		
-		int w_width = getMeasuredWidth();
-		int w_height = getMeasuredHeight();
-		int tick_w = (w_width - 2*bar_pad - (w_width-2*bar_pad)%n_seg)/n_seg; // width on one bar elements
-		
-		//setup position of first rectangle
-		int seg_lefth 	= bar_pad;
-		int seg_top 	= w_height -  bar_tick -  bar_pad;
-		int seg_right 	= seg_lefth + tick_w;
-		int seg_bottom 	= seg_top + bar_tick;
+	}
+	
+	public void setMonth(int year, int month){
+		mFistDayWeek = Calendar.MONDAY;
+		mYear	= year;
+		mMonth	= month;
 			
-		Paint paint = new Paint(); 
-		paint.setStyle(Style.FILL); 
+		Calendar cl = Calendar.getInstance();
+		cl.set(year, month, 1);
+		//handle first week
+		if(mFistDayWeek < cl.get(Calendar.DAY_OF_WEEK))
+			cl.add(Calendar.DAY_OF_YEAR,-(cl.get(Calendar.DAY_OF_WEEK) - mFistDayWeek));
+		else
+			cl.add(Calendar.DAY_OF_YEAR,-(cl.get(Calendar.DAY_OF_WEEK) - (7 - mFistDayWeek)));
+			
+		CalendarWeek currWeek = (CalendarWeek) getChildAt(1);
+		for (int index = 0; index < 7; index++){
+			((CalendarDay)currWeek.getChildAt(index)).setDayNumber(cl.get(Calendar.DAY_OF_MONTH));
+			cl.add(Calendar.DAY_OF_YEAR,1);
+		}
+		for (int week = 2; week < 7; week++){
+			currWeek = (CalendarWeek) this.getChildAt(week);
+			for (int index = 0; index < 7; index++){
+				((CalendarDay)currWeek.getChildAt(index)).setDayNumber(cl.get(Calendar.DAY_OF_MONTH));
+				cl.add(Calendar.DAY_OF_YEAR,1);
+			}
+		}
+	}
+
+	public void SetFocusOnDay(int year, int month, int day){
+		if ((year != mYear) || (month != mMonth))
+			setMonth(year,month);
+		Calendar cl = Calendar.getInstance();
+		cl.set(year, month, day);
+		int WeekOfMonth = cl.get(Calendar.WEEK_OF_MONTH);
+		int DayOfWeek = cl.get(Calendar.DAY_OF_WEEK);
+		int DayOfWeekIndex = 0;
 		
-		//0%
-		paint.setColor(0xFFD3D7CF); 
-		RectF rect = new RectF(seg_lefth,seg_top,seg_right,seg_bottom);
-		canvas.drawRect(rect, paint); 
-		//25%
-		paint.setColor(0xFF73D216); 
-		rect = new RectF(seg_lefth + tick_w,seg_top,seg_right + tick_w,seg_bottom);
-		canvas.drawRect(rect, paint); 
+		if(mFistDayWeek < DayOfWeek)
+			DayOfWeekIndex = DayOfWeek - mFistDayWeek;
+		else
+			DayOfWeekIndex = DayOfWeek - (7 - mFistDayWeek);	
+			((CalendarDay)((CalendarWeek) getChildAt(WeekOfMonth)).
+					getChildAt(DayOfWeekIndex)).requestFocus();
+	}
 
-		//50%
-		paint.setColor(0xFF729FCF); 
-		rect = new RectF(seg_lefth + 2*tick_w,seg_top,seg_right + 2*tick_w,seg_bottom);
-		canvas.drawRect(rect, paint); 
-
-
-		//75%
-		paint.setColor(0xFF204887); 
-		rect = new RectF(seg_lefth + 3*tick_w,seg_top,seg_right + 3*tick_w,seg_bottom);
-		canvas.drawRect(rect, paint); 
-
-
-		//100%
-		paint.setColor(0xFFA40000); 
-		rect = new RectF(seg_lefth + 4*tick_w,seg_top,seg_right + 4*tick_w,seg_bottom);
-		canvas.drawRect(rect, paint); 
-
-
-		//0%
-		paint.setColor(0xFFD3D7CF); 
-		rect = new RectF(seg_lefth + 5*tick_w,seg_top,seg_right + 5*tick_w,seg_bottom);
-		canvas.drawRect(rect, paint); 
+	public int getYear() {
+		return mYear;
+	}
+	public void setYear(int year) {
+		mYear = year;
+	}
+	public int getMonth() {
+		return mMonth;
+	}
+	public void setMonth(int month) {
+		mMonth = month;
+	}
+	public int getFistDayWeek() {
+		return mFistDayWeek;
+	}
+	void setFistDayWeek(int fistDayWeek) {
+		mFistDayWeek = fistDayWeek;
 	}
 }
