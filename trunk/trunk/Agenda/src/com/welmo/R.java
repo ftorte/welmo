@@ -5,7 +5,7 @@
  * should not be modified by hand.
  */
 
-package com.tft.myoffice;
+package com.welmo;
 
 public final class R {
     public static final class array {
@@ -671,9 +671,9 @@ public final class R {
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute<th>Summary</tr>
-           <tr><th><code>{@link #LabelView_text com.tft.myoffice:text}</code><td></tr>
-           <tr><th><code>{@link #LabelView_textColor com.tft.myoffice:textColor}</code><td></tr>
-           <tr><th><code>{@link #LabelView_textSize com.tft.myoffice:textSize}</code><td></tr>
+           <tr><th><code>{@link #LabelView_text com.welmo:text}</code><td></tr>
+           <tr><th><code>{@link #LabelView_textColor com.welmo:textColor}</code><td></tr>
+           <tr><th><code>{@link #LabelView_textSize com.welmo:textSize}</code><td></tr>
            </table>
            @see #LabelView_text
            @see #LabelView_textColor
@@ -683,19 +683,19 @@ public final class R {
             0x7f010000, 0x7f010001, 0x7f010002
         };
         /**
-          <p>This symbol is the offset where the {@link com.tft.myoffice.R.attr#text}
+          <p>This symbol is the offset where the {@link com.welmo.R.attr#text}
           attribute's value can be found in the {@link #LabelView} array.
           @attr name android:text
         */
         public static final int LabelView_text = 0;
         /**
-          <p>This symbol is the offset where the {@link com.tft.myoffice.R.attr#textColor}
+          <p>This symbol is the offset where the {@link com.welmo.R.attr#textColor}
           attribute's value can be found in the {@link #LabelView} array.
           @attr name android:textColor
         */
         public static final int LabelView_textColor = 1;
         /**
-          <p>This symbol is the offset where the {@link com.tft.myoffice.R.attr#textSize}
+          <p>This symbol is the offset where the {@link com.welmo.R.attr#textSize}
           attribute's value can be found in the {@link #LabelView} array.
           @attr name android:textSize
         */

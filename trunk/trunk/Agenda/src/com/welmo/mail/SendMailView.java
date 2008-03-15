@@ -6,7 +6,7 @@ import android.util.Log;
 import android.view.View;   
 import android.widget.Button;   
 import android.widget.EditText;   
-import com.tft.myoffice.R;
+import com.welmo.R;
 
 public class SendMailView extends Activity {   
     /**  

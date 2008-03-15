@@ -3,8 +3,8 @@ package com.welmo.meeting;
 import java.util.Iterator;
 import java.util.Vector;
 
-import com.tft.myoffice.contacts.Attends;
-import com.tft.myoffice.dbhelper.AgendaDBHelper;
+import com.welmo.contacts.Attends;
+import com.welmo.dbhelper.AgendaDBHelper;
 
 import android.content.ContentValues;
 import android.database.Cursor;

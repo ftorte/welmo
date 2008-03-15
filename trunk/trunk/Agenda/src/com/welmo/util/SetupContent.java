@@ -20,7 +20,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.tft.myoffice.R;
+import com.welmo.R;
 
 public class SetupContent extends Activity{
 
