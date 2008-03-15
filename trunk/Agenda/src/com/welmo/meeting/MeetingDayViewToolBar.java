@@ -2,9 +2,9 @@ package com.welmo.meeting;
 
 import java.util.Map;
 
-import com.tft.myoffice.R;
-import com.tft.myoffice.agenda.ToolBar;
-import com.tft.myoffice.R.drawable;
+import com.welmo.R;
+import com.welmo.agenda.ToolBar;
+import com.welmo.R.drawable;
 
 import android.content.Context;
 import android.graphics.Typeface;

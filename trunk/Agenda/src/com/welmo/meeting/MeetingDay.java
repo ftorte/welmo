@@ -11,7 +11,7 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.Vector;
 
-import com.tft.myoffice.dbhelper.AgendaDBHelper;
+import com.welmo.dbhelper.AgendaDBHelper;
 
 /**
  * @author ebbp178

@@ -6,14 +6,14 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import com.tft.myoffice.R;
-import com.tft.myoffice.R.color;
-import com.tft.myoffice.R.drawable;
-import com.tft.myoffice.R.id;
-import com.tft.myoffice.R.layout;
-import com.tft.myoffice.contacts.Attends;
-import com.tft.myoffice.contacts.ContactsList;
-import com.tft.myoffice.dbhelper.AgendaDBHelper;
+import com.welmo.R;
+import com.welmo.R.color;
+import com.welmo.R.drawable;
+import com.welmo.R.id;
+import com.welmo.R.layout;
+import com.welmo.contacts.Attends;
+import com.welmo.contacts.ContactsList;
+import com.welmo.dbhelper.AgendaDBHelper;
 
 import android.app.DatePickerDialog;
 import android.app.ListActivity;

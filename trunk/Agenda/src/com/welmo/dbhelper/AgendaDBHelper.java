@@ -3,7 +3,7 @@ package com.welmo.dbhelper;
 
 import java.util.List;
 
-import com.tft.myoffice.meeting.Meeting;
+import com.welmo.meeting.Meeting;
 
 import android.content.ContentValues;
 import android.content.Context;

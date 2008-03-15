@@ -8,11 +8,11 @@ import java.util.Map;
 
 import android.app.Activity;
 import android.os.Bundle;
-import com.tft.myoffice.R;
+import com.welmo.R;
 
-import com.tft.myoffice.dbhelper.DBHelper;
-import com.tft.myoffice.meeting.Meeting;
-import com.tft.myoffice.meeting.MeetingUID;
+import com.welmo.dbhelper.DBHelper;
+import com.welmo.meeting.Meeting;
+import com.welmo.meeting.MeetingUID;
 
 public class Agenda extends Activity {
     /** Called when the activity is first created. */

@@ -6,8 +6,8 @@ package com.welmo.meeting;
 
 import java.util.Calendar;
 
-import com.tft.myoffice.R;
-import com.tft.myoffice.dbhelper.AgendaDBHelper;
+import com.welmo.R;
+import com.welmo.dbhelper.AgendaDBHelper;
 
 import android.app.DatePickerDialog;
 import android.app.ListActivity;

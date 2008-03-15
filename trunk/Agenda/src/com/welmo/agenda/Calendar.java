@@ -5,7 +5,7 @@ import java.text.StringCharacterIterator;
 import java.util.*;
 import java.io.*;
 
-import com.tft.myoffice.meeting.Meeting;
+import com.welmo.meeting.Meeting;
 
 public class Calendar implements Serializable{
 	public static final long serialVersionUID = 1;

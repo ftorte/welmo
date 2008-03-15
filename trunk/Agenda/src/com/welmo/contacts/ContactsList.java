@@ -23,7 +23,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemLongClickListener;
 
-import com.tft.myoffice.R;
+import com.welmo.R;
 
 public class ContactsList extends  ListActivity{
 
