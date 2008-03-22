@@ -14,6 +14,7 @@ public class MeetingUID {
 
 	// year 3 bytes
 	public static final long MASK_DATE		=0xFFFFFFFF00000000L; 
+	public static final long MASK_TIMETYPE	=0x00000000FFFFFFFFL; 
 	public static final long MASK_YEAR		=0xFF00000000000000L; 
 	public static final long MASK_MONTH		=0x00F0000000000000L;
 	public static final long MASK_WEEK		=0x000FF00000000000L;
@@ -104,7 +105,7 @@ public class MeetingUID {
 	
 	public void setUID (short year, short month, short day)
 	{
-		if (month > 12 || month < 1)
+		if (month > 12 || month < 0)
 			throw new IllegalArgumentException ("Invalid month parameter");
 		if (year > FIRST_YEAR+255 || year < FIRST_YEAR)
 			throw new IllegalArgumentException ("Invalid year parameter");

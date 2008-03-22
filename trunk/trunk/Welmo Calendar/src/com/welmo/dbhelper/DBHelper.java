@@ -15,8 +15,7 @@ import android.database.sqlite.SQLiteDatabase;
 public class DBHelper {
 
     
-	private static final int DATABASE_VERSION = 1;
-    
+	private static final int DATABASE_VERSION = 1;  
     private String strDatabaseName = "";
     private SQLiteDatabase db = null;
     Vector<String> TableList = new Vector();

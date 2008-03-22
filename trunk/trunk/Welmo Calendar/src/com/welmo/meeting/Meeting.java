@@ -158,7 +158,9 @@ public class Meeting implements Parcelable {
 	public void setObject(String Object) {this.MtgObject = Object;}
 	public void setDescription(String Description) {this.MtgDescription = Description;}
 	public void setMeetingID(MeetingUID mID) {this.MeetingID =  mID;}
-	public void setMeetingIDDay(MeetingUID mIDDay){MeetingID.UID = (MeetingID.UID | (mIDDay.UID & MeetingUID.MASK_DATE));}
+	public void setMeetingIDDay(MeetingUID mIDDay){
+		MeetingID.UID = ((MeetingID.UID&MeetingUID.MASK_TIMETYPE) | (mIDDay.UID & MeetingUID.MASK_DATE));
+	}
 	public void setType(short m){ MeetingID.setType(m);}
 	//-------------------------------------------------------
 	// Special Setter functions
