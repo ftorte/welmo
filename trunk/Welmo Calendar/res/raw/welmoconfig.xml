@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WelmoConfig>
+	<Mail version="1.0">
+		<account name="fausto" username="25apr1945@gmail.com"
+			passwor="TFTsw0801" popserver="pop.gmail.com"
+			smtpserver="smtp.gmail.com">
+		</account>
+		<account name="club-internet"
+			username="ftorterolo@club-internet.fr" passwor="TFTsw0801"
+			popserver="pop.club-internet.fr"
+			smtpserver="smtp.club-internet.fr">
+		</account>
+		<default_account name="fausto" />
+	</Mail>
+</WelmoConfig>

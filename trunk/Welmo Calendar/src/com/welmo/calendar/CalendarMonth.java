@@ -16,8 +16,17 @@ public class CalendarMonth extends TableLayout{
 	protected int 	mYear			= 1970; //default year
 	protected int 	mMonth			= Calendar.JANUARY;	
 	protected int	mFistDayWeek 	= Calendar.MONDAY;
+	protected int[] mDayPos			= new int[8];	
+	protected CalendarMonthView	mCMV	= null;
 	
-	
+	public CalendarMonthView getMCMV() {
+		return mCMV;
+	}
+
+	public void setMCMV(CalendarMonthView mcmv) {
+		mCMV = mcmv;
+	}
+
 	public CalendarMonth(Context context, AttributeSet attrs, Map inflateParams) {
 		super(context, attrs, inflateParams);
 		setOnClickListener(new OnClickListener (){ 
@@ -28,6 +37,14 @@ public class CalendarMonth extends TableLayout{
     			ShowMessge("Calendar Month Clik Catched: "+id);
 			}
     	});
+		
+		// init DayMappiong
+		int index = 0;
+		for (int pos = mFistDayWeek; pos <= 7; pos ++)
+			mDayPos[pos]=index++;
+		for (int pos = 1; pos < mFistDayWeek; pos++)
+			mDayPos[pos]=index++;
+		
 		// TODO Auto-generated constructor stub
 	}
 
@@ -42,7 +59,7 @@ public class CalendarMonth extends TableLayout{
 	@Override    
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec){
 		super.onMeasure(widthMeasureSpec,heightMeasureSpec);
-		setMeasuredDimension(getMeasuredWidth(),getMeasuredHeight() +10);
+		//setMeasuredDimension(getMeasuredWidth(),getMeasuredHeight() +10);
 		//setMeasuredDimension(35,getMeasuredHeight());
 	}    
 
@@ -59,7 +76,7 @@ public class CalendarMonth extends TableLayout{
 		mMonth	= month;
 			
 		Calendar cl = Calendar.getInstance();
-		cl.set(year, month, 1);
+		cl.set(year, month-1, 1);
 		//handle first week
 		if(mFistDayWeek < cl.get(Calendar.DAY_OF_WEEK))
 			cl.add(Calendar.DAY_OF_YEAR,-(cl.get(Calendar.DAY_OF_WEEK) - mFistDayWeek));
@@ -68,13 +85,13 @@ public class CalendarMonth extends TableLayout{
 			
 		CalendarWeek currWeek = (CalendarWeek) getChildAt(1);
 		for (int index = 0; index < 7; index++){
-			((CalendarDay)currWeek.getChildAt(index)).setDayNumber(cl.get(Calendar.DAY_OF_MONTH));
+			((CalendarDay)currWeek.getChildAt(index)).setDay(mCMV, cl.get(Calendar.DAY_OF_MONTH));
 			cl.add(Calendar.DAY_OF_YEAR,1);
 		}
 		for (int week = 2; week < 7; week++){
 			currWeek = (CalendarWeek) this.getChildAt(week);
 			for (int index = 0; index < 7; index++){
-				((CalendarDay)currWeek.getChildAt(index)).setDayNumber(cl.get(Calendar.DAY_OF_MONTH));
+				((CalendarDay)currWeek.getChildAt(index)).setDay(mCMV, cl.get(Calendar.DAY_OF_MONTH));
 				cl.add(Calendar.DAY_OF_YEAR,1);
 			}
 		}
@@ -84,17 +101,14 @@ public class CalendarMonth extends TableLayout{
 		if ((year != mYear) || (month != mMonth))
 			setMonth(year,month);
 		Calendar cl = Calendar.getInstance();
-		cl.set(year, month, day);
+		cl.set(year, month-1, day);
+		cl.setFirstDayOfWeek(mFistDayWeek);
 		int WeekOfMonth = cl.get(Calendar.WEEK_OF_MONTH);
 		int DayOfWeek = cl.get(Calendar.DAY_OF_WEEK);
-		int DayOfWeekIndex = 0;
 		
-		if(mFistDayWeek < DayOfWeek)
-			DayOfWeekIndex = DayOfWeek - mFistDayWeek;
-		else
-			DayOfWeekIndex = DayOfWeek - (7 - mFistDayWeek);	
-			((CalendarDay)((CalendarWeek) getChildAt(WeekOfMonth)).
-					getChildAt(DayOfWeekIndex)).requestFocus();
+		((CalendarDay)((CalendarWeek) getChildAt(WeekOfMonth)).
+					getChildAt(mDayPos[DayOfWeek])).requestFocus();
+		
 	}
 
 	public int getYear() {

@@ -317,8 +317,10 @@ public class MeetingDay implements Serializable {
 			throw new IllegalArgumentException ("no database helper");
 		/*Read all keys from the database and delete the ones that not anymore 
 		 in the MeetingList*/
-		List<Long> listDB_Ids = dbAgenda.fetchMeetingsRowIdListByID(getDayUID()&MeetingUID.MASK_DATE, 
-				(getDayUID()&MeetingUID.MASK_DATE)| ~ MeetingUID.MASK_DATE);
+		long min = getDayUID()&MeetingUID.MASK_DATE;
+		long max = (getDayUID()&MeetingUID.MASK_DATE)| ~ MeetingUID.MASK_DATE;
+		
+		List<Long> listDB_Ids = dbAgenda.fetchMeetingsRowIdListByID(min,max);
 		//Read all Meeting and add to Map
 		for (int index = 0; index <listDB_Ids.size(); index ++){
 			key = listDB_Ids.get(index).longValue();
