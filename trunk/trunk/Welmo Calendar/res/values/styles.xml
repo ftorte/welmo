@@ -42,6 +42,13 @@
 		<item name="android:textColor">#FFa40000</item>
 		<item name="android:background">@drawable/freeday</item>
 	</style>
+	<style name="clendarhourweek">
+		<item name="android:layout_width">32px</item>
+		<item name="android:layout_height">640px</item>
+		<item name="android:background">@drawable/daytimebackground</item>
+	</style>
+	
+	
 	<style name="clendaroutofmonth">
 		<item name="android:textSize">12px</item>
 		<item name="android:textAlign">center</item>

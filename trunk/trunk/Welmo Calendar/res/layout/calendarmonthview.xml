@@ -203,27 +203,28 @@
 				android:shrinkColumns="*" android:clickable="true">
 				<TableRow>
 					<com.welmo.calendar.CalendarDayHour
-						android:id="@+id/Mon1" android:layout_height="fill_parent"/>
+						android:id="@+id/Mon1" android:layout_height="640px"
+						style="@style/clendarhourweek"/>
 					<com.welmo.calendar.CalendarDayHour
-						android:id="@+id/Mon1" android:layout_height="fill_parent"/>
+						android:id="@+id/Mon1" android:layout_height="640px"
+						style="@style/clendarhourweek"/>
 					<com.welmo.calendar.CalendarDayHour
-						android:id="@+id/Twe1" android:layout_height="fill_parent"
-						style="@style/clendaroutofmonth" />
+						android:id="@+id/Twe1" android:layout_height="640px"
+						style="@style/clendarhourweek"/>
 					<com.welmo.calendar.CalendarDayHour
-						android:id="@+id/Wen1" android:layout_height="fill_parent"
-						style="@style/clendaroutofmonth" />
+						android:id="@+id/Wen1" android:layout_height="640px"
+						style="@style/clendarhourweek"/>
 					<com.welmo.calendar.CalendarDayHour
-						android:id="@+id/Tue1" android:layout_height="fill_parent"
-						style="@style/clendaroutofmonth" />
+						android:id="@+id/Tue1" android:layout_height="640px"
+						style="@style/clendarhourweek"/>
 					<com.welmo.calendar.CalendarDayHour
-						android:id="@+id/Fri1" android:layout_height="fill_parent"
-						style="@style/clendaroutofmonth" />
+						style="@style/clendarhourweek"/>
 					<com.welmo.calendar.CalendarDayHour
-						android:id="@+id/Sat1" android:layout_height="fill_parent"
-						style="@style/clendaroutofmonth" />
+						android:id="@+id/Sat1" android:layout_height="640px"
+						style="@style/clendarhourweek"/>
 					<com.welmo.calendar.CalendarDayHour
-						android:id="@+id/Sun1" android:layout_height="fill_parent"
-						style="@style/clendarfreeday" />
+						android:id="@+id/Sun1" android:layout_height="640px"
+						style="@style/clendarhourweek" />
 				</TableRow>
 			</TableLayout>
 		</ScrollView>
