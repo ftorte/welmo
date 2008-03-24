@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewInflate;
 import android.widget.AbsoluteLayout;
 import android.widget.Toast;
+import android.util.DisplayMetrics;  
 
 public class CalendarDayHour extends AbsoluteLayout{
 
@@ -46,24 +47,27 @@ public class CalendarDayHour extends AbsoluteLayout{
 				return true;
 			}
 		});
-		addMeeting(830,1030);
-		addMeeting(1040,1140);
+		addMeeting(8,30,10,30);
+		addMeeting(10,40,11,40);
 		setFocusableInTouchMode(true);
 		setFocusable(true);
 		setEnabled(true);
+		DisplayMetrics dsp = mContext.getResources().getDisplayMetrics();
+		mWidth = (dsp.widthPixels-11)/7;
+		mHeigth = 640;	
 	}
 	public CalendarDayHour(Context context) {
 		this(context,null,null);
 		// TODO Auto-generated constructor stub
 	}
-	void ShowMessge(String Msg){
+	private void ShowMessge(String Msg){
         Toast.makeText(mContext,Msg,Toast.LENGTH_SHORT).show();
 	}
-	void addMeeting(int start, int end){
+	public void addMeeting(int start_h,int start_m, int end_h, int end_m){
 		Vector<MeetingBarView> coficts = new Vector<MeetingBarView>();
 		MeetingBarView newMeetingBar = new MeetingBarView(mContext);
 		newMeetingBar.setLayoutParams(new AbsoluteLayout.LayoutParams(20,100,5,50));
-		newMeetingBar.setPeriod(start, end);
+		newMeetingBar.setPeriod( start_h, start_m,  end_h,  end_m);
 		Iterator<MeetingBarView> it = mMeetings.iterator();
 		/*while(it.hasNext()){
 			MeetingBarView MeetBar = it.next();
@@ -79,9 +83,7 @@ public class CalendarDayHour extends AbsoluteLayout{
 	@Override    
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec){
 		super.onMeasure(widthMeasureSpec,heightMeasureSpec);
-		setMeasuredDimension(getMeasuredWidth(),640);
-		mWidth = getMeasuredWidth();
-		mHeigth = getMeasuredHeight();		
+		setMeasuredDimension(mWidth,mHeigth);	
 	}    
 
 	@Override    

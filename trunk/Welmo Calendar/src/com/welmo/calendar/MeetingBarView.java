@@ -20,9 +20,18 @@ public class MeetingBarView extends View{
 	private int mPosY;
 	private int mWidth;
 	private int mHeight;
-	private static int daydimension = 2400;
-    private int mStart=0;
+	private int mParentWidth;
+	private int mParentHeight;
+	
+	private static int daydimension = 24*60;
+    
+	private int mStart=0;
     private int mEnd=0;
+    private int mStart_h=0;
+    private int mStart_m=0;
+    private int mEnd_h=0;
+    private int mEnd_m=0;
+    
     private int mConflictLevel=0;
     private int mColumnPosition=0;
     private float mTickRatio = 1;
@@ -79,7 +88,14 @@ public class MeetingBarView extends View{
 	void ShowMessge(String Msg){
         Toast.makeText(mContext,Msg,Toast.LENGTH_SHORT).show();
 	}
-	public boolean HasConflict(int start, int end){
+	public boolean HasConflict(int start_h, int start_m, int end_h,int end_m){
+		
+		if(!IsValidTimeFrame(start_h, start_m, end_h,end_m))
+			throw new IllegalArgumentException ("Invalid parameter");
+
+		int start 	= start_h*60 + start_m;
+		int end 	= end_h*60 + end_m;
+		
 		if ((mStart <= start)  && (mEnd >= start))
 			return true;
 		if ((mStart <= end )  && (mEnd >= end))
@@ -88,22 +104,16 @@ public class MeetingBarView extends View{
 			return true;
 		return false;
 	}
-	public int getStart() {
-		return mStart;
-	}
-	public int getEnd() {
-		return mEnd;
-	}
-	public void setPeriod(int start, int end) {
-		mStart = start;
-		if (start > 2400 || start < 0)
+	public void setPeriod(int start_h, int start_m, int end_h,int end_m){
+		if(!IsValidTimeFrame(start_h, start_m, end_h,end_m))
 			throw new IllegalArgumentException ("Invalid parameter");
-		if (end > 2400 || end < 0)
-			throw new IllegalArgumentException ("Invalid parameter");
-		if (start > end)
-			throw new IllegalArgumentException ("Invalid parameter");
-		mStart = start;
-		mEnd = end;
+		
+		mStart_h 	= start_h;
+		mStart_m 	= start_m;
+		mStart 		= start_h*60 + start_m;
+		mEnd_h 		= end_h;
+		mEnd_m 		= end_m;
+		mEnd 		= end_h*60 + end_m;
 	}
 	public int getConflictLevel() {
 		return mConflictLevel;
@@ -135,15 +145,39 @@ public class MeetingBarView extends View{
 	public void setColumnPosition(int position) {
 		mColumnPosition = position;
 	}
-	public void ReDrawView(){
+	public int getStart_h() {
+		return mStart_h;
+	}
+	public int getStart_m() {
+		return mStart_m;
+	}
+	public int getEnd_h() {
+		return mEnd_h;
+	}
+	public int getEnd_m() {
+		return mEnd_m;
+	}
+	//Private methods
+	private boolean IsValidTimeFrame(int start_h, int start_m, int end_h,int end_m){
+		if (start_h > 24 || start_h < 0 || end_h > 24 || end_h < 0 ||
+				start_m > 59 || start_m < 0 || end_m > 59 || end_m < 0)
+			return false;
+		int start 	= start_h*60 + start_m;
+		int end 	= end_h*60 + end_m;
+		if (start > end)
+			return false;
+		return true;
+	}
+	private void ReDrawView(){
 		int theWidth;
 		int theHeight;
 		theWidth = ((View)getParent()).getMeasuredWidth();
 		theHeight = ((View)getParent()).getMeasuredHeight();
+		mParentWidth = theWidth;
 		
 		mWidth = (int)(theWidth * mTickRatio) - mPaddingLeft - mPaddingRight;
 		mHeight = theHeight * (mEnd-mStart)/daydimension;
-		mPosX = mColumnPosition*mWidth;
+		mPosX = mColumnPosition*(mWidth+mPaddingLeft) + mPaddingRight ;
 		mPosY = theHeight * mStart/daydimension;		
 		setLayoutParams(new AbsoluteLayout.LayoutParams(mWidth,mHeight,mPosX,mPosY));
 	}
