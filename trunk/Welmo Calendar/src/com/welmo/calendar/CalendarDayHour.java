@@ -1,45 +1,27 @@
 package com.welmo.calendar;
 
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Vector;
+
+import com.welmo.R;
 
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.RectF;
-import android.graphics.Paint.Style;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.view.ViewInflate;
+import android.widget.AbsoluteLayout;
 import android.widget.Toast;
-import com.welmo.R;
-import android.widget.RelativeLayout;
-import android.widget.LinearLayout.LayoutParams;
 
-public class CalendarDayHour extends RelativeLayout{
+public class CalendarDayHour extends AbsoluteLayout{
 
-	Drawable defaultBackground;
-	int mOrgWidth;
-	int mOrgHeight;
-	int flag=0;
-	int waitFocus=500; // wait for focus fixed for a minimu time of xMS to shot details
-	private Paint mTextPaint;
-	protected CalendarMonthView mCalendarMonthView = null;
-	private Context mContext;
-	
-	//manage dimension
-	protected boolean	fixedDimension	= false;
-	protected int 		mWidth			=0;
-	protected int		mHeigth			=0;
-	//manage colors
-	protected int 		mFocusedBackground		=0xFFFFFFFF;
-	protected int 		mLongSelectedBackground	=0xFFFFFFFF;
-	//manage day constants
-	protected int 		mTheDay			=0;
-	//manage occupation map
-	protected Paint 	mPaint 			= new Paint(); 
-	
+	Vector<MeetingBarView> 	mMeetings 	= new Vector<MeetingBarView>();	
+	protected int 			mWidth		=0;
+	protected int			mHeigth		=0;
+
 	public CalendarDayHour(Context context, AttributeSet attrs, Map inflateParams) {
 		super(context, attrs, inflateParams);
 		mContext = context;
@@ -64,16 +46,8 @@ public class CalendarDayHour extends RelativeLayout{
 				return true;
 			}
 		});
-		View v1 = new View(context);
-		v1.setBackgroundColor(0x5F0F5F0F);
-		//v1.setLayoutParams(new LayoutParams(10, 10));
-		v1.setClickable(true);
-		defaultBackground = this.getBackground();
-		
-		addView(v1, new RelativeLayout.LayoutParams(
-				20, 100));
-		
-		mTextPaint = new Paint();
+		addMeeting(830,1030);
+		addMeeting(1040,1140);
 		setFocusableInTouchMode(true);
 		setFocusable(true);
 		setEnabled(true);
@@ -85,11 +59,27 @@ public class CalendarDayHour extends RelativeLayout{
 	void ShowMessge(String Msg){
         Toast.makeText(mContext,Msg,Toast.LENGTH_SHORT).show();
 	}
+	void addMeeting(int start, int end){
+		Vector<MeetingBarView> coficts = new Vector<MeetingBarView>();
+		MeetingBarView newMeetingBar = new MeetingBarView(mContext);
+		newMeetingBar.setLayoutParams(new AbsoluteLayout.LayoutParams(20,100,5,50));
+		newMeetingBar.setPeriod(start, end);
+		Iterator<MeetingBarView> it = mMeetings.iterator();
+		/*while(it.hasNext()){
+			MeetingBarView MeetBar = it.next();
+			if(MeetBar.HasConflict(start,end)){
+				MeetBar.IncrementConflictLevel();
+				newMeetingBar.SetMaxConflictLevel(MeetBar.getConflictLevel());
+			}
+		}*/
+		mMeetings.add(newMeetingBar);
+		addView(newMeetingBar);
+	}
 	
 	@Override    
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec){
 		super.onMeasure(widthMeasureSpec,heightMeasureSpec);
-		setMeasuredDimension(getMeasuredWidth(),getMeasuredHeight() +10*48);
+		setMeasuredDimension(getMeasuredWidth(),640);
 		mWidth = getMeasuredWidth();
 		mHeigth = getMeasuredHeight();		
 	}    
@@ -98,14 +88,6 @@ public class CalendarDayHour extends RelativeLayout{
 	protected void onDraw(Canvas canvas) {        
 		super.onDraw(canvas);        
 	}
-
-	public boolean isFixedDimension() {
-		return fixedDimension;
-	}
-	public void setFixedDimension(boolean fixedDimension) {
-		this.fixedDimension = fixedDimension;
-	}
-	
 	public int getMWidth() {
 		return mWidth;
 	}
@@ -117,40 +99,5 @@ public class CalendarDayHour extends RelativeLayout{
 	}
 	public void setMHeigth(int heigth) {
 		mHeigth = heigth;
-	}
-	public int getMFocusedBackground() {
-		return mFocusedBackground;
-	}
-	public void setMFocusedBackground(int focusedBackground) {
-		mFocusedBackground = focusedBackground;
-	}
-	public int getMLongSelectedBackground() {
-		return mLongSelectedBackground;
-	}
-	public void setMLongSelectedBackground(int longSelectedBackground) {
-		mLongSelectedBackground = longSelectedBackground;
-	}
-	public int getMTheDay() {
-		return mTheDay;
-	}
-	public void setMTheDay(int theDay) {
-		mTheDay = theDay;
-	}
-	/*public int getMTheMonth() {
-		return mTheMonth;
-	}
-	public void setMTheMonth(int theMonth) {
-		mTheMonth = theMonth;
-	}
-	public int getMTheYear() {
-		return mTheYear;
-	}
-	public void setMTheYear(int theYear) {
-		mTheYear = theYear;
-	}*/
-	
-	public void setDay(CalendarMonthView v,int day){
-		mCalendarMonthView = v;
-		mTheDay = day;
 	}
 }
