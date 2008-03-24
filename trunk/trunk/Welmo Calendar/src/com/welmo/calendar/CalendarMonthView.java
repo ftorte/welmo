@@ -85,12 +85,15 @@ public class CalendarMonthView extends Activity {
     	}
     }
     public void ShowWeekHour(boolean show){
-    	View theView = (View)findViewById(R.id.CalendarWeekHour);
+    	View theView1 = (View)findViewById(R.id.CalendarWeekHour);
+    	View theView2 = (View)findViewById(R.id.NullLabel);
     	if(show){
-    		theView.setVisibility(View.VISIBLE);
+    		theView1.setVisibility(View.VISIBLE);
+    		theView2.setVisibility(View.VISIBLE);
     	}
     	else{
-    		theView.setVisibility(View.GONE);
+    		theView1.setVisibility(View.GONE);
+    		theView2.setVisibility(View.GONE);
     	}
     }
     
