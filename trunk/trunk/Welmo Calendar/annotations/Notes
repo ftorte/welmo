@@ -10,4 +10,13 @@ occupation map as follow
   x x
  xxxxx
 xxxxxx
+			
+			
+prob. tikness bar too small
+
+conflic of free position notn andled well
+bug wiuth this configuration
+	addMeeting(8,30,11,00);
+		addMeeting(10,00,12,00);
+		addMeeting(11,30,16,00);
 							

@@ -20,8 +20,8 @@ public class MeetingBarView extends View{
 	private int mPosY;
 	private int mWidth;
 	private int mHeight;
-	private int mParentWidth;
-	private int mParentHeight;
+	private int mParentWidth =0;
+	private int	mParentHeigth =0;
 	
 	private static int daydimension = 24*60;
     
@@ -35,8 +35,7 @@ public class MeetingBarView extends View{
     private int mConflictLevel=0;
     private int mColumnPosition=0;
     private float mTickRatio = 1;
-    private long mOccupationMap = 0;
-    
+   
 	String mTestMessge= new String("8:30-12:30\n Meeting With Mister Gingle");
 	
 	
@@ -56,7 +55,6 @@ public class MeetingBarView extends View{
 				if(b){
 					v.setBackground(focusBackground);
 					ShowMessge("mTestMessge");	
-					ReDrawView();
 				}
 				else{
 					v.setBackground(defaultBackground);
@@ -70,16 +68,21 @@ public class MeetingBarView extends View{
 				return true;
 			}
 		});
-	
-		setBackground(R.drawable.sync_shape);
+		setBackground(R.drawable.mtg_bar_small);
 		focusBackground = getBackground();
-		setBackground(R.drawable.sync_all_shape);
+		setBackground(R.drawable.mtg_bar_focus);
 		defaultBackground = getBackground();
 		setFocusableInTouchMode(true);
 		setFocusable(true);
 		setEnabled(true);
 	}
 
+	public MeetingBarView(Context context, int w, int h) {
+		this(context,null,null);
+		mParentWidth = w;
+		mParentHeigth = h;
+		// TODO Auto-generated constructor stub
+	}
 	public MeetingBarView(Context context) {
 		this(context,null,null);
 		// TODO Auto-generated constructor stub
@@ -96,11 +99,11 @@ public class MeetingBarView extends View{
 		int start 	= start_h*60 + start_m;
 		int end 	= end_h*60 + end_m;
 		
-		if ((mStart <= start)  && (mEnd >= start))
+		if ((mStart < start)  && (mEnd > start))
 			return true;
-		if ((mStart <= end )  && (mEnd >= end))
+		if ((mStart < end )  && (mEnd > end))
 			return true;
-		if ((mStart >= start) && (mEnd <= end))
+		if ((mStart > start) && (mEnd < end))
 			return true;
 		return false;
 	}
@@ -134,7 +137,8 @@ public class MeetingBarView extends View{
 	}
 	private void UpdateTickness(){
 		if(mConflictLevel >=0)
-			mTickRatio = 1/(1+mConflictLevel);
+			mTickRatio = (float)(1/(1+(float)mConflictLevel));
+		ReDrawView();
 		//TODO change dimension of the window
 	}
 
@@ -144,6 +148,7 @@ public class MeetingBarView extends View{
 
 	public void setColumnPosition(int position) {
 		mColumnPosition = position;
+		ReDrawView();
 	}
 	public int getStart_h() {
 		return mStart_h;
@@ -168,17 +173,11 @@ public class MeetingBarView extends View{
 			return false;
 		return true;
 	}
-	private void ReDrawView(){
-		int theWidth;
-		int theHeight;
-		theWidth = ((View)getParent()).getMeasuredWidth();
-		theHeight = ((View)getParent()).getMeasuredHeight();
-		mParentWidth = theWidth;
-		
-		mWidth = (int)(theWidth * mTickRatio) - mPaddingLeft - mPaddingRight;
-		mHeight = theHeight * (mEnd-mStart)/daydimension;
+	public void ReDrawView(){
+		mWidth = (int)(mParentWidth * mTickRatio) - mPaddingLeft - mPaddingRight;
+		mHeight = mParentHeigth * (mEnd-mStart)/daydimension;
 		mPosX = mColumnPosition*(mWidth+mPaddingLeft) + mPaddingRight ;
-		mPosY = theHeight * mStart/daydimension;		
+		mPosY = mParentHeigth * mStart/daydimension;		
 		setLayoutParams(new AbsoluteLayout.LayoutParams(mWidth,mHeight,mPosX,mPosY));
 	}
 }

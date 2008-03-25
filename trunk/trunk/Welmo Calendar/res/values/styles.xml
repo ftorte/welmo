@@ -15,7 +15,6 @@
 		<item name="android:background">#0F000000</item>
 	</style>
 	<style name="calendarweek">
-		²
 		<item name="android:orientation">vertical</item>
 		<item name="android:textSize">8px</item>
 		<item name="android:layout_height">fill_parent</item>
