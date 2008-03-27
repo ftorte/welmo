@@ -12,7 +12,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.welmo.R;
+import com.welmo.calendar.CalendarMonthView.ActionCode;
 
 public class CalendarDay extends TextView{
 
@@ -56,9 +56,7 @@ public class CalendarDay extends TextView{
 		public int objectID=0;
 		@Override
 		public void run() {
-			// TODO Auto-generated method stub
 			if(activited){
-				ShowMessge("Handle Focus on object:" + objectID);
 				if (mCalendarMonthView != null)
 					mCalendarMonthView.ChangeFocusedDay(mTheDay);
 			}
@@ -66,7 +64,6 @@ public class CalendarDay extends TextView{
 		}
 		public void Activate(){
 			activited=true;
-			//android.os.SystemClock.uptimeMillis();
 		}
 		public void Cancelled(){
 			activited=false;	
@@ -79,18 +76,12 @@ public class CalendarDay extends TextView{
 		setOnClickListener(new OnClickListener (){ 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
-				//int id = arg0.getId();
-				//ShowMessge("Calendar Day Clik Catched: "+id + " :" + getMeasuredWidth() + getMeasuredHeight());
-				boolean getfocus = arg0.requestFocus();
-				ShowMessge("Calendar Day Clik Catched: "+ getfocus);
-				
+				boolean getfocus = arg0.requestFocus();				
 			}
 		});
 		setOnFocusChangeListener(new OnFocusChangeListener (){
 			@Override
 			public void onFocusChanged(View v, boolean b){
-				//ShowMessge("Calendar Day On Focus Catched: "+id);
 				if(b){
 					fh.objectID = v.getId();
 					fh.Activate();
@@ -106,18 +97,21 @@ public class CalendarDay extends TextView{
 		setOnLongClickListener(new OnLongClickListener(){
 			@Override
 			public boolean onLongClick(View arg0){
-				CalendarWeek theParent = (CalendarWeek) arg0.getParent();
-				if(!theParent.isCurrentWeekFocused()){
-					theParent.HideOtherWeeks();
+				mCalendarMonthView.LongClickOnADay(ActionCode.DAY_LONG_CLICK,(CalendarWeek) arg0.getParent());
+				//CalendarWeek theParent = (CalendarWeek) arg0.getParent();
+				/*if(!theParent.isCurrentWeekFocused()){
+					//theParent.HideOtherWeeks();
+					mCalendarMonthView.HideOtherWeeks(theParent);
 					mCalendarMonthView.ShowDayMeetingsList(false);
 					mCalendarMonthView.ShowWeekHour(true);
 					boolean getfocus = arg0.requestFocus();
 				}
 				else{
-					theParent.ShowOtherWeeks();
+					//theParent.ShowOtherWeeks();
+					mCalendarMonthView.ShowOtherWeeks();
 					mCalendarMonthView.ShowWeekHour(false);
 					mCalendarMonthView.ShowDayMeetingsList(true);
-				}
+				}*/
 				return true;
 			}
 		});

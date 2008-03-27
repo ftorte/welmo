@@ -1,62 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <WelmoDataInit>
-	<meetings version="1.0">
-		<meeting year="2008" month="3" day="16" 
-			start="8:30"
-			end="9:30" 
-			subject="16/3 Meeting 1"
-			description="Descriptio 1" />
-		<meeting year="2008" month="3" day="16" 
-			start="10:30"
-			end="11:30" 
-			subject="16/3 Meeting 2"
-			description="Descriptio 2" />
-		<meeting year="2008" month="3" day="16" 
-			start="11:30"
-			end="12:30" 
-			subject="16/3 Meeting 3"
-			description="testdescription" />
-		<meeting year="2008" month="3" day="16" 
-			start="16:30"
-			end="20:30" 
-			subject="16/3 Meeting 4"
-			description="testdescription" />
-		<meeting year="2008" month="3" day="16" 
-			start="20:30"
-			end="23:30" 
-			subject="16/3 Meeting 5"
-			description="testdescription" />
-		<meeting year="2008" month="3" day="17" 
-			start="8:30"
-			end="9:30" 
-			subject="17/3 Meeting 6"
-			description="testdescription" />
+	<year val="2008">
+		<month val="3">
+			<day val="16">
+					<meeting year="2008" month="3" day="16" start="8:30"
+						end="9:30" subject="16/3 Meeting 1" description="Descriptio 1" />
+					<meeting year="2008" month="3" day="16"
+						start="10:30" end="11:30" subject="16/3 Meeting 2"
+						description="Descriptio 2" />
+					<meeting year="2008" month="3" day="16"
+						start="11:30" end="12:30" subject="16/3 Meeting 3"
+						description="testdescription" />
+					<meeting year="2008" month="3" day="16"
+						start="16:30" end="20:30" subject="16/3 Meeting 4"
+						description="testdescription" />
+					<meeting year="2008" month="3" day="16"
+						start="20:30" end="23:30" subject="16/3 Meeting 5"
+						description="testdescription" />
+			</day>
+		</month>
+	</year>
+	<meetings day="17">
+		<meeting year="2008" month="3" day="17" start="8:30" end="9:30"
+			subject="17/3 Meeting 6" description="testdescription" />
 	</meetings>
-	<meetings version="1.0">
-		<meeting year="2008" month="3" day="18" 
-			start="8:30"
-			end="9:30" 
-			subject="18/3 Meeting 1"
-			description="testdescription" />
-		<meeting year="2008" month="3" day="18" 
-			start="10:30"
-			end="11:30" 
-			subject="18/3 Meeting 2"
-			description="testdescription" />
-		<meeting year="2008" month="3" day="18" 
-			start="11:30"
-			end="12:30" 
-			subject="18/3 Meeting 3"
-			description="testdescription" />
-		<meeting year="2008" month="3" day="18" 
-			start="16:30"
-			end="20:30" 
-			subject="18/3 Meeting 4"
-			description="testdescription" />
-		<meeting year="2008" month="3" day="18" 
-			start="20:30"
-			end="23:30" 
-			subject="18/3 Meeting 5"
-			description="testdescription" />
+	<meetings day="18">
+		<meeting year="2008" month="3" day="18" start="8:30" end="9:30"
+			subject="18/3 Meeting 1" description="testdescription" />
+		<meeting year="2008" month="3" day="18" start="10:30"
+			end="11:30" subject="18/3 Meeting 2" description="testdescription" />
+		<meeting year="2008" month="3" day="18" start="11:30"
+			end="12:30" subject="18/3 Meeting 3" description="testdescription" />
+		<meeting year="2008" month="3" day="18" start="16:30"
+			end="20:30" subject="18/3 Meeting 4" description="testdescription" />
+		<meeting year="2008" month="3" day="18" start="20:30"
+			end="23:30" subject="18/3 Meeting 5" description="testdescription" />
+	</meetings>
+	<meetings day="19">
+		<meeting year="2008" month="3" day="19" start="8:30" end="9:30"
+			subject="18/3 Meeting 1" description="testdescription" />
+		<meeting year="2008" month="3" day="19" start="10:30"
+			end="11:30" subject="18/3 Meeting 2" description="testdescription" />
+	</meetings>
+	<meetings day="20">
+		<meeting year="2008" month="3" day="20" start="11:30"
+			end="12:30" subject="18/3 Meeting 3" description="testdescription" />
+		<meeting year="2008" month="3" day="20" start="16:30"
+			end="20:30" subject="18/3 Meeting 4" description="testdescription" />
+	</meetings>
+	<meetings day="21">
+		<meeting year="2008" month="3" day="21" start="20:30"
+			end="23:30" subject="18/3 Meeting 5" description="testdescription" />
+	</meetings>
+	<meetings day="22">
+		<meeting year="2008" month="3" day="22" start="8:30" end="9:30"
+			subject="18/3 Meeting 1" description="testdescription" />
+		<meeting year="2008" month="3" day="22" start="10:30"
+			end="11:30" subject="18/3 Meeting 2" description="testdescription" />
+	</meetings>
+	<meetings day="23">
+		<meeting year="2008" month="3" day="23" start="11:30"
+			end="12:30" subject="18/3 Meeting 3" description="testdescription" />
+	</meetings>
+	<meetings day="24">
+		<meeting year="2008" month="3" day="24" start="16:30"
+			end="20:30" subject="18/3 Meeting 4" description="testdescription" />
+	</meetings>
+	<meetings day="25">
+		<meeting year="2008" month="3" day="25" start="20:30"
+			end="23:30" subject="18/3 Meeting 5" description="testdescription" />
+	</meetings>
+	<meetings day="26">
+		<meeting year="2008" month="3" day="26" start="10:30"
+			end="11:30" subject="18/3 Meeting 2" description="testdescription" />
+		<meeting year="2008" month="3" day="26" start="11:30"
+			end="12:30" subject="18/3 Meeting 3" description="testdescription" />
+	</meetings>
+	<meetings day="27">
+		<meeting year="2008" month="3" day="27" start="16:30"
+			end="20:30" subject="18/3 Meeting 4" description="testdescription" />
+	</meetings>
+	<meetings day="28">
+		<meeting year="2008" month="3" day="28" start="20:30"
+			end="23:30" subject="18/3 Meeting 5" description="testdescription" />
 	</meetings>
 </WelmoDataInit>

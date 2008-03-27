@@ -11,6 +11,8 @@ import android.widget.AbsoluteLayout;
 import android.widget.Toast;
 
 import com.welmo.R;
+import com.welmo.meeting.IMeetingDisplay;
+import com.welmo.meeting.Meeting;
 
 public class MeetingBarView extends View{
 
@@ -37,7 +39,6 @@ public class MeetingBarView extends View{
     private float mTickRatio = 1;
    
 	String mTestMessge= new String("8:30-12:30\n Meeting With Mister Gingle");
-	
 	
 	public MeetingBarView(Context context, AttributeSet attrs, Map inflateParams) {
 		super(context, attrs, inflateParams);
@@ -106,6 +107,9 @@ public class MeetingBarView extends View{
 		if ((mStart > start) && (mEnd < end))
 			return true;
 		return false;
+	}
+	public boolean HasConflict(MeetingBarView mb){
+		return HasConflict(mb.getStart_h(),mb.getStart_m(),mb.getEnd_h(),mb.getEnd_h());
 	}
 	public void setPeriod(int start_h, int start_m, int end_h,int end_m){
 		if(!IsValidTimeFrame(start_h, start_m, end_h,end_m))

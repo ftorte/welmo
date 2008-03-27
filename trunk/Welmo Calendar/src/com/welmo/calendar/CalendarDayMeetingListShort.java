@@ -11,7 +11,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.welmo.R;
 import com.welmo.dbhelper.AgendaDBHelper;
 import com.welmo.meeting.IMeetingDisplay;
@@ -20,8 +19,7 @@ import com.welmo.meeting.Meeting;
 import com.welmo.meeting.MeetingDay;
 import com.welmo.meeting.MeetingDayAdapter;
 
-public class CalendarDayMeetingListShort extends ListView 
-	implements IMeetingDisplayFactory{
+public class CalendarDayMeetingListShort extends ListView implements IMeetingDisplayFactory{
 
 	
 	private MeetingDay 			theDay		= null;
@@ -35,13 +33,12 @@ public class CalendarDayMeetingListShort extends ListView
 	private State				status		= State.NO_DETAIL;
 	//--------------------------------------------------------------------
 	
-	void ShowMessge(String Msg){
-        Toast.makeText(mContext,Msg,Toast.LENGTH_SHORT).show();
-	}
 	
-	public class MeetingDisplayShort extends LinearLayout implements IMeetingDisplay{
+	public class MeetingDisplayShort extends LinearLayout implements IMeetingDisplay {
 		
-		private TextView mMeetingDescription;
+		private TextView 	mMeetingDescription;
+		private TextView 	mMeetingLongDescription;
+		private boolean 	mShowLongDesc = false;
 		View theView;
 		private Context mContext;
 		
@@ -50,68 +47,78 @@ public class CalendarDayMeetingListShort extends ListView
 			super(context);
 			mContext = context;
 			this.setOrientation(VERTICAL);
+			
 			ViewInflate inf =(ViewInflate)mContext.getSystemService(android.content.Context.INFLATE_SERVICE);
 			theView = inf.inflate(R.layout.meetingdayrows, null, false, null); 
 			mMeetingDescription = (TextView) theView.findViewById(R.id.MeetingShortDesc); 
+			mMeetingLongDescription = (TextView) theView.findViewById(R.id.MeetingLongDesc); 
+			
 			addView(theView, new LinearLayout.LayoutParams(
 					LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
+			
+			setFocusableInTouchMode(true);
 		}
 		
 		public void setMeetingInfo(Meeting currMeeting){
 			String ShortDesc="";
 			
 			ShortDesc = currMeeting.getStart_h()+":"+currMeeting.getStart_m()+" "+
-						currMeeting.getEnd_h()+" "+currMeeting.getEnd_m();
-			ShortDesc = ShortDesc + " " + currMeeting.getObject();
+						currMeeting.getEnd_h()+":"+currMeeting.getEnd_m();
+			ShortDesc = ShortDesc + " " + currMeeting.getMeetingID().getMonth() + "-"+
+			currMeeting.getMeetingID().getDayNB() +" "+
+			currMeeting.getObject();
 			mMeetingDescription.setText(ShortDesc);
+			mMeetingLongDescription.setText(currMeeting.getDescription());
+		}
+		public void ShowHideLongDsc(){
+			if(mShowLongDesc){
+				mShowLongDesc = false;
+				mMeetingLongDescription.setVisibility(GONE);
+			}
+			else{
+				mShowLongDesc = true;
+				mMeetingLongDescription.setVisibility(VISIBLE);
+			}
 		}
 	}
 	//---------------------------------------------
-	//Implement IMeetingDisplayConstructor
+	//Implement IMeetingDisplayFactory
 	public IMeetingDisplay getNewView(){
 		MeetingDisplayShort newDispaly = new MeetingDisplayShort(mContext);
 		return newDispaly;
 	}	
 	//---------------------------------------------
-	
-	
-	
 	public CalendarDayMeetingListShort(Context context, AttributeSet attrs, Map inflateParams) {
 		super(context,attrs,inflateParams);
 		setOnItemClickListener(new OnItemClickListener (){ 
 			@Override
 			public void onItemClick(AdapterView av, View v, int n, long l) {
-				// TODO Auto-generated method stub
-				//int id = arg0.getId();
-				//ShowMessge("Calendar Day Clik Catched: "+id + " :" + getMeasuredWidth() + getMeasuredHeight());
 				boolean getfocus = av.requestFocus();
-				ShowMessge("CalendarDayMeetingList \n Short Clik Catched: "+ status);
+				((MeetingDisplayShort)v).ShowHideLongDsc();
 			}
 		});
-		setOnFocusChangeListener(new OnFocusChangeListener (){
+		/*setOnFocusChangeListener(new OnFocusChangeListener (){
 			@Override
 			public void onFocusChanged(View v, boolean b){
-				//ShowMessge("Calendar Day On Focus Catched: "+id);
-				ShowMessge("CalendarDayMeetingList\n Focuse Changed Catched"+ status);
+				ShowMessge("Calendar Day On Focus Catched: ");
+				//ShowMessge("CalendarDayMeetingList\n Focuse Changed Catched"+ status);
 			}		
-		});
+		});*/
 		setOnItemLongClickListener(new OnItemLongClickListener(){
 			@Override
 			public boolean onItemLongClick(AdapterView av, View v, int n, long l){
 				boolean getfocus = av.requestFocus();
+				//((MeetingDisplayShort)v).mMeetingLongDescription.setVisibility(VISIBLE);
 				ShowMessge("CalendarDayMeetingList \n Long Clik Catched"+ status);
 				return true;
 			}
 		});
-		this.setFocusableInTouchMode(true);
+		setFocusableInTouchMode(true);
 		mContext 	= context;
 		dbAgenda 	= new AgendaDBHelper(context,"Agenda","Meetings","Attends");
   		mDAdp 		= new MeetingDayAdapter(this,mContext,null);
   		setAdapter(mDAdp);
-
 	}
-	
-	
 	public void setDay(int year, int month, int day)
 	{
 		theDay = new MeetingDay(year, month, day,dbAgenda);
@@ -124,5 +131,9 @@ public class CalendarDayMeetingListShort extends ListView
 			setAdapter(mDAdp);
 		}
 		mDAdp = new MeetingDayAdapter(this,mContext, theDay);
+	}
+	//Utility fucntions
+	void ShowMessge(String Msg){
+        Toast.makeText(mContext,Msg,Toast.LENGTH_SHORT).show();
 	}
 }

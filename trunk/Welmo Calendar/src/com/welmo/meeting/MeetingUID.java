@@ -2,8 +2,21 @@ package com.welmo.meeting;
 
 import java.util.Calendar;
 
-public class MeetingUID {
+public class MeetingUID implements Comparable<MeetingUID> {
 
+	@Override
+	public int compareTo(MeetingUID arg0) {
+		// TODO Auto-generated method stub
+		Long uid;
+		int val=0;
+
+		if(!(arg0 instanceof MeetingUID))
+			throw new ClassCastException("Invalid type for MeetingUID"); 
+		else
+			uid = arg0.UID; 
+		val = ((Long)UID).compareTo(uid);
+		return val;
+	}
 	public static final int FIRST_YEAR					=1970; 
 	public static final short TYPE_FREE_TYME	 		=0; 
 	public static final short TYPE_WORING_MEETING		=1;
@@ -154,5 +167,9 @@ public class MeetingUID {
 		int duration = (getEndHour() - getStartHour())*60 +  (getEndMin() - getStartMin());
 		return duration;
 	}
-	
+	public boolean isOfType(short type){
+			if(((short)((UID & MASK_TYPE) >>> MASK_TYPE_POS)) == type)
+				return true;
+			else return false;
+	}
 }
