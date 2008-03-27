@@ -8,5 +8,9 @@
 		android:textStyle="bold" android:textSize="15px" android:maxLines="1"
 		android:maxWidth="20px" android:layout_width="fill_parent"
 		android:layout_height="fill_parent" />
-
+	<TextView android:id="@+id/MeetingLongDesc"
+		android:textStyle="bold" android:textSize="15px" android:maxLines="1"
+		android:maxWidth="20px" android:layout_width="fill_parent"
+		android:layout_height="fill_parent" 
+		android:visibility="gone"/>
 </LinearLayout>

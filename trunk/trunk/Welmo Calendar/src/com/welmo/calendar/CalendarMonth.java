@@ -110,7 +110,19 @@ public class CalendarMonth extends TableLayout{
 					getChildAt(mDayPos[DayOfWeek])).requestFocus();
 		
 	}
-
+	public void ShowOtherWeeks(){
+		if(getChildCount() > 0){
+			for(int index = 1; index < getChildCount(); index++ )
+				getChildAt(index).setVisibility(VISIBLE);
+		}
+	}
+	public void HideOtherWeeks(CalendarWeek theWeek){
+		if(getChildCount() > 0){
+			for(int index = 1; index < getChildCount(); index++ )
+				if (!getChildAt(index).equals(theWeek))
+					getChildAt(index).setVisibility(GONE);
+		}
+	}	
 	public int getYear() {
 		return mYear;
 	}

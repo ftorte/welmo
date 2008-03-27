@@ -5,7 +5,8 @@
 package com.welmo.meeting;
 
 import java.io.Serializable;
-import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -45,9 +46,7 @@ public class MeetingDay implements Serializable {
 		private int dayEnd	=0x0;		
 	}
 	private MeetingUID 			dayUID 				= new MeetingUID();
-	private Occupation 			dayOccupation 		= new Occupation();
-	private Occupation[] 		dayConflicts 		= new Occupation[5];
-	private	SortedMap 			MeetingsList  		= new TreeMap();
+	private	SortedMap<MeetingUID,Meeting> 			MeetingsList  		= new TreeMap<MeetingUID,Meeting>();
 	private AgendaDBHelper 		dbAgenda 			= null;
 	   
 	public MeetingDay(int year, int month , int day,AgendaDBHelper dbh) {
@@ -60,8 +59,6 @@ public class MeetingDay implements Serializable {
 		NullMeeting.setType(MeetingUID.TYPE_FREE_TYME);
 		NullMeeting.setTimeFrame((short)0, (short)0, (short)23, (short)59);
 		AddFreeTime(NullMeeting);
-		for (int i=0; i < 5; i++)
-			dayConflicts[i] = new Occupation();
 	}
 	
 	public long getDayUID(){
@@ -78,15 +75,15 @@ public class MeetingDay implements Serializable {
 		// SFT Start Free Time
 		// EMT End Meeting Time
 		// EFT End Free Time 
-		Vector newMeetings = new Vector();
-		long deletedKeys[] = new long [MeetingsList.size()];
+		Vector<Meeting> newMeetings = new Vector<Meeting>();
+		MeetingUID deletedKeys[] = new MeetingUID[MeetingsList.size()];
 		
 		if (theMeeting.getMeetingID().getType() == MeetingUID.TYPE_FREE_TYME)
 			throw new IllegalArgumentException ("Free tile cannot be create by the user");
 
 		theMeeting.setMeetingIDDay(dayUID);
 		int count=0;
-		while(MeetingsList.containsKey(theMeeting.getMeetingID().UID))
+		while(MeetingsList.containsKey(theMeeting.getMeetingID()))
 		{
 			count++;
 			int newMeetingCount = theMeeting.getMeetingID().getCount()+1;
@@ -100,9 +97,9 @@ public class MeetingDay implements Serializable {
 		
 		count=0;
 		LookForKey:	
-		for (Object keyItem: MeetingsList.keySet()){
-			long key = Long.parseLong(keyItem.toString());
-			Meeting currMeeting = (Meeting) MeetingsList.get(key);
+		for (MeetingUID key: MeetingsList.keySet()){
+			//long key = Long.parseLong(keyItem.toString());
+			Meeting currMeeting = MeetingsList.get(key);
 			if (currMeeting.getMeetingID().getType() == MeetingUID.TYPE_FREE_TYME){
 				SFT = currMeeting.getMeetingID().getStart();
 				EFT = currMeeting.getMeetingID().getEnd();
@@ -158,8 +155,8 @@ public class MeetingDay implements Serializable {
 			
 		}
 		while (!newMeetings.isEmpty()){
-			Meeting mtg = (Meeting)newMeetings.firstElement();
-			MeetingsList.put(mtg.getMeetingID().UID,mtg);
+			Meeting mtg = newMeetings.firstElement();
+			MeetingsList.put(mtg.getMeetingID(),mtg);
 			if(dbAgenda != null)
 				mtg.UpdateToDatabase(dbAgenda);
 			newMeetings.remove(0);
@@ -168,7 +165,7 @@ public class MeetingDay implements Serializable {
 		for (int i =0; i < count; i++)
 			MeetingsList.remove(deletedKeys[i]);
 
-		MeetingsList.put(theMeeting.getMeetingID().UID, theMeeting);
+		MeetingsList.put(theMeeting.getMeetingID(), theMeeting);
 		//save/update the new meeting in the database
 		if(dbAgenda != null)
 			theMeeting.UpdateToDatabase(dbAgenda);
@@ -181,14 +178,13 @@ public class MeetingDay implements Serializable {
 		if (theMeeting.getMeetingID().getType() != MeetingUID.TYPE_FREE_TYME)
 			throw new IllegalArgumentException ("A meeting cannot be added using this function");
 
-		Vector newMeetings = new Vector();
+		Vector<Meeting> newMeetings = new Vector<Meeting>();
 		//long deletedKeys[] = new long [MeetingsList.size()];
 		
 		//count = 0;
 		LookForKey:		
-		for (Object keyItem: MeetingsList.keySet()){
-			long key = Long.parseLong(keyItem.toString());
-			Meeting currMeeting = (Meeting)MeetingsList.get(key);
+		for (MeetingUID key: MeetingsList.keySet()){
+			Meeting currMeeting = MeetingsList.get(key);
 			// read start and end meeting time
 			SMT = currMeeting.getMeetingID().getStart();
 			EMT = currMeeting.getMeetingID().getEnd();
@@ -234,26 +230,25 @@ public class MeetingDay implements Serializable {
 			}
 		}
 		if(theMeeting.getDurationInM()>0 ){
-			MeetingsList.put(theMeeting.getMeetingID().UID, theMeeting);
+			MeetingsList.put(theMeeting.getMeetingID(), theMeeting);
 			theMeeting.UpdateToDatabase(dbAgenda);
 		}
 			
 		while (!newMeetings.isEmpty()){
-			Meeting mtg = (Meeting)newMeetings.firstElement();
-			MeetingsList.put(mtg.getMeetingID().UID,mtg);
+			Meeting mtg = newMeetings.firstElement();
+			MeetingsList.put(mtg.getMeetingID(),mtg);
 			mtg.UpdateToDatabase(dbAgenda);
 			newMeetings.remove(0);
 		}
 	}
 	public void CompactFreeMeetings()
 	{
-		long deletedKeys[] = new long [MeetingsList.size()];
+		MeetingUID deletedKeys[] = new MeetingUID[MeetingsList.size()];
 		int count = 0;
 		Meeting currMeeting,nextMeeting = null;
-		currMeeting = (Meeting)MeetingsList.get(MeetingsList.firstKey());
-		for (Object keyItem: MeetingsList.keySet()){
-			long key = Long.parseLong(keyItem.toString());
-			nextMeeting = (Meeting)MeetingsList.get(key);
+		currMeeting = MeetingsList.get(MeetingsList.firstKey());
+		for (MeetingUID key: MeetingsList.keySet()){
+			nextMeeting = MeetingsList.get(key);
 			if((currMeeting.getType() == MeetingUID.TYPE_FREE_TYME) && 
 					(nextMeeting.getType() == MeetingUID.TYPE_FREE_TYME)){
 				if((currMeeting.getEnd_h() == nextMeeting.getStart_h()) &&
@@ -268,22 +263,22 @@ public class MeetingDay implements Serializable {
 				currMeeting = nextMeeting;
 		}
 		for (int i =0; i < count; i++){
-			Meeting theMeeting = (Meeting) MeetingsList.remove(deletedKeys[i]);
+			Meeting theMeeting = MeetingsList.remove(deletedKeys[i]);
 			theMeeting.DeleteFromDatabase(dbAgenda);
 		}
 	}
-	public void DelMeeting(Long mUID)
+	public void DelMeeting(MeetingUID mUID)
 	{
 		if (!MeetingsList.containsKey(mUID))
 			throw new IllegalArgumentException ("Invalid meetingUID parameter");
-		Meeting theMtng = (Meeting) MeetingsList.remove(mUID);
+		Meeting theMtng = MeetingsList.remove(mUID);
 		theMtng.DeleteFromDatabase(dbAgenda);
 		theMtng.setAsFreeTime();
 		AddFreeTime(theMtng);
 		CompactFreeMeetings();
 		theMtng=null;
 	}
-	public void ChangeMeeting(Long mUID,Meeting theMeeting)
+	public void ChangeMeeting(MeetingUID mUID,Meeting theMeeting)
 	{
 		if (!MeetingsList.containsKey(mUID))
 			throw new IllegalArgumentException ("Invalid meetingUID parameter");
@@ -297,19 +292,36 @@ public class MeetingDay implements Serializable {
 	}
 	public Meeting getMeeting(long mUID)
 	{
+		MeetingUID theMeting = new MeetingUID(mUID);
+		if (!MeetingsList.containsKey(theMeting))
+			throw new IllegalArgumentException ("Invalid meetingUID parameter");
+		return MeetingsList.get(theMeting);
+	}
+	public Meeting getMeeting(MeetingUID mUID)
+	{
 		if (!MeetingsList.containsKey(mUID))
 			throw new IllegalArgumentException ("Invalid meetingUID parameter");
-		return (Meeting)MeetingsList.get(mUID);
+		return MeetingsList.get(mUID);
 	}
 	public int GetNbOfMeeting(){
 		return MeetingsList.keySet().size();
 	}
-	public Object[] GetMeetingsUIDs(){
-		Object[] keys = MeetingsList.keySet().toArray();
+	public ArrayList<MeetingUID> GetMeetingsUIDs(){
+		ArrayList<MeetingUID> keys = new ArrayList<MeetingUID>(MeetingsList.keySet());
+		return keys;
+	}
+	public ArrayList<MeetingUID> GetMeetingsUIDs(MeetingUID compatiblityMask){
+		ArrayList<MeetingUID> keys = new ArrayList<MeetingUID>(MeetingsList.keySet());
+		Iterator<MeetingUID> it = keys.iterator();
+		while(it.hasNext()){
+			if(it.next().isFiltered(compatiblityMask));
+			it.remove();
+		}
 		return keys;
 	}
 	public void RestoreFromDatabase(){
-		long key;
+		Meeting tmpMeeting=null;
+		MeetingUID key = new MeetingUID();
 		Meeting 	currMeeting = null;
 		MeetingUID	currMeetingUID = null;
 		//Check that a database helper is available
@@ -322,17 +334,18 @@ public class MeetingDay implements Serializable {
 		
 		List<Long> listDB_Ids = dbAgenda.fetchMeetingsRowIdListByID(min,max);
 		//Read all Meeting and add to Map
+		MeetingsList.clear();
 		for (int index = 0; index <listDB_Ids.size(); index ++){
-			key = listDB_Ids.get(index).longValue();
+			key.UID = listDB_Ids.get(index).longValue();
 			currMeeting = new Meeting();
 			currMeetingUID = new MeetingUID(key);
 			currMeeting.setMeetingID(currMeetingUID);
 			currMeeting.RestoreFromDatabase(dbAgenda);
-			MeetingsList.put(key, currMeeting);
+			tmpMeeting = MeetingsList.put(currMeetingUID, currMeeting);
 		}
 	}
 	public void UpdateToDatabase(){
-		long key;
+		MeetingUID key=new MeetingUID();
 		Meeting currMeeting = null;
 		//Check that a database helper is available
 		if(dbAgenda == null)
@@ -343,14 +356,14 @@ public class MeetingDay implements Serializable {
 				(getDayUID()&MeetingUID.MASK_DATE)| ~ MeetingUID.MASK_DATE);
 		
 		for (int index = 0; index <listDB_Ids.size(); index ++){
-			key = listDB_Ids.get(index).longValue();
+			key.UID = listDB_Ids.get(index).longValue();
 			if (MeetingsList.containsKey(key) == false){
 				MeetingsList.remove(key);
 			}
 		}
 		//Update all meeting in the database
 		for (Object keyItem: MeetingsList.keySet()){
-			key = Long.parseLong(keyItem.toString());
+			key.UID = Long.parseLong(keyItem.toString());
 			currMeeting = (Meeting)MeetingsList.get(key);
 			currMeeting.UpdateToDatabase(dbAgenda);
 		}

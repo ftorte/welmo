@@ -27,7 +27,7 @@ public class MeetingDayAdapter extends BaseAdapter{
 	@Override
 	public Object getItem(int index) {
 		if (theDay != null){
-			Object theMeeting = theDay.getMeeting(((Long)(theDay.GetMeetingsUIDs()[index])).longValue());
+			Meeting theMeeting  = theDay.getMeeting(theDay.GetMeetingsUIDs().get(index));
 			return theMeeting;	
 		}
 		else
@@ -36,7 +36,7 @@ public class MeetingDayAdapter extends BaseAdapter{
 	@Override
 	public long getItemId(int position){
 		if (theDay != null){
-			long key = ((Long)theDay.GetMeetingsUIDs()[position]).longValue();
+			long key = theDay.GetMeetingsUIDs().get(position).UID;
 			return key;
 		}
 		else
