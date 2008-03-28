@@ -97,21 +97,8 @@ public class CalendarDay extends TextView{
 		setOnLongClickListener(new OnLongClickListener(){
 			@Override
 			public boolean onLongClick(View arg0){
-				mCalendarMonthView.LongClickOnADay(ActionCode.DAY_LONG_CLICK,(CalendarWeek) arg0.getParent());
-				//CalendarWeek theParent = (CalendarWeek) arg0.getParent();
-				/*if(!theParent.isCurrentWeekFocused()){
-					//theParent.HideOtherWeeks();
-					mCalendarMonthView.HideOtherWeeks(theParent);
-					mCalendarMonthView.ShowDayMeetingsList(false);
-					mCalendarMonthView.ShowWeekHour(true);
-					boolean getfocus = arg0.requestFocus();
-				}
-				else{
-					//theParent.ShowOtherWeeks();
-					mCalendarMonthView.ShowOtherWeeks();
-					mCalendarMonthView.ShowWeekHour(false);
-					mCalendarMonthView.ShowDayMeetingsList(true);
-				}*/
+				mCalendarMonthView.LongClickOnADay(ActionCode.DAY_LONG_CLICK,
+						(CalendarWeek) arg0.getParent(),mTheDay);
 				return true;
 			}
 		});
@@ -231,12 +218,6 @@ public class CalendarDay extends TextView{
 	public void setMLongSelectedBackground(int longSelectedBackground) {
 		mLongSelectedBackground = longSelectedBackground;
 	}
-	public int getMTheDay() {
-		return mTheDay;
-	}
-	public void setMTheDay(int theDay) {
-		mTheDay = theDay;
-	}
 	/*public int getMTheMonth() {
 		return mTheMonth;
 	}
@@ -260,7 +241,9 @@ public class CalendarDay extends TextView{
 		mTheDay = day;
 		this.setText(Integer.toString(mTheDay));
 	}
-
+	public int getDay() {
+		return mTheDay;
+	}
 	public boolean isDetail() {
 		return detail;
 	}

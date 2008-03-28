@@ -4,6 +4,7 @@ import java.util.Calendar;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -14,6 +15,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.welmo.R;
+import com.welmo.meeting.Meeting;
+import com.welmo.meeting.MeetingDayView;
+import com.welmo.meeting.MeetingView;
 import com.welmo.tools.DialogListSelector;
 import com.welmo.tools.DialogListSelector.OnSelectionListener;
 
@@ -33,7 +37,7 @@ public class CalendarMonthView extends Activity {
 	
 	//----------------------------------------------------------------------------
 	//---handle view status
-	private enum State {MONTH_VIEW,WEEK_HOUR_VIEW};
+	private enum State {MONTH_VIEW,WEEK_HOUR_VIEW,DAY_HOUR_VIEW};
 	public enum ActionCode {DAY_LONG_CLICK,BACK_BUTTON};
 	private State status		= State.MONTH_VIEW;
 	//----------------------------------------------------------------------------
@@ -86,11 +90,12 @@ public class CalendarMonthView extends Activity {
         theCalendar = (CalendarMonth) findViewById(R.id.Month);
         
         today 		= Calendar.getInstance();
-        mYear 		= today.get(Calendar.YEAR);
+        today.setTimeInMillis(System.currentTimeMillis());
+	    mYear 		= today.get(Calendar.YEAR);
         mMonth 		= today.get(Calendar.MONTH)+1;
         mFocusedDay = today.get(Calendar.DAY_OF_MONTH);
         
-        ShowWeekHour(false);
+        ShowWeekHour(false,null);
         ShowDayMeetingsList(true);
         //set year Label
 		TextView labelYear = (TextView)findViewById(R.id.MontLabel);
@@ -229,10 +234,15 @@ public class CalendarMonthView extends Activity {
     		theView.setVisibility(View.GONE);
     	}
     }
-    public void ShowWeekHour(boolean show){
+    public void ShowWeekHour(boolean show,CalendarWeek arg0){
     	View theView1 = (View)findViewById(R.id.CalendarWeekHour);
     	View theView2 = (View)findViewById(R.id.NullLabel);
+    	if(show && (arg0 == null))
+    		throw new IllegalArgumentException ("cannot shom week hour withour week info");
     	if(show){
+    		//Setup caledar weed days
+    		CalendarWeekHour week = (CalendarWeekHour)theView1.findViewById(R.id.CalendarWeekHourTable);
+    		week.setWeekDaysFromMonday(arg0.getYear(),arg0.getMonth(), arg0.getFirstDayOfTheWeek());
     		theView1.setVisibility(View.VISIBLE);
     		theView2.setVisibility(View.VISIBLE);
     	}
@@ -251,7 +261,7 @@ public class CalendarMonthView extends Activity {
     	
     	switch(keyCode){
     	case KeyEvent.KEYCODE_BACK:    	
-    			handleStatus(ActionCode.BACK_BUTTON,null);
+    			handleStatus(ActionCode.BACK_BUTTON,null,0);
     		return true;
     	}
 		return super.onKeyDown(keyCode, event);
@@ -263,29 +273,52 @@ public class CalendarMonthView extends Activity {
 	public void HideOtherWeeks(CalendarWeek theWeek){
 		theCalendar.HideOtherWeeks(theWeek);
 	}	
-	public void LongClickOnADay(ActionCode ac, CalendarWeek arg0){
-		handleStatus(ac,arg0);
+	public void LongClickOnADay(ActionCode ac, CalendarWeek arg0, int day){
+		handleStatus(ac,arg0,day);
 	}
-	public void handleStatus(ActionCode ac, CalendarWeek arg0)
+	public void handleStatus(ActionCode ac, CalendarWeek arg0, int day)
 	{
 		switch(status){
 		case MONTH_VIEW:
 			if(ac == ActionCode.DAY_LONG_CLICK){
 				theCalendar.HideOtherWeeks(arg0);
 				ShowDayMeetingsList(false);
-				ShowWeekHour(true);
+				ShowWeekHour(true,arg0);
 				status	= State.WEEK_HOUR_VIEW;
+				break;
+			}
+			if(ac == ActionCode.BACK_BUTTON){
+				KeyEvent envent = new KeyEvent(KeyEvent.ACTION_DOWN,KeyEvent.KEYCODE_BACK);
+				super.onKeyDown(KeyEvent.KEYCODE_BACK, envent);
 			}
 			break;
 		case WEEK_HOUR_VIEW:
-			if(ac == ActionCode.DAY_LONG_CLICK || ac == ActionCode.BACK_BUTTON){
+			if(ac == ActionCode.BACK_BUTTON){
 				theCalendar.ShowOtherWeeks();
 				ShowDayMeetingsList(true);
-				ShowWeekHour(false);
+				ShowWeekHour(false,arg0);
 				status	= State.MONTH_VIEW;
+				break;
 			}
+			if(ac == ActionCode.DAY_LONG_CLICK){
+				status	= State.DAY_HOUR_VIEW;
+				LaunchMeetingDayViewIntent(arg0.getYear(),arg0.mMonth,day);
+				break;
+			}
+			break;
+		case DAY_HOUR_VIEW:
+			status	= State.WEEK_HOUR_VIEW;
+			break;
 		default:
 			break;
 		}
+	}
+	void LaunchMeetingDayViewIntent(int year, int month, int day){
+    	Intent i = new Intent(this, MeetingDayView.class);
+    	//Init Day date
+    	i.putExtra("YEAR",year);
+    	i.putExtra("MONTH",month);
+    	i.putExtra("DAY",day);
+		startSubActivity(i, 0);
 	}
 }

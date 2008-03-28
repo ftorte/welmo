@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.welmo.dbhelper.AgendaDBHelper;
 import com.welmo.meeting.Meeting;
+import com.welmo.meeting.MeetingBarView;
 import com.welmo.meeting.MeetingDay;
 import com.welmo.meeting.MeetingUID;
 public class CalendarDayHour extends AbsoluteLayout{
@@ -62,7 +63,7 @@ public class CalendarDayHour extends AbsoluteLayout{
 		
 		//connect with the adapter
 		dbAgenda 	= new AgendaDBHelper(context,"Agenda","Meetings","Attends");
-		setDay(2008,3,16);
+		//setDay(2008,3,16);
 	}
 	public CalendarDayHour(Context context) {
 		this(context,null,null);
@@ -164,13 +165,15 @@ public class CalendarDayHour extends AbsoluteLayout{
 		MeetingUID noFreeTimeMask = new MeetingUID();
 		noFreeTimeMask.setType(MeetingUID.TYPE_FREE_TYME);
 		
-		ArrayList<MeetingUID> keys = theDay.GetMeetingsUIDs(noFreeTimeMask);
+		ArrayList<MeetingUID> keys = theDay.GetMeetingsUIDs((short)0xF);
 		Iterator<MeetingUID> it = keys.iterator();
 		while(it.hasNext())
 		{	
 			Meeting mtg = theDay.getMeeting(it.next());
 			MeetingBarView newMeetingBar = new MeetingBarView(mContext,mWidth,mHeigth);
 			newMeetingBar.setPeriod(mtg.getStart_h(),mtg.getStart_m(),mtg.getEnd_h(),mtg.getEnd_m());
+			newMeetingBar.setSubject(mtg.getObject());
+			newMeetingBar.setDescription(mtg.getDescription());
 			UpdateMeetingBarConflict(newMeetingBar);
 			mMeetings.add(newMeetingBar);
 			addView(newMeetingBar);

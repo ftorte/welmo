@@ -10,6 +10,7 @@ public class MeetingDayAdapter extends BaseAdapter{
 	//private Context mContext;
 	private MeetingDay 					theDay 				= null;
 	private IMeetingDisplayFactory		theDisplayFactory	= null; 
+	private short mMeetingTypeFilter = 0xF;
 
 	public MeetingDayAdapter(IMeetingDisplayFactory DisplayFacotry, Context ctx,MeetingDay day){
 		theDay = day;
@@ -18,7 +19,7 @@ public class MeetingDayAdapter extends BaseAdapter{
 	@Override
 	public int getCount() {
 		if (theDay != null){
-			int pos= theDay.GetNbOfMeeting();
+			int pos= theDay.GetNbOfMeeting(mMeetingTypeFilter);
 			return pos;
 		}
 		else
@@ -27,7 +28,7 @@ public class MeetingDayAdapter extends BaseAdapter{
 	@Override
 	public Object getItem(int index) {
 		if (theDay != null){
-			Meeting theMeeting  = theDay.getMeeting(theDay.GetMeetingsUIDs().get(index));
+			Meeting theMeeting  = theDay.getMeeting(theDay.GetMeetingsUIDs(mMeetingTypeFilter).get(index));
 			return theMeeting;	
 		}
 		else
@@ -36,7 +37,7 @@ public class MeetingDayAdapter extends BaseAdapter{
 	@Override
 	public long getItemId(int position){
 		if (theDay != null){
-			long key = theDay.GetMeetingsUIDs().get(position).UID;
+			long key = theDay.GetMeetingsUIDs(mMeetingTypeFilter).get(position).UID;
 			return key;
 		}
 		else
@@ -58,6 +59,12 @@ public class MeetingDayAdapter extends BaseAdapter{
 	}
 	public void setView(){
 		
+	}
+	public short getMeetingTypeFilter() {
+		return mMeetingTypeFilter;
+	}
+	public void setMeetingTypeFilter(short meetingTypeFilter) {
+		mMeetingTypeFilter = meetingTypeFilter;
 	}
 }
 	

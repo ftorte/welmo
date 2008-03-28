@@ -23,4 +23,12 @@ bug wiuth this configuration
 							
 Use of notification?	 http://www.anddev.org/show_notification_in_statusbar-t1019.html	
 
-Change Null Meeting in free time					
+Change Null Meeting in free time	
+
+Change DBHelper to contenthandler in order to be open
+
+In calendar day chack that if the week start in the previus month the day are setup accordling	
+
+http://www.screencast.com/users/ftorte/folders/Jing/media/4f2f46d1-e95b-4cdb-9b11-5bad7c0a621b		
+
+ajourter button go today	

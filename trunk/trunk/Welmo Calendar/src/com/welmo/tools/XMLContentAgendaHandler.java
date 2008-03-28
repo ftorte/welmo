@@ -67,6 +67,8 @@ public class XMLContentAgendaHandler implements ContentHandler {
 		// On definit le locator par defaut.
 		locator = new LocatorImpl();
 		dbAgenda = new AgendaDBHelper(mContext,"Agenda","Meetings","Attends");
+		dbAgenda.deleteMeetingsRowByWhere(null);
+		dbAgenda.deleteMeetingsRowByWhere(null);
 	}
 	public void setDocumentLocator(Locator value) {
 		locator =  value;

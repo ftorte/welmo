@@ -2,14 +2,45 @@
 <WelmoDataInit>
 	<year val="2008">
 		<month val="3">
+			<day val="10">
+					<meeting year="2008" month="3" day="10" start="8:30"
+						end="10:30" subject="Meeting with Hall" description="Discussion about next project and how to get the budget" />
+					<meeting year="2008" month="3" day="10"
+						start="12:00" end="16:00" subject="16/3 Meeting 3"
+						description="testdescription" />
+					<meeting year="2008" month="3" day="12"
+						start="15:45" end="20:00" subject="16/3 Meeting 4"
+						description="testdescription" />
+					<meeting year="2008" month="3" day="11"
+						start="15:45" end="20:00" subject="16/3 Meeting 4"
+						description="testdescription" />
+			</day>
+		</month>
+	</year>
+	<year val="2008">
+		<month val="3">
+			<day val="12">
+					<meeting year="2008" month="3" day="12" start="8:30"
+						end="11:30" subject="Meeting with Hall" description="Discussion about next project and how to get the budget" />
+					<meeting year="2008" month="3" day="12"
+						start="12:00" end="14:00" subject="16/3 Meeting 3"
+						description="testdescription" />
+					<meeting year="2008" month="3" day="12"
+						start="15:45" end="20:00" subject="16/3 Meeting 4"
+						description="testdescription" />
+			</day>
+		</month>
+	</year>
+	<year val="2008">
+		<month val="3">
 			<day val="16">
 					<meeting year="2008" month="3" day="16" start="8:30"
-						end="9:30" subject="16/3 Meeting 1" description="Descriptio 1" />
+						end="9:30" subject="Meeting with Hall" description="Discussion about next project and how to get the budget" />
 					<meeting year="2008" month="3" day="16"
-						start="10:30" end="11:30" subject="16/3 Meeting 2"
-						description="Descriptio 2" />
+						start="10:30" end="12:30" subject="Meeting with Alain"
+						description="Project ckick-off. Conf call number 12345678" />
 					<meeting year="2008" month="3" day="16"
-						start="11:30" end="12:30" subject="16/3 Meeting 3"
+						start="12:00" end="16:00" subject="16/3 Meeting 3"
 						description="testdescription" />
 					<meeting year="2008" month="3" day="16"
 						start="16:30" end="20:30" subject="16/3 Meeting 4"

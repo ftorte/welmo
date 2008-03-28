@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">WelemoTools</string>
+    <!-- =============================== -->
+    <!--  Welmo Message  -->
+    <!-- =============================== -->
+    <string name="Exception_meeting_conflict">Conflic with multiple meeting starting a/o anding at the same time</string>
+	
+	<!-- =============================== -->
+    <!--  Welmo Agenda Menu' items  -->
+    <!-- =============================== -->
+ 	<string name="menu_insert_meeting">New</string>
+ 	<string name="menu_delete_meeting">Del.</string>
+ 	<string name="menu_update_meeting">Edit</string> 	
 </resources>

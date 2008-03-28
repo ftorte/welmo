@@ -310,12 +310,25 @@ public class MeetingDay implements Serializable {
 		ArrayList<MeetingUID> keys = new ArrayList<MeetingUID>(MeetingsList.keySet());
 		return keys;
 	}
-	public ArrayList<MeetingUID> GetMeetingsUIDs(MeetingUID compatiblityMask){
+	public int GetNbOfMeeting(short ValidTypes){
 		ArrayList<MeetingUID> keys = new ArrayList<MeetingUID>(MeetingsList.keySet());
 		Iterator<MeetingUID> it = keys.iterator();
 		while(it.hasNext()){
-			if(it.next().isFiltered(compatiblityMask));
-			it.remove();
+			if(!it.next().isOfType(ValidTypes))
+			{	
+				it.remove();
+			}
+		}
+		return keys.size();
+	}
+	public ArrayList<MeetingUID> GetMeetingsUIDs(short ValidTypes){
+		ArrayList<MeetingUID> keys = new ArrayList<MeetingUID>(MeetingsList.keySet());
+		Iterator<MeetingUID> it = keys.iterator();
+		while(it.hasNext()){
+			if(!it.next().isOfType(ValidTypes))
+			{	
+				it.remove();
+			}
 		}
 		return keys;
 	}
@@ -352,9 +365,11 @@ public class MeetingDay implements Serializable {
 			throw new IllegalArgumentException ("no database helper");
 		/*Read all keys from the database and delete the ones that not anymore 
 		 in the MeetingList*/
-		List<Long> listDB_Ids = dbAgenda.fetchMeetingsRowIdListByID(getDayUID()&MeetingUID.MASK_DATE, 
-				(getDayUID()&MeetingUID.MASK_DATE)| ~ MeetingUID.MASK_DATE);
+		long min = getDayUID()&MeetingUID.MASK_DATE;
+		long max = (getDayUID()&MeetingUID.MASK_DATE)| ~ MeetingUID.MASK_DATE;
 		
+		List<Long> listDB_Ids = dbAgenda.fetchMeetingsRowIdListByID(min,max);
+
 		for (int index = 0; index <listDB_Ids.size(); index ++){
 			key.UID = listDB_Ids.get(index).longValue();
 			if (MeetingsList.containsKey(key) == false){
@@ -362,9 +377,8 @@ public class MeetingDay implements Serializable {
 			}
 		}
 		//Update all meeting in the database
-		for (Object keyItem: MeetingsList.keySet()){
-			key.UID = Long.parseLong(keyItem.toString());
-			currMeeting = (Meeting)MeetingsList.get(key);
+		for (MeetingUID keyUID: MeetingsList.keySet()){
+			currMeeting = (Meeting)MeetingsList.get(keyUID);
 			currMeeting.UpdateToDatabase(dbAgenda);
 		}
 	}

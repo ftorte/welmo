@@ -1,4 +1,4 @@
-package com.welmo.calendar;
+package com.welmo.meeting;
 
 import java.util.Map;
 
@@ -11,8 +11,6 @@ import android.widget.AbsoluteLayout;
 import android.widget.Toast;
 
 import com.welmo.R;
-import com.welmo.meeting.IMeetingDisplay;
-import com.welmo.meeting.Meeting;
 
 public class MeetingBarView extends View{
 
@@ -24,6 +22,7 @@ public class MeetingBarView extends View{
 	private int mHeight;
 	private int mParentWidth =0;
 	private int	mParentHeigth =0;
+	private int MaxLentgthDescription=20;
 	
 	private static int daydimension = 24*60;
     
@@ -33,12 +32,14 @@ public class MeetingBarView extends View{
     private int mStart_m=0;
     private int mEnd_h=0;
     private int mEnd_m=0;
+    private String mSubject="";
+    private String mDescription="";
     
     private int mConflictLevel=0;
     private int mColumnPosition=0;
     private float mTickRatio = 1;
    
-	String mTestMessge= new String("8:30-12:30\n Meeting With Mister Gingle");
+	String mMsgDescription = "";
 	
 	public MeetingBarView(Context context, AttributeSet attrs, Map inflateParams) {
 		super(context, attrs, inflateParams);
@@ -55,7 +56,7 @@ public class MeetingBarView extends View{
 				//ShowMessge("Calendar Day On Focus Catched: "+id);
 				if(b){
 					v.setBackground(focusBackground);
-					ShowMessge("mTestMessge");	
+					ShowMessge(mMsgDescription);	
 				}
 				else{
 					v.setBackground(defaultBackground);
@@ -114,13 +115,13 @@ public class MeetingBarView extends View{
 	public void setPeriod(int start_h, int start_m, int end_h,int end_m){
 		if(!IsValidTimeFrame(start_h, start_m, end_h,end_m))
 			throw new IllegalArgumentException ("Invalid parameter");
-		
 		mStart_h 	= start_h;
 		mStart_m 	= start_m;
 		mStart 		= start_h*60 + start_m;
 		mEnd_h 		= end_h;
 		mEnd_m 		= end_m;
 		mEnd 		= end_h*60 + end_m;
+		UpdateDescription();
 	}
 	public int getConflictLevel() {
 		return mConflictLevel;
@@ -167,6 +168,21 @@ public class MeetingBarView extends View{
 		return mEnd_m;
 	}
 	//Private methods
+	private void UpdateDescription(){
+		mMsgDescription = 	"["+mStart_h+":"+mStart_m+"] To ["+mEnd_h+":"+mEnd_m+"]";
+		if(mSubject.length()<=MaxLentgthDescription){
+			mMsgDescription = mMsgDescription+"\nSb: "+mSubject;
+		}
+		else{
+			mMsgDescription = mMsgDescription+"\nSb: "+mSubject.substring(0, MaxLentgthDescription)+"...";
+		}
+		if(mDescription.length()<=MaxLentgthDescription){
+			mMsgDescription = mMsgDescription+"\nDs: "+mDescription;
+		}
+		else{
+			mMsgDescription = mMsgDescription+"\nDs: "+mDescription.substring(0, MaxLentgthDescription)+"...";
+		}
+	}
 	private boolean IsValidTimeFrame(int start_h, int start_m, int end_h,int end_m){
 		if (start_h > 24 || start_h < 0 || end_h > 24 || end_h < 0 ||
 				start_m > 59 || start_m < 0 || end_m > 59 || end_m < 0)
@@ -183,5 +199,20 @@ public class MeetingBarView extends View{
 		mPosX = mColumnPosition*(mWidth+mPaddingLeft) + mPaddingRight ;
 		mPosY = mParentHeigth * mStart/daydimension;		
 		setLayoutParams(new AbsoluteLayout.LayoutParams(mWidth,mHeight,mPosX,mPosY));
+	}
+	public void setSubject(String subject) {
+		mSubject = subject;
+		UpdateDescription();
+	}
+	public String getDescription() {
+		UpdateDescription();
+		return mDescription;
+	}
+	public String getSubject() {
+		return mSubject;
+	}
+	public void setDescription(String description) {
+		mDescription = description;
+		UpdateDescription();
 	}
 }
