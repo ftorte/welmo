@@ -20,10 +20,9 @@ public class MeetingUID implements Comparable<MeetingUID> {
 	public static final int FIRST_YEAR					=1970; 
 	public static final short TYPE_FREE_TYME	 		=0; 
 	public static final short TYPE_WORING_MEETING		=1;
-	public static final short TYPE_WORKING_TIME			=2;
-	public static final short TYPE_WORKING_LAUNCH		=3;
-	public static final short TYPE_WORKING_WORKSHOP		=4;
-	public static final short TYPE_WORKING_PESENTATION	=5;
+	public static final short TYPE_WORKING_PROJECT		=2;
+	public static final short TYPE_PERSONAL_GENARIC		=4;
+	public static final short TYPE_PERSONAL_LESURE		=8;
 
 	// year 3 bytes
 	public static final long MASK_DATE		=0xFFFFFFFF00000000L; 
@@ -167,9 +166,9 @@ public class MeetingUID implements Comparable<MeetingUID> {
 		int duration = (getEndHour() - getStartHour())*60 +  (getEndMin() - getStartMin());
 		return duration;
 	}
-	public boolean isOfType(short type){
-			if(((short)((UID & MASK_TYPE) >>> MASK_TYPE_POS)) == type)
+	public boolean isOfType(short types){
+			if((((UID & MASK_TYPE) >>> MASK_TYPE_POS)& types) != 0)
 				return true;
-			else return false;
+			return false;
 	}
 }

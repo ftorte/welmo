@@ -16,6 +16,9 @@ import android.widget.Toast;
 public class CalendarWeek extends TableRow{
 
 	protected boolean CurrentWeekFocused = false;
+	int mYear;
+	int mMonth;
+	int mFirstDay;
 	
 	public CalendarWeek(Context context, AttributeSet attrs, Map inflateParams) {
 		super(context, attrs, inflateParams);
@@ -53,4 +56,28 @@ public class CalendarWeek extends TableRow{
 	public void setCurrentWeekFocused(boolean currentWeekFocused) {
 		CurrentWeekFocused = currentWeekFocused;
 	}
+	public void setFisrtDayWeekData(int year, int month,int day){
+		mYear=year;
+		mMonth=month;
+		mFirstDay=day;
+	}
+	public int getYear() {
+		return mYear;
+	}
+	public void setYear(int year) {
+		mYear = year;
+	}
+	public int getMonth() {
+		return mMonth;
+	}
+	public void setMonth(int month) {
+		mMonth = month;
+	}
+	public int getFirstDayOfTheWeek() {
+		return mFirstDay;
+	}
+	public void setFirstDayOfTheWeek(int day) {
+		mFirstDay = day;
+	}
+
 }

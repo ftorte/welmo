@@ -1,24 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.welmo">
-    
-    <application android:icon="@drawable/icon_calendar">
-        <activity android:icon="@drawable/icon_calendar" android:name=".calendar.CalendarMonthView" android:label="Calendar">
-            <intent-filter>
-               <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-		<activity android:icon="@drawable/icon_preference" android:name=".tools.WelmoTools"
-			android:label="Config">
+	package="com.welmo">
+
+	<application android:icon="@drawable/icon_calendar">
+		<activity 
+			android:icon="@drawable/icon_calendar"
+			android:name=".calendar.CalendarMonthView"
+			android:label="Calendar">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.LAUNCHER" />
+				<category
+					android:name="android.intent.category.DEFAULT" />
+				<category
+					android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
+		<activity 
+			android:name=".tools.WelmoTools" 
+			android:icon="@drawable/icon_preference"
+			android:label="Welmo Tools">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category
+					android:name="android.intent.category.DEFAULT" />
+				<category
+					android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
+		<activity  
+			android:name=".meeting.MeetingDayView"
+			android:label="Day Meetings"
+			android:icon="@drawable/calendarday">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category
+					android:name="android.intent.category.DEFAULT" />
+				<category
+					android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
+		    <activity 
+        	android:name=".meeting.MeetingView" 
+        	android:label="Meeting Edit" 
+        	android:icon="@drawable/appointmentnew32x32">
+        	<intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.LAUNCHER" />
+         	</intent-filter>
+       </activity>
+       <activity android:name=".contacts.ContactsList" 
+       				android:label="Contacts List" 
+       				android:icon="@drawable/icon_contacts">
+        	<intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.LAUNCHER" />
+         	</intent-filter>
+       </activity>
 	</application>
 	<uses-permission android:name="android.permission.WRITE_CONTACTS"></uses-permission>
 	<uses-permission android:name="android.permission.READ_CONTACTS"></uses-permission>
-</manifest> 
+</manifest>

@@ -84,12 +84,14 @@ public class CalendarMonth extends TableLayout{
 			cl.add(Calendar.DAY_OF_YEAR,-(cl.get(Calendar.DAY_OF_WEEK) - (7 - mFistDayWeek)));
 			
 		CalendarWeek currWeek = (CalendarWeek) getChildAt(1);
+		currWeek.setFisrtDayWeekData(cl.get(Calendar.YEAR) , cl.get(Calendar.MONTH)+1, cl.get(Calendar.DAY_OF_MONTH));
 		for (int index = 0; index < 7; index++){
 			((CalendarDay)currWeek.getChildAt(index)).setDay(mCMV, cl.get(Calendar.DAY_OF_MONTH));
 			cl.add(Calendar.DAY_OF_YEAR,1);
 		}
 		for (int week = 2; week < 7; week++){
 			currWeek = (CalendarWeek) this.getChildAt(week);
+			currWeek.setFisrtDayWeekData(cl.get(Calendar.YEAR) , cl.get(Calendar.MONTH)+1, cl.get(Calendar.DAY_OF_MONTH));
 			for (int index = 0; index < 7; index++){
 				((CalendarDay)currWeek.getChildAt(index)).setDay(mCMV, cl.get(Calendar.DAY_OF_MONTH));
 				cl.add(Calendar.DAY_OF_YEAR,1);

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<TableLayout
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		android:layout_width="fill_parent"
+		android:stretchColumns="1"
+		android:layout_height="fill_parent">
+		<TableRow>
+			<CheckBox android:id="@+id/cbxSelectItem"
+		      	android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:textSize="16px" 
+		        android:text=""/>
+		     <TextView android:id="@+id/txtView"
+		      	android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:textSize="16px" 
+		        android:text="PIPPOPLUTO"/>
+		     </TableRow>
+	</TableLayout>

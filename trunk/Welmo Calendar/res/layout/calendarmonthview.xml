@@ -210,35 +210,37 @@
 			android:layout_height="wrap_content" android:scrollbars="vertical"
 			android:scrollbarSize="5px" android:scrollY="320px">
 
-			<TableLayout android:layout_width="fill_parent"
+			<com.welmo.calendar.CalendarWeekHour
+				android:id="@+id/CalendarWeekHourTable"
+				android:layout_width="fill_parent"
 				android:layout_height="wrap_content">
 				<TableRow>
 					<ImageView android:layout_height="640px"
 						android:layout_width="11px"
 						android:background="@drawable/daytimebckg_hour" />
 					<com.welmo.calendar.CalendarDayHour
-						android:id="@+id/Mon1" android:layout_height="640px"
-						style="@style/clendarhourweek" 
-						android:layout_width="fill_parent"/>
+						android:id="@+id/WeekHourMon" android:layout_height="640px"
+						style="@style/clendarhourweek"/>
 					<com.welmo.calendar.CalendarDayHour
-						android:id="@+id/Twe1" android:layout_height="640px"
+						android:id="@+id/WeekHourThu" android:layout_height="640px"
 						style="@style/clendarhourweek" />
 					<com.welmo.calendar.CalendarDayHour
-						android:id="@+id/Wen1" android:layout_height="640px"
+						android:id="@+id/WeekHourWen" android:layout_height="640px"
 						style="@style/clendarhourweek" />
 					<com.welmo.calendar.CalendarDayHour
-						android:id="@+id/Tue1" android:layout_height="640px"
+						android:id="@+id/WeekHourTue" android:layout_height="640px"
 						style="@style/clendarhourweek" />
 					<com.welmo.calendar.CalendarDayHour
-						android:layout_height="640px" style="@style/clendarhourweek" />
-					<com.welmo.calendar.CalendarDayHour
-						android:id="@+id/Sat1" android:layout_height="640px"
+						android:id="@+id/WeekHourFri" android:layout_height="640px" 
 						style="@style/clendarhourweek" />
 					<com.welmo.calendar.CalendarDayHour
-						android:id="@+id/Sun1" android:layout_height="640px"
+						android:id="@+id/WeekHourSat" android:layout_height="640px"
+						style="@style/clendarhourweek" />
+					<com.welmo.calendar.CalendarDayHour
+						android:id="@+id/WeekHourSun" android:layout_height="640px"
 						style="@style/clendarhourweek" /> -->
 				</TableRow>
-			</TableLayout>
+			</com.welmo.calendar.CalendarWeekHour>
 		</ScrollView>
 	</LinearLayout>
 </LinearLayout>
