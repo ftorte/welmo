@@ -63,8 +63,7 @@
 					android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
-		<activity 
-			android:name=".communication.GTalkDataMessageSender"
+		<activity android:name=".communication.GTalkDataMessageSender"
 			android:label="@string/gtalk_data_message_sender"
 			android:icon="@drawable/network_wireless">
 			<intent-filter>
@@ -75,6 +74,15 @@
 					android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
+		<activity android:name=".communication.XMPPClient"
+			android:label="XMPPClient">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category
+					android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
+
 
 		<!-- 
 			Intent Definitions
