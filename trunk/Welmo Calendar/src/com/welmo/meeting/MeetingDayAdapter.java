@@ -27,7 +27,7 @@ public class MeetingDayAdapter extends BaseAdapter{
 	}
 	@Override
 	public Object getItem(int index) {
-		if (theDay != null){
+		if (theDay != null && index >=0){
 			Meeting theMeeting  = theDay.getMeeting(theDay.GetMeetingsUIDs(mMeetingTypeFilter).get(index));
 			return theMeeting;	
 		}

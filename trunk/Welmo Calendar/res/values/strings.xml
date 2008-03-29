@@ -1,15 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">WelemoTools</string>
-    <!-- =============================== -->
-    <!--  Welmo Message  -->
-    <!-- =============================== -->
-    <string name="Exception_meeting_conflict">Conflic with multiple meeting starting a/o anding at the same time</string>
-	
+	<string name="app_name">WelemoTools</string>
 	<!-- =============================== -->
-    <!--  Welmo Agenda Menu' items  -->
-    <!-- =============================== -->
- 	<string name="menu_insert_meeting">New</string>
- 	<string name="menu_delete_meeting">Del.</string>
- 	<string name="menu_update_meeting">Edit</string> 	
+	<!--  Welmo Message  -->
+	<!-- =============================== -->
+	<string name="Exception_meeting_conflict">
+		Conflic with multiple meeting starting a/o anding at the same
+		time
+	</string>
+
+	<!-- =============================== -->
+	<!--  Welmo Agenda Menu' items  -->
+	<!-- =============================== -->
+	<string name="menu_insert_meeting">New</string>
+	<string name="menu_delete_meeting">Del.</string>
+	<string name="menu_update_meeting">Edit</string>
+	<string name="gtalk_data_message_sender">
+		App/Service/gtalk Data Message Sender
+	</string>
+	<string name="gtalk_send_message_sender_desc">
+		This demonstrates how you can use GTalkService to send a data
+		message to another user on the Android device.
+	</string>
+	<string name="gtalk_username">Gmail or Google App Username</string>
+	<string name="send_message">Send message</string>
+	<string name="invalid_username">
+		Invalid username. Please enter your Gmail or Google apps.
+		username.
+	</string>
+	<string name="gtalk_service_not_connected">
+		GTalk service not connected.
+	</string>
+	<string name="gtalk_session_not_found">
+		The default GTalk session cannot be found.
+	</string>
+	<string name="found_stale_gtalk_service">
+		The GTalk service is stale. Rebinding...
+	</string>
+
 </resources>

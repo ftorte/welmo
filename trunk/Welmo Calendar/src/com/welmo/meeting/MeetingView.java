@@ -185,7 +185,7 @@ public class MeetingView extends ListActivity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);     
 		setContentView(R.layout.meetingview);
 		
-		dbTmp = new AgendaDBHelper(this,"genda","MeetingsTmp","AttendsTmp");
+		dbTmp = new AgendaDBHelper(this,"Agenda","MeetingsTmp","AttendsTmp");
 		dbAgenda = new AgendaDBHelper(this,"Agenda","Meetings","Attends");
 		
 		//Text Labels

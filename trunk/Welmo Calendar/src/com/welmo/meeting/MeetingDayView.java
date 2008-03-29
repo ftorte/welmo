@@ -6,9 +6,6 @@ package com.welmo.meeting;
 
 import java.util.Calendar;
 
-import com.welmo.R;
-import com.welmo.dbhelper.AgendaDBHelper;
-
 import android.app.DatePickerDialog;
 import android.app.ListActivity;
 import android.content.Context;
@@ -24,6 +21,10 @@ import android.widget.BaseAdapter;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.welmo.R;
+import com.welmo.dbhelper.AgendaDBHelper;
 
 public class MeetingDayView extends ListActivity {
 	
@@ -45,6 +46,7 @@ public class MeetingDayView extends ListActivity {
 	private AgendaDBHelper dbAgenda=null;
 	private AgendaDBHelper dbTmp=null;	
 	
+
 	public class MeetingDayListAdapter extends BaseAdapter {
 		
 		private Context mContext;
@@ -57,12 +59,13 @@ public class MeetingDayView extends ListActivity {
 		}
 		@Override
 		public int getCount() {
+			int pos = 0;
 			if (theDay != null){
-				int pos= theDay.GetNbOfMeeting();
-				return pos;
+				pos= theDay.GetNbOfMeeting();
 			}
 			else
-				return 0;
+				pos =0;
+			return pos;
 		}
 		@Override
 		public Object getItem(int index) {
@@ -75,7 +78,7 @@ public class MeetingDayView extends ListActivity {
 		}
 		@Override
 		public long getItemId(int position){
-			if (theDay != null){
+			if (theDay != null & position >= 0){
 				long key = theDay.GetMeetingsUIDs().get(position).UID;
 				return key;
 			}
@@ -147,6 +150,8 @@ public class MeetingDayView extends ListActivity {
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.meetingdaylist);
+        getListView().setFocusable(true);
+        getListView().setFocusableInTouchMode(true);
         theToolBar = (MeetingDayViewToolBar) this.findViewById(R.id.toolbar); 
         theToolBar.setup(this);
         //Setup Staring point
@@ -170,10 +175,7 @@ public class MeetingDayView extends ListActivity {
 		}
 		catch(IllegalArgumentException Error){
 			String msg=Error.getMessage();
-		}
-		if(mdla == null)
-			mdla = new MeetingDayListAdapter(this,theDay);
-        setListAdapter(mdla);        
+		}    
     }
 	public void setDay(MeetingDay day)
 	{
@@ -189,10 +191,9 @@ public class MeetingDayView extends ListActivity {
 		else
 			theToolBar.setDayLabel("---");
 		
-		if(mdla != null){
+		if(mdla == null)
 			mdla = new MeetingDayListAdapter(this,theDay);
-			setListAdapter(mdla);
-		}
+		setListAdapter(mdla);
 	}
 	
 	@Override
@@ -205,21 +206,24 @@ public class MeetingDayView extends ListActivity {
 	}
 	@Override
 	public boolean onMenuItemSelected(int featureId, Item item){
-		long lMeetingID;
 		MeetingUID theUID = null;
-		
 		super.onMenuItemSelected(featureId, item);
+		int itemPosition = getSelectedItemPosition();
+		if(itemPosition<0){
+			ShowMessge("No Meeting Selected");
+			return false;
+		}
 		switch(item.getId()) {
 			case NEW_ID:
-				lMeetingID = getListAdapter().getItemId(getSelectedItemPosition());
-				MeetingEdit(MEETING_CREATE,lMeetingID);
+				theUID =new MeetingUID(getListAdapter().getItemId(itemPosition));
+				MeetingEdit(MEETING_CREATE,theUID);
 				break;
 			case UPDATE_ID:
-				lMeetingID = getListAdapter().getItemId(getSelectedItemPosition());
-				MeetingEdit(MEETING_EDIT,lMeetingID);
+				theUID = new MeetingUID(getListAdapter().getItemId(itemPosition));
+				MeetingEdit(MEETING_EDIT,theUID);
 				break;
 			case DELETE_ID:
-				theUID = new MeetingUID(getListAdapter().getItemId(getSelectedItemPosition()));
+				theUID = new MeetingUID(getListAdapter().getItemId(itemPosition));
 				theDay.DelMeeting(theUID);
 				setListAdapter(mdla);
 				break;
@@ -228,8 +232,8 @@ public class MeetingDayView extends ListActivity {
 	}
 	
 	
+	/*
 	@Override
-	//[SDK changes]
 	public boolean onPrepareOptionsMenu(Menu menu){
 		long id = getListAdapter().getItemId(getSelectedItemPosition());
 		if((id & MeetingUID.MASK_TYPE) == MeetingUID.TYPE_FREE_TYME){
@@ -239,12 +243,12 @@ public class MeetingDayView extends ListActivity {
 			menu.setGroupShown(1,true);	
 		}
 		return true;
-	}
+	}*/
 	
-	private void MeetingEdit(int type, long lMeetingID) {
+	private void MeetingEdit(int type, MeetingUID MtgUID) {
 		//TODO: finalize graphics
-    	Intent i = new Intent(this, MeetingView.class);
-    	Meeting currMeeting = theDay.getMeeting(lMeetingID);
+    	Intent i = new Intent(this, MeetingView.class);    	
+    	Meeting currMeeting = theDay.getMeeting(MtgUID);
     	String UID =((Long)currMeeting.getMeetingID().UID).toString();
     	i.putExtra(MEETING_UID_OLD, currMeeting.getMeetingID().UID);
     	switch(type){
@@ -269,8 +273,6 @@ public class MeetingDayView extends ListActivity {
 			newMeeting.setMeetingID(MUID_NEW);
 			//restore new meeting from tmp database
 			newMeeting.RestoreFromDatabase(dbTmp);
-			//newMeeting.setDescription(extras.getString(MEETING_DESCRIPTION));
-			//newMeeting.setObject(extras.getString(MEETING_OBJECT));
 			switch(requestCode) {
 				case MEETING_CREATE:
 				    // TODO handle the case when the user create or edit a meeting for another day
@@ -339,5 +341,7 @@ public class MeetingDayView extends ListActivity {
            return "0" + String.valueOf(c);
    }
 
-
+   void ShowMessge(String Msg){
+       Toast.makeText(this,Msg,Toast.LENGTH_SHORT).show();
+	}
 }
