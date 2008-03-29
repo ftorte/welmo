@@ -290,13 +290,13 @@ public class MeetingDay implements Serializable {
 		if(dbAgenda != null)
 			theMeeting.UpdateToDatabase(dbAgenda);
 	}
-	public Meeting getMeeting(long mUID)
+	/*public Meeting getMeeting(long mUID)
 	{
 		MeetingUID theMeting = new MeetingUID(mUID);
 		if (!MeetingsList.containsKey(theMeting))
 			throw new IllegalArgumentException ("Invalid meetingUID parameter");
 		return MeetingsList.get(theMeting);
-	}
+	}*/
 	public Meeting getMeeting(MeetingUID mUID)
 	{
 		if (!MeetingsList.containsKey(mUID))
