@@ -131,7 +131,6 @@ public class GTalkDataMessageSender extends Activity {
 
             try {
                 mGTalkSession = GTalkService.getDefaultSession();
-
                 if (mGTalkSession == null) {
                     // this should not happen.
                     showMessage("session not found");
@@ -178,12 +177,7 @@ public class GTalkDataMessageSender extends Activity {
                 try {
                 	Jid = mGTalkSession.getJid(); 
                 	state = mGTalkSession.getConnectionState();
-                	uptime = mGTalkSession.getConnectionUptime();
-                	presence = mGTalkSession.getPresence();
-                	username = mGTalkSession.getUsername();
-                	presence.setStatus(1);
-                	mGTalkSession.setPresence(presence);
-                    mGTalkSession.sendDataMessage(username, getIntentToSend());
+                    mGTalkSession.sendDataMessage("25apr1945@gmail.com/androidwCxwXphYj3JM", getIntentToSend());
                 } catch (DeadObjectException ex) {
                     Log.e(LOG_TAG, "caught " + ex);
                     showMessage("found stale service");
