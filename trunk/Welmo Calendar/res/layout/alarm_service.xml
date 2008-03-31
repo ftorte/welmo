@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+ * Copyright (C) 2007 Google Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ -->
+
+<!-- Demonstrates starting and stopping a local service.
+	See corresponding Java code com.google.android.sdk.app.LocalSerice.java. -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:padding="4dip"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+	
+	<!-- ========================================================================
+	Start/Stop Service
+	======================================================================== -->
+	<LinearLayout android:orientation="horizontal"
+		android:padding="2dip" android:layout_width="fill_parent"
+		android:layout_height="wrap_content">
+
+		<Button android:id="@+id/start_alarm"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:text="Start Service">
+			<requestFocus />
+		</Button>
+		<Button android:id="@+id/stop_alarm"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:text="Stop Service" />
+	</LinearLayout>
+	<LinearLayout 
+		android:orientation="horizontal" 
+		android:padding="2dip"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content">
+
+		<TextView 
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content" 
+			android:text="Username"
+			android:textSize="16px" android:minWidth="80px"/>
+		<EditText 
+			android:id="@+id/username"
+			android:padding="2dip"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content" 
+			android:singleLine="true"
+			android:textSize="16px" 
+			android:autoText="false"
+			android:minWidth="150px"
+			android:background="@drawable/sync_all_shape"
+			android:scrollHorizontally="true" />
+	</LinearLayout>
+	<LinearLayout 
+		android:orientation="horizontal" 
+		android:padding="2dip"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content">
+		<TextView 
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content" 
+			android:text="Password"
+			android:textSize="16px" android:minWidth="80px"/>
+		<EditText 
+			android:id="@+id/password"
+			android:padding="2dip"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content" 
+			android:singleLine="true"
+			android:password="true" 
+			android:textSize="16px"
+			android:background="@drawable/sync_all_shape"
+			android:minWidth="150px"
+			android:scrollHorizontally="true" />
+	</LinearLayout>
+	<LinearLayout android:orientation="horizontal"
+		android:padding="2dip" android:layout_width="fill_parent"
+		android:layout_height="wrap_content">
+
+		<Button android:id="@+id/Login"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:text="Login">
+			<requestFocus />
+		</Button>
+	</LinearLayout>
+	<!-- ========================================================================
+	Test Service
+	======================================================================== -->
+	<LinearLayout 
+		android:orientation="horizontal" android:padding="2dip"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content">
+
+		<TextView 
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:text="Recipient"
+			android:textSize="16px" android:minWidth="80px"/>
+		<EditText 
+			android:id="@+id/recipient" 
+			android:padding="2dip"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content" 
+			android:singleLine="true"
+			android:textSize="16px" 
+			android:autoText="false"
+			android:background="@drawable/sync_all_shape"
+			android:scrollHorizontally="true" android:minWidth="150px"/>
+	</LinearLayout>
+	<LinearLayout android:orientation="horizontal" android:padding="2dip"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content">
+		<TextView android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:text="Message"
+			android:textSize="16px" android:minWidth="80px"/>
+		<EditText 
+			android:id="@+id/message"
+			android:padding="2dip"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content" 
+			android:singleLine="true"
+			android:textSize="16px"
+			android:background="@drawable/sync_all_shape"
+			android:autoText="false" android:minWidth="150px"
+			android:capitalize="none" android:scrollHorizontally="true" />
+	</LinearLayout>
+	<LinearLayout android:orientation="horizontal"
+		android:padding="2dip" android:layout_width="fill_parent"
+		android:layout_height="wrap_content">
+
+		<Button android:id="@+id/test"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:text="Test Send">
+			<requestFocus />
+		</Button>
+	</LinearLayout>
+</LinearLayout>
+

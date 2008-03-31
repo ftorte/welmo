@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+	<Button android:id="@+id/startservice" android:text="startserv"
+		android:layout_width="wrap_content" android:background="@drawable/sync_shape"
+		android:layout_height="wrap_content" />
+	<Button android:id="@+id/stopservice" android:text="stopserv"
+		android:layout_width="wrap_content" android:background="@drawable/sync_shape"
+		android:layout_height="wrap_content" />
+	<Button android:id="@+id/bindservice" android:text="bindserv"
+		android:layout_width="wrap_content" android:background="@drawable/sync_shape"
+		android:layout_height="wrap_content" />
+	<Button android:id="@+id/unbindservice" android:text="unbindserv"
+		android:layout_width="wrap_content" android:background="@drawable/sync_shape"
+		android:layout_height="wrap_content" />
+	<Button android:id="@+id/invokeservice" android:text="invokeserv"
+		android:layout_width="wrap_content" android:background="@drawable/sync_shape"
+		android:layout_height="wrap_content" />
+	<TextView android:id="@+id/result" android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="default_result" />
+	<TextView android:id="@+id/servicestatus"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="servicestatus" />
+</LinearLayout>
