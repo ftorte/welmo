@@ -54,4 +54,8 @@
     <string name="repeating_unscheduled">Repeating alarm has been unscheduled</string>
     <string name="activity_sample_code">API Demos</string>
     
+    <!-- =============================== -->
+	<!--  Alarm Service  -->
+	<!-- =============================== -->
+	<string name="recived_messge">You recived new message</string>
 </resources>

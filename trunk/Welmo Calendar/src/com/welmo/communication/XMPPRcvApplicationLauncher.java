@@ -139,6 +139,7 @@ public class XMPPRcvApplicationLauncher extends Activity
     		String password = ((TextView)findViewById( R.id.password)).getText().toString();
 
     		try {
+    			Log.i( "XMPPLauncher","send messge :"  + user + ":" + password);
     			xmppService.setLoginInfo(user, password);
     			boolean ok = xmppService.openConnection();
     			if(ok){
@@ -165,6 +166,7 @@ public class XMPPRcvApplicationLauncher extends Activity
     		String message = ((TextView)findViewById( R.id.message)).getText().toString();
 
     		try {
+    			Log.i( "XMPPLauncher","send messge :"  + recipient + ":" + message);
     			boolean ok = xmppService.SendMessage(recipient, message);
     			if(ok){
     				Log.i( "XMPPLauncher","messge to client sent" );
