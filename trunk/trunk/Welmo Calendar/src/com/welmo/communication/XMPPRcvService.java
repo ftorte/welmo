@@ -57,19 +57,23 @@ import com.welmo.communication.DualService.RunTask;
  * @see AlarmService
  * @see AlarmService_Alarm
  */
-public class XMPPRcvService extends Service
+public class XMPPRcvService extends Service implements Runnable
 {
     private NotificationManager mNM;    
-    private Intent mInvokeIntent;    
-    private ArrayList<String> mMessages = new ArrayList();
     private volatile Looper mServiceLooper;
     private String mHost = "talk.google.com";
 	private String mPort = "5222";
 	private String mService = "gmail.com";
 	private String mUsername = "25apr1946";
 	private String mPassword = "TFTsw0801"; 
-	private Handler serviceHandler = null;
 	
+	//message handling
+	private String mPacketID	="";  		// UID
+	private String mBody		="";		// start end subject description
+	private String mSubject		="";		// subject
+	private String mFrom		="";		// from
+	private String mTo			="";		// to myself
+	private ArrayList<String> mMessages = new ArrayList();
     //XMPP handling
     XMPPConnection mConnection = null;
       
@@ -79,8 +83,8 @@ public class XMPPRcvService extends Service
     	mNM = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
     	//start the service
     	//Connect();
-    	//Thread thr = new Thread(null, this, "XMPPRcvService");        
-    	//thr.start();
+    	Thread thr = new Thread(null, this, "XMPPRcvService");        
+    	thr.start();
     }
     public boolean Connect(){
     	// Create a connection   
@@ -134,8 +138,8 @@ public class XMPPRcvService extends Service
     }
     @Override    
     protected void onStart(int startId, Bundle arguments){        
-    	serviceHandler = new Handler();
-  	  	serviceHandler.postDelayed( new RunTask(),1000L );
+    	//serviceHandler = new Handler();
+  	  	//serviceHandler.postDelayed( new RunTask(),1000L );
     }
     @Override
     protected void onDestroy()
@@ -165,7 +169,7 @@ public class XMPPRcvService extends Service
     /**
      * The function that runs in our worker thread
      */
-    public boolean SendMessage(String recipient, String message){
+    public boolean XMPPSendMessage(String recipient, String message){
     	if(mConnection!= null){
 			//send message to talk
 			Log.i("XMPPRcvService", "[run] Sending message");   
@@ -173,7 +177,7 @@ public class XMPPRcvService extends Service
 			Message msg = new Message(to, Message.Type.chat);   
 			msg.setBody(message);   
 			mConnection.sendPacket(msg);    			
-			Log.i("XMPPClient", "[run] Message Sent: text [" + message + "] to [" + to + "]");   
+			Log.i("XMPPRcvService", "[run] Message Sent: text [" + message + "] to [" + to + "]");   
 			return true;
     	}
     	else{
@@ -182,22 +186,14 @@ public class XMPPRcvService extends Service
     	}
     }
     
-    class RunTask implements Runnable {
-  	  public void run() {
-  		serviceHandler.postDelayed( this, 1000L );
-  	  }
-  	}
-    
-    /*public void run()
+    public void run()
     {
-    	++counter;
-		serviceHandler.postDelayed( this, 1000L );
-		
-    	//Log.i("XMPPRcvService", "[run] process looper launched"); 
-    	//Looper.prepare();        
-    	//mServiceLooper = Looper.myLooper();        
-    	//Looper.loop();   
-    }*/
+    	
+    	Log.i("XMPPRcvService", "[run] process looper launched"); 
+    	Looper.prepare();        
+    	mServiceLooper = Looper.myLooper();        
+    	Looper.loop();   
+    }
     
     public void InitPackLeatener(){  
     	Log.i("XMPPRcvService", "[InitPackLeatener] initialized packet listener"); 
@@ -206,10 +202,17 @@ public class XMPPRcvService extends Service
     		public void processPacket(Packet packet) {   
     			Message message = (Message) packet;   
     			if (message.getBody() != null) {   
+    				mPacketID 	= message.getPacketID();  	// UID
+    				mBody 		= message.getBody();		// start end subject description
+    				mSubject 	= message.getSubject();		// subject
+    				mFrom 		= message.getFrom();		// from
+    				mTo 		= message.getTo();			// to myself
+    				
     				String fromName = StringUtils.parseBareAddress(message.getFrom());  
     				Log.i("XMPPRcvService", "Got text [" + message.getBody() + "] from [" + fromName + "]");   
     				mMessages.add(fromName + ":");   
     				mMessages.add(message.getBody()); 
+    				showNotification("new meeting");
     			}   
 			}   
 		}, filter);   
@@ -233,11 +236,11 @@ public class XMPPRcvService extends Service
      */
     private void showNotification(String Message) {
         // This is who should be launched if the user selects our notification.
-        Intent contentIntent = new Intent(this, XMPPRcvApplicationLauncher.class);
+        Intent contentIntent = new Intent(this, com.welmo.meeting.MeetingView.class);
 
         // This is who should be launched if the user selects the app icon in the notification,
         // (in this case, we launch the same activity for both)
-        Intent appIntent = new Intent(this, XMPPRcvApplicationLauncher.class);
+        Intent appIntent = new Intent(this, com.welmo.meeting.MeetingView.class);
 
         // In this sample, we'll use the same text for the ticker and the expanded notification
         CharSequence text = getText(R.string.alarm_service_started);
@@ -248,12 +251,12 @@ public class XMPPRcvService extends Service
                    new Notification(
                        this,                        // our context
                        R.drawable.stat_sample,      // the icon for the status bar
-                       Message,                        // the text to display in the ticker
+                       getText(R.string.recived_messge),  // the text to display in the ticker
                        System.currentTimeMillis(),  // the timestamp for the notification
-                       getText(R.string.alarm_service_label), // the title for the notification
+                       getText(R.string.recived_messge), // the title for the notification
                        Message,                        // the details to display in the notification
                        contentIntent,               // the contentIntent (see above)
-                       R.drawable.allert16x16,  // the app icon
+                       R.drawable.appointmentnew32x32,  // the app icon
                        getText(R.string.activity_sample_code), // the name of the app
                        appIntent));                 // the appIntent (see above)
     }
@@ -262,22 +265,28 @@ public class XMPPRcvService extends Service
     private final IXMPPService.Stub mServiceBinder = new IXMPPService.Stub(){
 			public boolean SendMessage(String recipient, String message)
 					throws DeadObjectException {
-				return SendMessage( recipient,  message);
+				Log.i("XMPPRcvService", "[IXMPPService] SendMessage");
+				return XMPPSendMessage( recipient,  message);
 			}
 			public void setConnectionServer(String host, String service,String port) throws DeadObjectException {
+				Log.i("XMPPRcvService", "[IXMPPService] setConnectionServer");
 				mHost = host;
 				mService = service;
 				mPort=port;
 			}
 			public void setLoginInfo(String user, String password) throws DeadObjectException {
+				Log.i("XMPPRcvService", "[IXMPPService] setLoginInfo");
+				
 				mUsername = user;
 				mPassword=password;
 			}
 			public void closeConnection() throws DeadObjectException {
+				Log.i("XMPPRcvService", "[IXMPPService] closeConnection");
 				CloseConnection();
 			}
 			public boolean isConnected() throws DeadObjectException {
 				// TODO Auto-generated method stub
+				Log.i("XMPPRcvService", "[IXMPPService] isConnected");
 				if (mConnection==null)
     				return false;
     			else
@@ -285,6 +294,7 @@ public class XMPPRcvService extends Service
 			}
 			public boolean openConnection() throws DeadObjectException {
 				// TODO Auto-generated method stub
+				Log.i("XMPPRcvService", "[IXMPPService] openConnection");
 				return Connect();
 			}
     };
