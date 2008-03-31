@@ -82,8 +82,69 @@
 					android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
+		<!-- 
+			Alarm Service
+		-->
+		<receiver android:name=".communication.AlarmService2_Alarm"
+			android:process=":remote" />
+		<service android:name=".communication.AlarmService2_Service"
+			android:process=":remote" />
+		<receiver android:name=".communication.OneShotAlarm"
+			android:process=":remote" />
+		<receiver android:name=".communication.RepeatingAlarm"
+			android:process=":remote" />
 
+		<activity android:name=".communication.AlarmService2"
+			android:label="Alarm Service">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category
+					android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
+		<activity android:name=".communication.AlarmController"
+			android:label="Alarm Controler">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+					<category
+					android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
 
+		<!-- =================================================
+			XMPP Service
+		=================================================  	-->
+		<receiver android:name=".communication.XMPPRcvSrvIntentLaucher" android:process=":remote" />
+	
+		<service android:name=".communication.XMPPRcvService" android:process=":remote" />
+		
+		<activity
+			android:name=".communication.XMPPRcvApplicationLauncher"
+			android:label="XMPP Rcv Launcher">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category
+					android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
+		<activity
+			android:name=".communication.ServiceStartArgumentsController"
+			android:label="service_start_arguments_controller">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category
+					android:name="android.intent.category.SAMPLE_CODE" />
+			</intent-filter>
+		</activity>
+		<activity android:name=".communication.DualServiceClient"
+			android:label="DualServiceClient">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category
+					android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
+		<service android:name=".communication.DualService" />
 		<!-- 
 			Intent Definitions
 		-->
@@ -101,6 +162,12 @@
 			</intent-filter>
 		</receiver>
 	</application>
+	
+	<receiver android:name=".communication.AlarmService2_Alarm" android:process=":remote" />
+    <service android:name=".communication.AlarmService2_Service" android:process=":remote" />
+	<receiver android:name=".communication.OneShotAlarm" android:process=":remote" />
+	<receiver android:name=".communication.RepeatingAlarm" android:process=":remote" />
 
+       
 
 </manifest>
