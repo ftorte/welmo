@@ -108,7 +108,7 @@ public class MeetingDay implements Serializable {
 						if(EMT <= EFT){
 							// change start free time equal to end meeting time SFT = EMT;
 							// case 1
-							currMeeting.setStartTimeFrame((short)(EMT >> 6),(short)(EMT & 0x3F));
+							currMeeting.setStartTimeFrame((short)(EMT >> 6),(short)(EMT & 0x3F),false);
 							//if time frame is reduced to 0 deleted the meeting
 							if(currMeeting.getDurationInM() < 1)
 								deletedKeys[count++]=key;
@@ -128,8 +128,8 @@ public class MeetingDay implements Serializable {
 							//free time divided in two free times by the meeting
 							// case 1
 							Meeting newMeeting = new Meeting(currMeeting);
-							currMeeting.setEndTimeFrame((short)(SMT >> 6),(short)(SMT & 0x3F));
-							newMeeting.setStartTimeFrame((short)(EMT >> 6),(short)(EMT & 0x3F));
+							currMeeting.setEndTimeFrame((short)(SMT >> 6),(short)(SMT & 0x3F),false);
+							newMeeting.setStartTimeFrame((short)(EMT >> 6),(short)(EMT & 0x3F),false);
 							// if new free time meeting is more than 0 M add it to the agenda
 							if (newMeeting.getDurationInM()>0)
 								newMeetings.add(newMeeting);
@@ -143,7 +143,7 @@ public class MeetingDay implements Serializable {
 						}
 						else{
 							//free time divided in two free times by the meeting
-							currMeeting.setEndTimeFrame((short)(SMT >> 6),(short)(SMT & 0x3F));
+							currMeeting.setEndTimeFrame((short)(SMT >> 6),(short)(SMT & 0x3F),false);
 							// if new free time is less than 1 minute delete it from the agenda
 							if (currMeeting.getDurationInM()<1)
 								deletedKeys[count++]=key;
@@ -195,7 +195,7 @@ public class MeetingDay implements Serializable {
 				if (SFT < EMT){
 					if(EMT <= EFT){
 						// change start free time equal to end meeting time SFT = EMT;
-						theMeeting.setStartTimeFrame((short)(EMT >> 6),(short)(EMT & 0x3F));
+						theMeeting.setStartTimeFrame((short)(EMT >> 6),(short)(EMT & 0x3F),false);
 						//if time frame is reduced to 0 deleted the meeting
 						if (theMeeting.getDurationInM()<1)
 							break LookForKey;
@@ -212,16 +212,16 @@ public class MeetingDay implements Serializable {
 					if(EMT <=EFT){
 						//free time divided in two free times by the meeting
 						Meeting newMeeting = new Meeting(theMeeting);
-						newMeeting.setEndTimeFrame((short)(SMT >> 6),(short)(SMT & 0x3F));
+						newMeeting.setEndTimeFrame((short)(SMT >> 6),(short)(SMT & 0x3F),false);
 						if (newMeeting.getDurationInM()>0)
 							newMeetings.add(newMeeting);
-						theMeeting.setStartTimeFrame((short)(EMT >> 6),(short)(EMT & 0x3F));
+						theMeeting.setStartTimeFrame((short)(EMT >> 6),(short)(EMT & 0x3F),false);
 						if (theMeeting.getDurationInM()<1)
 							break LookForKey;
 					}
 					else{
 						//free time divided in two free times by the meeting
-						theMeeting.setEndTimeFrame((short)(SMT >> 6),(short)(SMT & 0x3F));
+						theMeeting.setEndTimeFrame((short)(SMT >> 6),(short)(SMT & 0x3F),false);
 						if (theMeeting.getDurationInM()<1)
 							break LookForKey;
 					}
@@ -253,7 +253,7 @@ public class MeetingDay implements Serializable {
 					(nextMeeting.getType() == MeetingUID.TYPE_FREE_TYME)){
 				if((currMeeting.getEnd_h() == nextMeeting.getStart_h()) &&
 						(currMeeting.getEnd_m() == nextMeeting.getStart_m())){
-					currMeeting.setEndTimeFrame(nextMeeting.getEnd_h(), nextMeeting.getEnd_m());
+					currMeeting.setEndTimeFrame(nextMeeting.getEnd_h(), nextMeeting.getEnd_m(),false);
 					deletedKeys[count++]=key;
 				}
 				else
@@ -290,13 +290,6 @@ public class MeetingDay implements Serializable {
 		if(dbAgenda != null)
 			theMeeting.UpdateToDatabase(dbAgenda);
 	}
-	/*public Meeting getMeeting(long mUID)
-	{
-		MeetingUID theMeting = new MeetingUID(mUID);
-		if (!MeetingsList.containsKey(theMeting))
-			throw new IllegalArgumentException ("Invalid meetingUID parameter");
-		return MeetingsList.get(theMeting);
-	}*/
 	public Meeting getMeeting(MeetingUID mUID)
 	{
 		if (!MeetingsList.containsKey(mUID))

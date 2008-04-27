@@ -50,8 +50,6 @@ public class MeetingDayView extends ListActivity {
 	public class MeetingDayListAdapter extends BaseAdapter {
 		
 		private Context mContext;
-		private MeetingDay theDay;
-		
 		
 		public MeetingDayListAdapter(Context ctx,MeetingDay day){
 				mContext = ctx;
@@ -193,6 +191,8 @@ public class MeetingDayView extends ListActivity {
 		
 		if(mdla == null)
 			mdla = new MeetingDayListAdapter(this,theDay);
+		//mdla.notifyDataSetInvalidated();
+		//mdla.notifyDataSetChanged();
 		setListAdapter(mdla);
 	}
 	
@@ -232,22 +232,10 @@ public class MeetingDayView extends ListActivity {
 	}
 	
 	
-	/*
-	@Override
-	public boolean onPrepareOptionsMenu(Menu menu){
-		long id = getListAdapter().getItemId(getSelectedItemPosition());
-		if((id & MeetingUID.MASK_TYPE) == MeetingUID.TYPE_FREE_TYME){
-			menu.setGroupShown(1,false);
-		}
-		else{
-			menu.setGroupShown(1,true);	
-		}
-		return true;
-	}*/
-	
 	private void MeetingEdit(int type, MeetingUID MtgUID) {
 		//TODO: finalize graphics
-    	Intent i = new Intent(this, MeetingView.class);    	
+    	Intent i = new Intent(this, MeetingView.class); 
+    	i.putExtra(com.welmo.meeting.MeetingView.CALLER, com.welmo.meeting.MeetingView.CALENDAR_DAY);
     	Meeting currMeeting = theDay.getMeeting(MtgUID);
     	String UID =((Long)currMeeting.getMeetingID().UID).toString();
     	i.putExtra(MEETING_UID_OLD, currMeeting.getMeetingID().UID);
