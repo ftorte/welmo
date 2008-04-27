@@ -5,21 +5,19 @@ import java.util.ArrayList;
 import android.app.ListActivity;
 import android.content.Context;
 import android.database.Cursor;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.provider.Contacts.People;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewInflate;
-import android.view.View.OnLongClickListener;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemLongClickListener;
 
@@ -40,13 +38,11 @@ public class ContactsList extends  ListActivity{
 	
 	private String strExcludedContacts;
 	protected ArrayList<Contact> theContactList = new ArrayList<Contact>();
-	protected static final String TAG = "Welemo.Mail.ContactsList";
+	protected static final String TAG = "[ContactsList]";
 
-	void ShowMessge(String Msg){
+	void ShowMessage(String Msg){
         Toast.makeText(this,Msg,Toast.LENGTH_SHORT).show();
 	}
-	
-	
 	
 	/** Called when the activity is first created. */ 
 	@Override 
@@ -61,8 +57,7 @@ public class ContactsList extends  ListActivity{
 					int arg2, long arg3) {
 				// TODO Auto-generated method stub
 				Log.v(TAG,"Long item Click: ");
-    			ShowMessge("Long item Clik Catched: ");
-				return true;
+    			return true;
 			}
     	});
 		
@@ -99,6 +94,8 @@ public class ContactsList extends  ListActivity{
 				}
 			}
 		}
+		//Close cursor if necessary
+		if(c != null) c.close();
 		
 		ContactListAdapter mAdapter = new ContactListAdapter(this);
 		
@@ -166,7 +163,9 @@ public class ContactsList extends  ListActivity{
 	
 	private class PeopleList extends LinearLayout {
 
-		public 		CheckBox 	mCbContact;		
+		public 		CheckBox 	mCbContact;	
+		public 		TextView 	mTVName;	
+		
 		private 	View 		mTheView;
 		private 	Context 	mContext;
 		private 	int 		mPositon=0;
@@ -178,30 +177,13 @@ public class ContactsList extends  ListActivity{
         	ViewInflate inf =(ViewInflate)getSystemService(INFLATE_SERVICE);
         	mTheView = inf.inflate(R.layout.contactlistrow, null, false, null);
         	mCbContact = (CheckBox) mTheView.findViewById(R.id.cbxSelectItem);
+        	mTVName	= (TextView) mTheView.findViewById(R.id.txtView);
         	mCbContact.setOnClickListener(mCboxListener);
-        	/*mTheView.setOnClickListener(new OnClickListener (){ 
-        		@Override
-    			public  void onClick(View arg0) {
-    				performClick();
-    				// TODO Auto-generated method stub
-    				Log.v(TAG,"Long thisView Click: ");
-        			ShowMessge("Long thisView Clik Catched: ");
-    			}
-        	});
-        	mTheView.setOnLongClickListener(new OnLongClickListener (){ 
-        		@Override
-    			public boolean onLongClick(View arg0) {
-    				// TODO Auto-generated method stub
-    				Log.v(TAG,"Long item Click: ");
-        			ShowMessge("Long item Clik Catched: ");
-    				return true;
-    			}
-        	});*/
         	addView(mTheView, new LinearLayout.LayoutParams(
         			LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
         }
         public void setContactName(String title) {
-        	mCbContact.setText(title);
+        	mTVName.setText(title);
         }
         public void setID(int thepositon) {
         	mPositon=thepositon;
@@ -212,7 +194,6 @@ public class ContactsList extends  ListActivity{
         	public void onClick(View v)
         	{
         		Log.v(TAG,"check box onClick: ");
-        		ShowMessge("Check Box onClick");
         		if(mCbContact.isChecked()){ 
         			((Contact)theContactList.get(mPositon)).Selected=true;
         		}
