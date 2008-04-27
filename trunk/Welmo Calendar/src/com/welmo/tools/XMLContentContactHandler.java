@@ -15,6 +15,8 @@ import org.xml.sax.helpers.LocatorImpl;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.provider.Contacts;
+import android.provider.Contacts.ContactMethods;
 import android.provider.Contacts.People;
 import android.provider.Contacts.Phones;
 import android.util.Log;
@@ -30,11 +32,15 @@ public class XMLContentContactHandler implements ContentHandler {
 		public String name	= new String();
 		public String notes = new String();
 	}
-	private class contactPhone{
+	private class contactTypePhone{
 		public String phone_nuber = new String();
 	}
-	contactName 	theContact 	= new contactName();
-	contactPhone	thePhone 	= new contactPhone();
+	private class contactTypeEmals{
+		public String XMPP = new String();
+	}
+	contactName 		theContact 	= new contactName();
+	contactTypePhone	thePhones 	= new contactTypePhone();
+	contactTypeEmals	theEmails 	= new contactTypeEmals();
 	//---------------------------------------------------------
 	private Locator locator;
 	private static final String TAG = "XMLConfigurationHandler";
@@ -78,9 +84,7 @@ public class XMLContentContactHandler implements ContentHandler {
 	}
 	@Override
 	public void skippedEntity(String arg0) throws SAXException {
-		// Je ne fais rien, ce qui se passe n'est pas franchement normal.
-		// Pour eviter cet evenement, le mieux est quand meme de specifier une dtd pour vos
-		// documents xml et de les faire valider par votre parser.              
+		
 	}
 	
 	@Override
@@ -105,7 +109,18 @@ public class XMLContentContactHandler implements ContentHandler {
 			Log.v(TAG, "Close of tag: " + localName);
 			for (int index = 0; index < attributs.getLength(); index++) { // on parcourt la liste des attributs
 				if(attributs.getLocalName(index).compareTo("number")==0){	
-					thePhone.phone_nuber= attributs.getValue(index);
+					thePhones.phone_nuber= attributs.getValue(index);
+				}
+				else{
+					Log.e(TAG, "Wrong XML format file");
+				}
+			}
+		}
+		if(localName.compareTo("XMPP")==0){
+			Log.v(TAG, "Close of tag: " + localName);
+			for (int index = 0; index < attributs.getLength(); index++) { // on parcourt la liste des attributs
+				if(attributs.getLocalName(index).compareTo("email")==0){	
+					theEmails.XMPP= attributs.getValue(index);
 				}
 				else{
 					Log.e(TAG, "Wrong XML format file");
@@ -116,9 +131,21 @@ public class XMLContentContactHandler implements ContentHandler {
 	@Override
 	public void endElement(String nameSpaceURI, String localName, String rawName) throws SAXException {
 		if(localName.compareTo("contact")==0){
-			android.net.Uri URI;
-			URI = mContext.getContentResolver().insert(People.CONTENT_URI,CreatePeople(theContact.name + "," + theContact.notes));
-			URI = mContext.getContentResolver().insert(Phones.CONTENT_URI,CreatePhones(URI.getLastPathSegment()+ ",0474473287"));
+			android.net.Uri newPerson = mContext.getContentResolver().insert(People.CONTENT_URI,CreatePeople(theContact.name + "," + theContact.notes));
+			String personID = newPerson.getLastPathSegment();
+			if(thePhones.phone_nuber.compareTo("")!=0){
+				String strPhoneContent = personID+ ",0474473287";
+				mContext.getContentResolver().insert(Phones.CONTENT_URI,CreatePhones(strPhoneContent));
+				thePhones.phone_nuber="";
+			}
+			if(theEmails.XMPP.compareTo("")!=0){
+				String strCtMethod=personID + "," + theEmails.XMPP; 
+				newPerson = mContext.getContentResolver().insert(
+						newPerson.buildUpon().appendEncodedPath(Contacts.ContactMethods.CONTENT_URI.getPath()).build()
+						,CreateXMPP(strCtMethod));
+				Log.v(TAG, "Traitement de l'espace de nommage : ");		
+				theEmails.XMPP="";
+			}
 		}
 		
 	}
@@ -137,6 +164,17 @@ public class XMLContentContactHandler implements ContentHandler {
 		String[] tokens = adress.split(",");
 		theContent.put(Phones.PERSON_ID,tokens[0] );
 		theContent.put(Phones.NUMBER, tokens[1]);
+		return theContent;
+	}
+	public ContentValues CreateXMPP(String adress)
+	{
+		ContentValues theContent = new ContentValues();
+		String[] tokens = adress.split(",");
+		theContent.put(ContactMethods.PERSON_ID,tokens[0]);
+		theContent.put(ContactMethods.LABEL,"XMPP");
+		theContent.put(ContactMethods.DATA,tokens[1]);
+		theContent.put(ContactMethods.KIND,ContactMethods.EMAIL_KIND);
+		theContent.put(ContactMethods.TYPE,ContactMethods.EMAIL_KIND_OTHER_TYPE);
 		return theContent;
 	}
 	@Override
