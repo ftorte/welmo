@@ -31,4 +31,16 @@ In calendar day chack that if the week start in the previus month the day are se
 
 http://www.screencast.com/users/ftorte/folders/Jing/media/4f2f46d1-e95b-4cdb-9b11-5bad7c0a621b		
 
-ajourter button go today	
+ajourter button go today
+
+#1 External invitation generate conflict if have the same time frame (day + hour) since the UID will be the same
+and so if a tow users generetae the same invitation the last is singaled and the fist is deleted.
+
+#1 Handle of multiple invitation don't take into account multiple message. The list is unique.
+
+#BUG in MeetingView when start > end trap of exception
+
+#BUG on WelemoTool the launch process if lauched->stopped->launcehd I get an error
+
+#BUG when change the defalut XMPP connection in config the hold value is user to connect to XMPP. 
+If I exit and then re-launch the configuration the nex configuration set is used to login
