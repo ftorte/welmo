@@ -113,8 +113,11 @@ public class DBHelper {
 		Cursor cur = db.query(true, databaseTable, columns, "rowid=" + rowId, null, null, null, null);
 		if (cur.count() > 0)
 				return cur;
-		else
+		else{
+			if(cur != null)
+				cur.close();
 			return null;
+		}
 	}
 	protected Cursor fetchRowsByWhere(String databaseTable, String whereClause, String[] columns) 
 	{
@@ -123,8 +126,11 @@ public class DBHelper {
 		Cursor cur = db.query(true, databaseTable, columns, whereClause, null, null, null, null);
 		if (cur.count() > 0)
 				return cur;
-		else
+		else{
+			if(cur != null)
+				cur.close();
 			return null;
+		}
 	}
 	protected List<Long> fetchRowIdListByID(String databaseTable, long rowIdMin, long rowIdMax) 
 	{
@@ -146,6 +152,7 @@ public class DBHelper {
 				}
 				ret.add(cur.getLong(0));
 			}
+			if(cur != null) cur.close();
 		}
 		catch(SQLException se){
 			String msg = se.toString();			
