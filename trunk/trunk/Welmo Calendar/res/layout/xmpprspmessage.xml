@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+
+	<!-- 
+		========================================================
+		Meeting objective
+		======================================================== 
+	-->
+
+		<TableLayout 
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content" 
+			android:stretchColumns="0,1"
+			android:shrinkColumns="0,1"
+			android:background="@color/sky_blu_clear">
+			<TableRow>
+				<TextView
+					android:text="Object:" 
+					android:textStyle="bold"
+					android:textSize="14px" 
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content" 
+					android:textColor ="@color/grey_dark"/>
+				<TextView 
+					android:id="@+id/Object"
+					android:text="Mario Rossi" 
+					android:textStyle="bold"
+					android:textSize="14px" 
+					android:maxLines="2"
+					android:textColor ="@color/grey_intense"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content" />
+			</TableRow>
+			<TableRow>
+				<TextView 
+					android:text="From:" 
+					android:textSize="14px"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content" 
+					android:textColor ="@color/grey_dark"/>
+				<TextView 
+					android:id="@+id/From"
+					android:text="Have a diner at 'Chez Carlos'"
+					android:textSize="14px" 
+					android:maxLines="2"
+					android:layout_width="wrap_content"
+					android:textColor ="@color/grey_intense"
+					android:layout_height="wrap_content" />
+			</TableRow>
+			<TableRow>
+				<TextView 
+					android:text="When:" 
+					android:textSize="14px"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content" 
+					android:textColor ="@color/grey_dark"/>
+				<TextView 
+					android:id="@+id/When"
+					android:text=""
+					android:textSize="14px" 
+					android:maxLines="2"
+					android:layout_width="wrap_content"
+					android:textColor ="@color/grey_intense"
+					android:layout_height="wrap_content" />
+			</TableRow>
+		</TableLayout>
+	
+	<!-- 
+		========================================================
+		Response
+		======================================================== 
+	-->
+	<LinearLayout
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		android:orientation="vertical" android:layout_weight="1"
+		android:layout_width="fill_parent" android:layout_height="fill_parent"
+		android:background="@drawable/listelement"
+		>
+		<TextView android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:textSize="18px"
+			android:text="Response" 
+			android:textStyle="bold"
+			android:padding="3dip"/>
+		<EditText android:id="@+id/Response"
+			android:layout_width="fill_parent"
+			android:layout_height="fill_parent" android:textSize="14px"
+			android:scrollbars="vertical" 
+			android:gravity="top"/>
+	</LinearLayout>
+
+	<!-- 
+		========================================================
+		BUTTONS
+		======================================================== 
+	-->
+	<RelativeLayout
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:orientation="horizontal"
+		android:background="@color/sky_blu_dark">
+
+		<ImageButton android:id="@+id/accept" android:padding="3dip"
+			android:background="@color/sky_blu_dark"
+			android:layout_alignParentLeft="true"
+			android:layout_width="50dip"
+			android:layout_height="wrap_content" 
+			android:src="@drawable/go32x32" />
+
+		<ImageButton android:id="@+id/refuse"
+			android:background="@color/sky_blu_dark" 
+			android:padding="3dip"
+			android:layout_alignParentRight="true" 
+			android:layout_toLeft="@+id/accept"
+			android:layout_alignTop="@+id/accept"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content" 
+			android:src="@drawable/stop32x32" />
+
+	</RelativeLayout>
+</LinearLayout>
+

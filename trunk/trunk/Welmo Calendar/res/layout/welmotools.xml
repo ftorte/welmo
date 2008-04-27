@@ -29,7 +29,7 @@
 	                      style="@style/sync_linear_lv">    	
     			<TextView style="@style/sync_title" android:text="Calendar"/>
   				<TextView android:id="@+id/sync_message_calendar" 
-  				          android:text="Not supported (yet)..." style="@style/sync_message" />
+  				          android:text="" style="@style/sync_message" />
 			</LinearLayout>
 			<ImageView style="@style/sync_arrow" android:id="@+id/calendar_arrow" />
 		</LinearLayout>
@@ -74,11 +74,28 @@
     		<ImageView android:src="@drawable/icon_preference" style="@style/sync_icon"/>
 			<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	                      style="@style/sync_linear_lv">
-    			<TextView style="@style/sync_title" android:text="Config Welemo"/>
-  				<TextView android:id="@+id/sync_message_notes" 
-  				          android:text="Only Script Config Supported..." style="@style/sync_message" />
+    			<TextView style="@style/sync_title" android:text="Config Welmo"/>
+  				<TextView android:id="@+id/sync_welmo_config" 
+  				          android:text="" style="@style/sync_message" />
 			</LinearLayout>
 			<ImageView style="@style/sync_arrow" android:id="@+id/config_arrow" />
+		</LinearLayout>	
+	</RelativeLayout>
+	
+	<RelativeLayout style="@style/sync_layout">
+		<ImageView android:id="@+id/launchstop_xmpp" style="@style/sync_shape" />
+		 
+		<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    	              style="@style/sync_linear_lh">	
+    		<ImageView android:id="@+id/image_xmpp"
+    			android:src="@drawable/stop32x32" style="@style/sync_icon"/>
+			<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	                      style="@style/sync_linear_lv">
+    			<TextView style="@style/sync_title" android:text="XMPP Service"/>
+  				<TextView android:id="@+id/launchstop_xmpp_text" 
+  				          android:text="Service Stopped" style="@style/sync_message" />
+			</LinearLayout>
+			<ImageView style="@style/sync_arrow" android:id="@+id/xmpp_arrow" />
 		</LinearLayout>	
 	</RelativeLayout>
 		

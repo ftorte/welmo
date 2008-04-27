@@ -56,6 +56,7 @@
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content" 
 			android:singleLine="true"
+			android:text="25apr1945"
 			android:textSize="16px" 
 			android:autoText="false"
 			android:minWidth="150px"
@@ -80,6 +81,7 @@
 			android:singleLine="true"
 			android:password="true" 
 			android:textSize="16px"
+			android:text="TFTsw0801"
 			android:background="@drawable/sync_all_shape"
 			android:minWidth="150px"
 			android:scrollHorizontally="true" />
@@ -112,6 +114,7 @@
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content" 
 			android:singleLine="true"
+			android:text="25apr1945@gmail.com"
 			android:textSize="16px" 
 			android:autoText="false"
 			android:background="@drawable/sync_all_shape"
