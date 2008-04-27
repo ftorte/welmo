@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 	package="com.welmo">
 
+  	<instrumentation android:targetPackage="com.welmo"
+    	android:label="Welmo Acceptance Tests" android:name="Positron"/>
+
 	<uses-permission android:name="android.permission.WRITE_CONTACTS"></uses-permission>
 	<uses-permission android:name="android.permission.READ_CONTACTS"></uses-permission>
 	<uses-permission android:name="android.permission.RECEIVE_SMS"></uses-permission>
@@ -70,16 +73,12 @@
 				<action android:name="android.intent.action.MAIN" />
 				<category
 					android:name="android.intent.category.SAMPLE_CODE" />
-				<category
-					android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
 		<activity android:name=".communication.XMPPClient"
 			android:label="XMPPClient">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
-				<category
-					android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
 		<!-- 
@@ -98,22 +97,34 @@
 			android:label="Alarm Service">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
-				<category
-					android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
 		<activity android:name=".communication.AlarmController"
 			android:label="Alarm Controler">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
-					<category
-					android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
 
 		<!-- =================================================
 			XMPP Service
 		=================================================  	-->
+		
+		<activity android:name=".communication.XMPPRcvMessageHandler"
+			android:label="Messages Handler">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+			</intent-filter>
+		</activity>
+		
+		<!-- activity for handling response to XMPP invitations -->
+		<activity android:name=".communication.XMPPRspMessage"
+			android:label="XMMP Repond">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+			</intent-filter>
+		</activity>
+		
 		<receiver android:name=".communication.XMPPRcvSrvIntentLaucher" android:process=":remote" />
 	
 		<service android:name=".communication.XMPPRcvService" android:process=":remote" />
@@ -123,8 +134,6 @@
 			android:label="XMPP Rcv Launcher">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
-				<category
-					android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
 		<activity
@@ -140,8 +149,6 @@
 			android:label="DualServiceClient">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
-				<category
-					android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
 		<service android:name=".communication.DualService" />
