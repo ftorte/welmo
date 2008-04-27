@@ -16,6 +16,7 @@ import com.welmo.R;
 public class XMPPSettingHandler extends Dialog implements android.view.View.OnClickListener {   
     private XMPPClient xmppClient;   
   
+    
     public XMPPSettingHandler(XMPPClient xmppClient) {   
         super(xmppClient);   
         this.xmppClient = xmppClient;   

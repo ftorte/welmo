@@ -19,7 +19,6 @@ package com.welmo.communication;
 // Need the following import to get access to the app resources, since this
 // class is in a sub-package.
 import android.app.Activity;
-import android.app.AlarmManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -27,7 +26,6 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.DeadObjectException;
 import android.os.IBinder;
-import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -36,53 +34,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.welmo.R;
-import com.welmo.communication.DualServiceClient.CounterServiceConnection;
+import com.welmo.meeting.Meeting;
+import com.welmo.meeting.MeetingUID;
 
 
-/**
- * <p>Example of scheduling one-shot and repeating alarms.  See
- * {@link OneShotAlarm} for the code run when the one-shot alarm goes off, and
- * {@link RepeatingAlarm} for the code run when the repeating alarm goes off.
- * This demonstrates a very common background that puts together both alarms
-and service: a regularily scheduled alarm that results in the execution of
-a relatively long-lived service.  An example of where you would use this is
-for background retrieval of mail.  In this situation, you don't want to
-retrieve the mail directly in the alarm's intent receiver, because this would
-block others while you are working.  Instead, the alarm starts a service that
-takes care of retrieving the mail.</p>
 
-<h4>Demo</h4>
-App/Service/Alarm Service
- 
-<h4>Source files</h4>
-<table class="LinkTable">
-        <tr>
-            <td class="LinkColumn">src/com/google/android/samples/app/AlarmService.java</td>
-            <td class="DescrColumn">The activity that lets you schedule the alarm</td>
-        </tr>
-        <tr>
-            <td class="LinkColumn">src/com/google/android/samples/app/AlarmService_Alarm.java</td>
-            <td class="DescrColumn">This is an intent receiver that executes when the
-                alarm goes off</td>
-        </tr>
-        <tr>
-            <td class="LinkColumn">src/com/google/android/samples/app/AlarmService_Service.java</td>
-            <td class="DescrColumn">This is the service that implements our background action,
-                which is started by the AlarmService_Alarm</td>
-        </tr>
-        <tr>
-            <td class="LinkColumn">/res/any/layout/alarm_service.xml</td>
-            <td class="DescrColumn">Defines contents of the screen</td>
-        </tr>
-</table>
-
- */
 public class XMPPRcvApplicationLauncher extends Activity
 {
     Context mContext;
     private static final String LOG_TAG = "DUALSERVICECLIENT";
     private IXMPPService xmppService=null;
     private XMPPServiceConnection xmppConnection=null;
+    private Meeting sendMeeting = new Meeting();
+    private int meetingcount = 0;
     
     @Override
 	protected void onCreate(Bundle icicle)
@@ -165,9 +129,21 @@ public class XMPPRcvApplicationLauncher extends Activity
     		String recipient = ((TextView)findViewById( R.id.recipient)).getText().toString();
     		String message = ((TextView)findViewById( R.id.message)).getText().toString();
 
+    		MeetingUID theUID = new MeetingUID();
+    		theUID.setUID((short)2008, (short)4, (short)21);
+    		
+    		sendMeeting.setMeetingID(theUID);
+    		sendMeeting.setTimeFrame((short)(8+meetingcount), (short)30, (short)(9+meetingcount), (short)30);
+    		meetingcount++;
+    		if(meetingcount>10)
+    			meetingcount=0;
+    		sendMeeting.setDescription("Pippo Description");
+    		sendMeeting.setObject("Pippo Object");
+    		sendMeeting.setType(MeetingUID.TYPE_PERSONAL_GENARIC);
+    		sendMeeting.setOwner(((TextView)findViewById( R.id.username)).getText().toString());
     		try {
-    			Log.i( "XMPPLauncher","send messge :"  + recipient + ":" + message);
-    			boolean ok = xmppService.SendMessage(recipient, message);
+    			Log.i( "XMPPLauncher","send messge :"  + recipient + ":" + sendMeeting.toString());
+    			boolean ok = xmppService.SendMessage("0",recipient, sendMeeting.toString(),Meeting.CLSID);
     			if(ok){
     				Log.i( "XMPPLauncher","messge to client sent" );
     				Toast.makeText(XMPPRcvApplicationLauncher.this, 
