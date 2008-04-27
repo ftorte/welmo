@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WelmoConfig>
+	<Service value="XMPP">
+		<Component value="Login">
+			<ID value="25Apr1945">
+				<Parameters id="username" value="25Apr1945" />
+				<Parameters id="password" value="TFTsw0801" />
+				<Parameters id="host" value="talk.google.com" />
+				<Parameters id="port" value="5222" />
+				<Parameters id="service" value="gmail.com" />
+			</ID>
+			<ID value="25Apr1946">
+				<Parameters id="username" value="25Apr1946" />
+				<Parameters id="password" value="TFTsw0801" />
+				<Parameters id="host" value="talk.google.com" />
+				<Parameters id="port" value="5222" />
+				<Parameters id="service" value="gmail.com" />
+			</ID>
+			<ID value="Default">
+				<Parameters id="value" value="25Apr1946" />
+			</ID>
+		</Component>
+		<Component value="Recipient">
+			<ID value="25Apr1946@gmail.com" />
+		</Component>
+	</Service>
+</WelmoConfig>

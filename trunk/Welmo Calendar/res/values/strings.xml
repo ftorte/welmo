@@ -57,5 +57,5 @@
     <!-- =============================== -->
 	<!--  Alarm Service  -->
 	<!-- =============================== -->
-	<string name="recived_messge">You recived new message</string>
+	<string name="recived_messge">New invitation</string>
 </resources>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:background="@color/alluminium_clear">
+	<TableLayout android:id="@+id/ToolBar"
+		android:layout_width="fill_parent"
+		android:background="@drawable/toolbar"
+		android:layout_height="wrap_content" 
+		android:stretchColumns="1">
+		<TableRow>
+			<ImageView 
+				android:id="@+id/btnObjectiveDetail"
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content" 
+				android:padding="3dip" />
+
+			<TextView android:layout_height="wrap_content"
+				android:layout_width="wrap_content" 
+				android:background="#0000FF00"
+				android:textSize="18px" 
+				android:minHeight="24px" 
+				android:textColor="@color/alluminium_clear"
+				android:textStyle="bold"
+				android:textAlign="center" 
+				android:gravity="center_vertical"
+				android:text="Messages" 
+				android:paddingTop="3dip"
+				android:paddingBottom="3dip"/>
+			<ImageView 
+				android:id="@+id/btnPeopleList"
+				android:padding="3dip" 
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				/>
+		</TableRow>
+	</TableLayout>
+	<LinearLayout
+		android:orientation="vertical" 
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent" 
+		android:paddingLeft="3dip"
+		android:paddingRight="3dip">
+		<ListView android:id="@android:id/list"
+			android:layout_width="fill_parent"
+			android:layout_height="fill_parent"
+			android:clipToPadding="true" />
+		<TextView android:id="@+id/android:empty"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content" />
+	</LinearLayout>
+
+</LinearLayout>

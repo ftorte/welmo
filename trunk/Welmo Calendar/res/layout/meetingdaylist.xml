@@ -3,7 +3,6 @@
 	android:orientation="vertical" 
 	android:layout_width="fill_parent" 
 	android:layout_height="fill_parent">
-	
 	<view class="com.welmo.meeting.MeetingDayViewToolBar"
 		android:id="@+id/toolbar"
 		android:layout_width="fill_parent"
@@ -11,8 +10,10 @@
    
 	<ListView android:id="@android:id/list"
 		android:layout_width="fill_parent"
-        android:layout_height="fill_parent"/>
+        android:layout_height="fill_parent"
+        android:background="@drawable/listselector"/>
     <TextView android:id="@+id/android:empty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
+       
 </LinearLayout>

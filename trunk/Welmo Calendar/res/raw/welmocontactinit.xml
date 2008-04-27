@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <WelmoDataInit>
 	<contacts version="1.0">
-		<contact name="Pluto" notes="notes">
+		<contact name="Pluto:45" notes="notes">
 			<Phone number="0474473287" />
+			<XMPP  email="25Apr1945@gmail.com" />
 		</contact>
-		<contact name="Pippo" notes="notes">
+		<contact name="Pippo:46" notes="notes">
 			<Phone number="0474473287" />
+			<XMPP  email="25Apr1946@gmail.com" />
 		</contact>
 		<contact name="Minni" notes="notes">
 			<Phone number="0474473287" />
