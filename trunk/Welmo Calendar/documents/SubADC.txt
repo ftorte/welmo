@@ -1,0 +1,70 @@
+Hello,
+
+Here is a read-me file for my submission to the ADC
+
+A screen cast is available at 
+
+http://www.screencast.com/users/ftorte/folders/Jing/media/227b6c6b-7031-4c79-9c8e-296b65c53131
+
+The screen cast aims to show "welmo" application that is in a POC phase.
+ 
+The objective of welmo (welmo = we leave mobile) it is to private an easy way to get in contact with your friends 
+and be able to organize event or receive instant invitation from anybody anyware and reply with your mobile phone.
+ 
+For the one that organize, he just needs to invite and welmo select the appropriate media to send the invitation. 
+
+Then welmo analyze the response to keep you informed about the status of the invitation (reject accept). 
+
+This is one of the added values of Welmo since as a user you only need to add contacts and welmo dispatch 
+your invitation to all people you have in the list. 
+
+At the moment welmo is only able to dispatch to people contact with a XMPP login like the 2 that are by default 
+in the apk (25apr1945@gmail.com and 25apr1946@gmail.com) but in the near future also SMS and other media will be available.
+ 
+At the moment welmo use only XMPP (Gtalk is not yet working but I want to migrate ASAP) my objective is that welmo 
+will use the preferred media of each contact including Gtalk(XMPP)/SMS/Phone/ e-mail.
+
+An use case to use welmo
+Let imagine you are in the city and you see that there is an interesting movie. 
+You want to invite your friend to have a bear and then go to the movie. 
+
+With welmo you just take the picture of the movie adds a short speech, describe 
+the meeting and send the invitation to your friends. Welmo keep you informed about the acceptance.
+
+Today you can only attach description, but I have planned to be able to enrich the invitations 
+with picture, registered voice talk and map locations. So you can create rich content invitations. 
+
+Today a received meeting is private. But once the integration with the chat is finished you 
+will be able to open a chat to have everybody and talk about the meeting with your frends.
+
+Today a receiver cannot add other people, but in the next version I would like to open it in order 
+that if I receive an open meeting I can invite a friend of mine not invite at the beginning.
+
+Welmo take care of analysis of response and update your meeting so at any time you know who 
+rejected the invitation and have access to the response. 
+
+I am working on linking the attend list with the standard phone call and also chat and SMS 
+so at any moment the user just clicking on the name of the attend and send a private message or talk to.
+
+Last but not least Welmo is integrated with the Agenda where you have your meeting. In this version on 
+the receiver three is no distinction between an external invitation and a meeting created by the phone user.
+ 
+In the demo I configure the application. This is because current welmo comes with a set of meeting test, 
+test contacts, configuration etc... All those parameters are in the application in an XML file packaged with the apk file. 
+To configure XMPP you have to execute Welmo config, configure the connection (then because of a bug) you have to exit and 
+reliance the configuration to be able to laungh the connection.
+
+Some info about the price and my objectives
+If I win the price I will use the money to take a "congé sabbatique" and work full time to the finalization of the application. 
+I will also have planned to look for a designer to redesign the GUI and look for a developer (expert in java) to work on the development 
+of welmo and test it.
+
+I also want ot puchase the android ardware to make some real tests ASAP hardwar ios available 
+
+Today I did everything by myself but if thing become serious I have to take the right decision to make this application successful and
+so find founding (the price example) to maximize the chance to make this applicaiton realy a companion for everibody usig it.
+
+Thanks for your attention
+
+Best Regards
+Fausto Torterolo
