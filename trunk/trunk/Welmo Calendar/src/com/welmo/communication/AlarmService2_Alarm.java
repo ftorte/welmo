@@ -22,7 +22,7 @@ import com.welmo.R;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentReceiver;
+import android.content.BroadcastReceiver;
 
 /**
  * This is an example of implementing an {@link IntentReceiver} for an alarm
@@ -32,17 +32,16 @@ import android.content.IntentReceiver;
  * until you are done), you can start a service that will then take care of
  * things.
  */
-public class AlarmService2_Alarm extends IntentReceiver
+public class AlarmService2_Alarm extends BroadcastReceiver
 {
     @Override
-    public void onReceiveIntent(Context context, Intent intent)
+    public void onReceive(Context context, Intent intent)
     {
         // Start up the service.  Note that if the service is taking too long
         // to complete -- longer than our alarm's repeat rate -- then this will
         // just leave the current service running, skipping this alarm.  For
         // most situations this is probably a reasonable thing to do.
-        context.startService(new Intent(context, AlarmService2_Service.class),
-                null);
+        context.startService(new Intent(context, AlarmService2_Service.class));
     }
 }
 

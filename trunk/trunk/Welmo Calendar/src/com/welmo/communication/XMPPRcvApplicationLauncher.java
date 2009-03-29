@@ -26,6 +26,7 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.DeadObjectException;
 import android.os.IBinder;
+import android.os.RemoteException;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -78,7 +79,7 @@ public class XMPPRcvApplicationLauncher extends Activity
     		//AlarmManager am = (AlarmManager)getSystemService(ALARM_SERVICE);
     		//am.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,firstTime, intent);
     		Bundle b = new Bundle();
-    	    startService( new Intent(XMPPRcvApplicationLauncher.this,XMPPRcvService.class),b );
+    	    startService( new Intent(XMPPRcvApplicationLauncher.this,XMPPRcvService.class) );
     		Toast.makeText(XMPPRcvApplicationLauncher.this, "XMMP Receiver Sevice Launched", Toast.LENGTH_SHORT).show();            
     		Log.i( "XMPPLauncher","service launced" );
     		
@@ -118,7 +119,10 @@ public class XMPPRcvApplicationLauncher extends Activity
     			}
     		} catch( DeadObjectException ex ) {
     			Log.e("XMPPLauncher", "DeadObjectException" );
-    		}
+    		} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
     	}	
     };
     
@@ -156,7 +160,10 @@ public class XMPPRcvApplicationLauncher extends Activity
     			}
     		} catch( DeadObjectException ex ) {
     			Log.e("XMPPLauncher", "DeadObjectException" );
-    		}
+    		} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
     	}	
     };
 

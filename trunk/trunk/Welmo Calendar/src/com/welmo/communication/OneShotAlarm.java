@@ -18,7 +18,7 @@ package com.welmo.communication;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentReceiver;
+import android.content.BroadcastReceiver;
 import android.widget.Toast;
 
 // Need the following import to get access to the app resources, since this
@@ -31,10 +31,10 @@ import com.welmo.R;
  * <p>
  * When the alarm goes off, we show a <i>Toast</i>, a quick message.
  */
-public class OneShotAlarm extends IntentReceiver
+public class OneShotAlarm extends BroadcastReceiver
 {
     @Override
-    public void onReceiveIntent(Context context, Intent intent)
+    public void onReceive(Context context, Intent intent)
     {
         Toast.makeText(context, "one shot received", Toast.LENGTH_SHORT).show();
     }

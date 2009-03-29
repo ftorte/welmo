@@ -319,6 +319,6 @@ public class CalendarMonthView extends Activity {
     	i.putExtra("YEAR",year);
     	i.putExtra("MONTH",month);
     	i.putExtra("DAY",day);
-		startSubActivity(i, 0);
+		startActivity(i);
 	}
 }

@@ -108,11 +108,11 @@
 			android:layout_height="wrap_content" 
 			android:src="@drawable/go32x32" />
 
-		<ImageButton android:id="@+id/refuse"
+		<ImageButton 
+			android:id="@+id/refuse"
 			android:background="@color/sky_blu_dark" 
 			android:padding="3dip"
 			android:layout_alignParentRight="true" 
-			android:layout_toLeft="@+id/accept"
 			android:layout_alignTop="@+id/accept"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content" 

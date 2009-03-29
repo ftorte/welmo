@@ -57,7 +57,7 @@ public class ServiceStartArgumentsController extends Activity
             Bundle args = new Bundle();
             args.putString("name", "One");
             startService(new Intent(ServiceStartArgumentsController.this,
-            		XMPPRcvService.class), args);
+            		XMPPRcvService.class));
         }
     };
 
@@ -68,7 +68,7 @@ public class ServiceStartArgumentsController extends Activity
             Bundle args = new Bundle();
             args.putString("name", "Two");
             startService(new Intent(ServiceStartArgumentsController.this,
-            		XMPPRcvService.class), args);
+            		XMPPRcvService.class));
         }
     };
 
@@ -79,7 +79,7 @@ public class ServiceStartArgumentsController extends Activity
             Bundle args = new Bundle();
             args.putString("name", "Three");
             startService(new Intent(ServiceStartArgumentsController.this,
-            		XMPPRcvService.class), args);
+            		XMPPRcvService.class));
         }
     };
 }

@@ -46,8 +46,6 @@
 		<ImageButton android:id="@+id/confirm"
 			android:background="@color/sky_blu_dark"
 			android:padding="3dip"
-			android:layout_toLeft="@+android:id/cancel"
-            android:layout_alignTop="@+android:id/cancel"
 			android:layout_width="wrap_content" 
 			android:layout_height="wrap_content"
 			android:src="@drawable/go32x32" />

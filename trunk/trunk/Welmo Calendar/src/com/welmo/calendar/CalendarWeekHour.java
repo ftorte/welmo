@@ -12,12 +12,12 @@ import android.widget.TableLayout;
 import com.welmo.R;
 
 public class CalendarWeekHour extends TableLayout{
-	public CalendarWeekHour(Context context, AttributeSet attrs, Map inflateParams) {
-		super(context, attrs, inflateParams);
+	public CalendarWeekHour(Context context, AttributeSet attrs) {
+		super(context, attrs);
 		// TODO Auto-generated constructor stub
 	}
 	public CalendarWeekHour(Context context) {
-		this(context,null,null);
+		this(context,null);
 		// TODO Auto-generated constructor stub
 	}
 	

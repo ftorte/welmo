@@ -10,6 +10,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.XMLReaderFactory;
 
+import android.os.RemoteException;
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
@@ -24,7 +25,7 @@ import android.provider.Contacts.Phones;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
-import android.view.Menu.Item;
+import android.view.MenuItem;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
 import android.widget.ImageView;
@@ -77,13 +78,12 @@ public class WelmoTools extends Activity{
 		((ImageView) findViewById(R.id.launchstop_xmpp)).setOnClickListener(mListener);
 		
 		//Launch XMPP Services
-		Bundle b = new Bundle();
-	    startService( new Intent(WelmoTools.this,XMPPRcvService.class),b );
+		startService( new Intent(WelmoTools.this,XMPPRcvService.class));
 		Log.i( "WelmoTools","service launced" );
 		
 		//bind to XMPP Service
 		xmppConnection = new XMPPServiceConnection();
-		boolean res = bindService( new Intent(WelmoTools.this, XMPPRcvService.class), xmppConnection, Context.BIND_AUTO_CREATE);
+		bindService( new Intent(WelmoTools.this, XMPPRcvService.class), xmppConnection, Context.BIND_AUTO_CREATE);
 		Log.i(LOG_TAG,"service binded" );
 
 		//Read Welmo Configurations
@@ -206,7 +206,7 @@ public class WelmoTools extends Activity{
 	};
 
 	OnFocusChangeListener mFocusChangeListener = new OnFocusChangeListener() {
-		public void onFocusChanged(View v, boolean b) {
+		public void onFocusChange(View v, boolean b) {
 
 
 			if (b) {
@@ -400,6 +400,9 @@ public class WelmoTools extends Activity{
 		catch(IllegalArgumentException excp){
 			XMPPConnected=false;
 		}
+		catch(RemoteException excp){
+			XMPPConnected=false;
+		}
 		timer.cancel();
 		mHandler.post(new Runnable() {
 			public void run() {
@@ -415,6 +418,8 @@ public class WelmoTools extends Activity{
 					}
 				}
 				catch(DeadObjectException excp){
+				}
+				catch(RemoteException excp){
 				}
 			}
 		});	
@@ -435,6 +440,8 @@ public class WelmoTools extends Activity{
 			}
 			catch(DeadObjectException excp){
 			}
+			catch(RemoteException excp){
+			}
 			//Log.d( LOG_TAG,"onServiceConnected" );
 		}
 
@@ -452,12 +459,12 @@ public class WelmoTools extends Activity{
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu){
 		boolean result = super.onCreateOptionsMenu(menu);
-		menu.add(0, 1, "Configure");
+		menu.add(0, 1, 0, "Configure");
 		return result;
 	}
 	@Override
-	public boolean onMenuItemSelected(int featureId, Item item){
-		switch(item.getId()) {
+	public boolean onMenuItemSelected(int featureId, MenuItem  item){
+		switch(item.getItemId()) {
 		case 1:
 			// Dialog for getting the xmpp settings   
 			mDialog = new XMPPConfigHandler(this);   

@@ -22,7 +22,7 @@ import com.welmo.R;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentReceiver;
+import android.content.BroadcastReceiver;
 import android.widget.Toast;
 
 /**
@@ -33,10 +33,10 @@ import android.widget.Toast;
  * until you are done), you can start a service that will then take care of
  * things.
  */
-public class XMPPRcvSrvIntentLaucher extends IntentReceiver
+public class XMPPRcvSrvIntentLaucher extends BroadcastReceiver
 {
     @Override
-    public void onReceiveIntent(Context context, Intent intent)
+    public void onReceive(Context context, Intent intent)
     {
         // Start up the service.  Note that if the service is taking too long
         // to complete -- longer than our alarm's repeat rate -- then this will
@@ -44,7 +44,7 @@ public class XMPPRcvSrvIntentLaucher extends IntentReceiver
         // most situations this is probably a reasonable thing to do.
         Toast.makeText(context, "XMMP Intent Launcher Activate the service", Toast.LENGTH_SHORT).show();            
 
-        context.startService(new Intent(context, XMPPRcvService.class),null);
+        context.startService(new Intent(context, XMPPRcvService.class));
     }
 }
 

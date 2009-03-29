@@ -2,7 +2,6 @@ package com.welmo.tools;
 
 import java.util.Iterator;
 import java.util.Vector;
-import java.lang.NoSuchFieldException;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.util.Log;
@@ -70,12 +69,12 @@ public class WelmoConfig{
 		cur = db.fetchConfigAllRows(columns);
 		if(cur != null)
 		{
-			cur.first();
+			cur.moveToFirst();
 			while(!cur.isAfterLast()){
 				ConfigEntry theEntry = new ConfigEntry();
 				theEntry.copyFormCursor(cur);					
 				ConfigEntries.add(theEntry);
-				cur.next();
+				cur.moveToNext();
 			}
 			cur.close();
 		}

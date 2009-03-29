@@ -50,10 +50,8 @@ public class Meeting implements Parcelable, Serializable {
         public Meeting[] newArray(int size) {return new Meeting[size];}
     };*/
     
-    private Meeting(Parcel in) {
-        readFromParcel(in);
-    }
-    public void writeToParcel(Parcel out){
+
+    public void writeToParcel(Parcel out, int flag){
         out.writeLong(MeetingID.UID);
         out.writeString(MtgObject);
         out.writeString(MtgDescription);
@@ -73,6 +71,10 @@ public class Meeting implements Parcelable, Serializable {
         	}		
         }
     }
+    public int describeContents() {
+    	return 0;
+    }
+
 
     public void readFromParcel(Parcel in) {
     	attendlist.clear();
@@ -118,11 +120,9 @@ public class Meeting implements Parcelable, Serializable {
 		this.Duration = copy.Duration;
 		this.Owner	= copy.getOwner();
 		this.Timestamp	= copy.getTimestamp();
-		//TODO copy of attend list not done
 	}
 	@Override
 	public boolean equals(Object o) {
-		// TODO Auto-generated method stub
 		return super.equals(o);
 	}
 
@@ -220,7 +220,6 @@ public class Meeting implements Parcelable, Serializable {
 
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
 		String str = "";
 		str = str + MeetingID.UID;
 		str = str + "\t" + (MtgObject.replace("\t"," ")).toString();
@@ -239,7 +238,6 @@ public class Meeting implements Parcelable, Serializable {
 		return str;
 	}
 	public void fromString(String str) {
-		// TODO Auto-generated method stub
 		try{
 			String[] tokens = str.split("\t");
 			Log.i("Meeting", "[fromString] n tokens  =" + tokens.length);
@@ -331,7 +329,7 @@ public class Meeting implements Parcelable, Serializable {
 		nRows = db.deleteAttendsRowByWhere("UID="+MeetingID.UID);
 		if (attendlist.size()!=0){
 			Log.i(LOG_TAG, "[UpdateToDatabase] update attends:" + attendlist.size());
-	        Iterator it = attendlist.listIterator();
+	        Iterator<Attends> it = attendlist.listIterator();
 	        while(it.hasNext()){
 	        		Object o = it.next(); 
 	        		Attends theAttend = (Attends)o; 
@@ -349,7 +347,7 @@ public class Meeting implements Parcelable, Serializable {
 		cur = db.fetchMeetingsRowsByID(MeetingID.UID,columns);
 		if(cur != null)
 		{
-			cur.first();    
+			cur.moveToFirst();    
 			this.MtgObject = cur.getString(1);
 			this.MtgDescription = cur.getString(2);
 			this.Owner = cur.getString(3);
@@ -362,7 +360,7 @@ public class Meeting implements Parcelable, Serializable {
 			cur = db.fetchAttendsRowsByWhere("UID="+MeetingID.UID,columns);
 			if(cur != null)
 			{
-				cur.first();
+				cur.moveToFirst();
 				while(!cur.isAfterLast()){
 				    Attends theAttend = new Attends();
 				    theAttend.ID = cur.getString(1);
@@ -371,7 +369,7 @@ public class Meeting implements Parcelable, Serializable {
 				    theAttend.Message = cur.getString(4);
 				    theAttend.isMe = cur.getInt(5);
 				    attendlist.add(theAttend);
-				    cur.next();
+				    cur.moveToNext();
 				}
 				cur.close();
 			}

@@ -30,8 +30,8 @@ public class CalendarDayHour extends AbsoluteLayout{
 	private Context 			mContext	= null;
 	private AgendaDBHelper		dbAgenda 	= null;
 	
-	public CalendarDayHour(Context context, AttributeSet attrs, Map inflateParams) {
-		super(context, attrs, inflateParams);
+	public CalendarDayHour(Context context, AttributeSet attrs) {
+		super(context, attrs);
 		mContext = context;
 		setOnClickListener(new OnClickListener (){ 
 			@Override
@@ -43,7 +43,7 @@ public class CalendarDayHour extends AbsoluteLayout{
 		});
 		setOnFocusChangeListener(new OnFocusChangeListener (){
 			@Override
-			public void onFocusChanged(View v, boolean b){
+			public void onFocusChange(View v, boolean b){
 				ShowMessge("Calendar \n Focus Catched: ");
 			}		
 		});
@@ -66,7 +66,7 @@ public class CalendarDayHour extends AbsoluteLayout{
 		//setDay(2008,3,16);
 	}
 	public CalendarDayHour(Context context) {
-		this(context,null,null);
+		this(context,null);
 		// TODO Auto-generated constructor stub
 	}
 	@Override

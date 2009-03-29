@@ -151,8 +151,13 @@ public class MeetingUID implements Comparable<MeetingUID> {
 		cl.set(this.getYear(),this.getMonth()-1,this.getDayNB());
 		cl.setFirstDayOfWeek(Calendar.MONDAY);
 		cl.setMinimalDaysInFirstWeek(4);
-		CharSequence myDate = android.util.DateFormat.format("E-dd/MM/yy",cl);
-		return myDate;	 
+		
+		java.util.Date now = cl.getTime(); // <-- think same as 
+		System.currentTimeMillis();
+		java.text.DateFormat dateFormat = 
+			java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT); 
+		String dateString = dateFormat.format(now); 
+		return dateString;	 
 	}
 	public void addNbOfDay(int nDay){
 		Calendar cl = Calendar.getInstance();

@@ -97,11 +97,12 @@ public class XMPPRcvMessageHandler extends ListActivity implements IMeetingDispl
 		i.putExtra("Time", mtg.getMeetingID().getMyDate() + " " + mtg.getMeetingID().toStringStartTime());
 		Log.i("XMPPRcvMessageHandler", "[SendResponse] Time:" +  mtg.getMeetingID().getMyDate() + " " + mtg.getMeetingID().toStringStartTime()); 		
 		i.putExtra("Attend", mtg.whoIsMe());
-		startSubActivity(i, 0);
+		startActivityForResult(i,0);
 	}
 	@Override
-	protected void onActivityResult(int requestCode, int resultCode, String data, Bundle extras){
-		super.onActivityResult(requestCode, resultCode, data, extras);
+	protected void onActivityResult(int requestCode, int resultCode, Intent intent){
+		super.onActivityResult(requestCode, resultCode, intent);
+		Bundle extras = intent.getExtras();
 		if (resultCode != XMPPRspMessage.RESULT_CANCELLED){
 			long UID = extras.getLong("UID");	
 			MeetingUID theUID = new MeetingUID(UID);

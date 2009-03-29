@@ -70,8 +70,8 @@ public class CalendarDay extends TextView{
 		}
 	}
 	
-	public CalendarDay(Context context, AttributeSet attrs, Map inflateParams) {
-		super(context, attrs, inflateParams);
+	public CalendarDay(Context context, AttributeSet attrs) {
+		super(context, attrs);
 		mContext = context;
 		setOnClickListener(new OnClickListener (){ 
 			@Override
@@ -81,7 +81,7 @@ public class CalendarDay extends TextView{
 		});
 		setOnFocusChangeListener(new OnFocusChangeListener (){
 			@Override
-			public void onFocusChanged(View v, boolean b){
+			public void onFocusChange(View v, boolean b){
 				if(b){
 					fh.objectID = v.getId();
 					fh.Activate();
@@ -90,7 +90,7 @@ public class CalendarDay extends TextView{
 				}
 				else{
 					fh.Cancelled();
-					v.setBackground(defaultBackground);
+					v.setBackgroundDrawable(defaultBackground);
 				}
 			}		
 		});
@@ -112,7 +112,7 @@ public class CalendarDay extends TextView{
 	}
 
 	public CalendarDay(Context context) {
-		this(context,null,null);
+		this(context,null);
 		// TODO Auto-generated constructor stub
 	}
 	

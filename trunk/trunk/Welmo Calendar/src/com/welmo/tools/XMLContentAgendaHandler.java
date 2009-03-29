@@ -58,7 +58,7 @@ public class XMLContentAgendaHandler implements ContentHandler {
 	private MeetingRawInfo mMeetingInfo = new MeetingRawInfo();
 	
 	//---------------------------------------------------------
-	private Locator locator;
+	Locator locator;
 	private static final String TAG = "XMLConfigurationHandler";
 
 	public XMLContentAgendaHandler(Context ctx) {

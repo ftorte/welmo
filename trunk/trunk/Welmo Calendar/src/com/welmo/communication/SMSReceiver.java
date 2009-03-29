@@ -2,14 +2,13 @@ package com.welmo.communication;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentReceiver;
+import android.content.BroadcastReceiver;
 import android.os.Bundle;
-import android.provider.Telephony;
 import android.telephony.gsm.SmsMessage;
 import android.util.Log;
 import android.widget.Toast;
 
-public class SMSReceiver extends IntentReceiver{
+public class SMSReceiver extends BroadcastReceiver{
 	/** TAG used for Debug-Logging */ 
 	private static final String LOG_TAG = "SMSReceiver"; 
 	/** The Action fired by the Android-System when a SMS was received. 
@@ -18,14 +17,15 @@ public class SMSReceiver extends IntentReceiver{
 	Context mContext;
 
 	@Override
-	public void onReceiveIntent(Context context, Intent intent) {
+	public void onReceive(Context context, Intent intent) {
 		mContext = context;
 		if(intent.getAction().equals(ACTION)){
 			StringBuilder sb = new StringBuilder(); 
 			Bundle bundle = intent.getExtras(); 
 			if (bundle != null) { 
-				SmsMessage[] messages = Telephony.Sms.Intents.getMessagesFromIntent(intent); 
-				/* Feed the StringBuilder with all Messages found. */ 
+			      Object[] pdusObj = (Object[]) bundle.get("pdus"); 
+                  SmsMessage[] messages = new SmsMessage[pdusObj.length]; 
+            	/* Feed the StringBuilder with all Messages found. */ 
 				for (SmsMessage currentMessage : messages){ 
 					sb.append("Received compressed SMS\nFrom: "); 
 					/* Sender-Number */ 

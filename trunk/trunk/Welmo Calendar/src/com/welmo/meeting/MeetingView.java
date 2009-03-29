@@ -13,8 +13,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.LayoutInflater; 
 import android.view.ViewGroup;
-import android.view.ViewInflate;
 import android.view.Window;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
@@ -25,7 +25,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
-
 import com.welmo.R;
 import com.welmo.contacts.Attends;
 import com.welmo.contacts.ContactsList;
@@ -89,12 +88,10 @@ public class MeetingView extends ListActivity {
 		}
 		@Override
 		public Object getItem(int index) {
-				int n = index;
 				return newMeeting.attendlist.elementAt(index);
 		}
 		@Override
 		public long getItemId(int position){
-				int n = position;
 				return position;
 		}
 		@Override
@@ -125,8 +122,8 @@ public class MeetingView extends ListActivity {
     	
         public PeopleList(Context context){
         	super(context);
-        	ViewInflate inf =(ViewInflate)getSystemService(INFLATE_SERVICE);
-        	theView = inf.inflate(R.layout.meetingpeoplelistrow, null, false, null); 
+        	LayoutInflater  inf =(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        	theView = inf.inflate(R.layout.meetingpeoplelistrow, null, false); 
         	imgStatus = (ImageView) theView.findViewById(R.id.Status); 
         	txtName = (TextView) theView.findViewById(R.id.Name); 
         	imbCall = (ImageButton) theView.findViewById(R.id.Call); 
@@ -256,14 +253,14 @@ public class MeetingView extends ListActivity {
 				//pass meetings UID to the activity (new meeting and old meeting
 				bundle.putLong(MeetingDayView.MEETING_UID_OLD, theMUID_OLD.UID);
 				bundle.putLong(MeetingDayView.MEETING_UID_NEW, newMeeting.getMeetingID().UID);
-				setResult(RESULT_OK, null, bundle);
+				setResult(RESULT_OK, null);
 				finish();
 			}
 		});
 		
 		cancelButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
-				setResult(RESULT_CANCELED, null, null);
+				setResult(RESULT_CANCELED, null);
 				finish();
 			}
 		});	
@@ -331,25 +328,25 @@ public class MeetingView extends ListActivity {
 		windows = (View) findViewById(R.id.ViewPeopleList); 
 		windows.setVisibility(View.GONE);
 		//set Button BackGround to Dark Blue
-		setUpWindow.setBackground(R.color.grey_dark);
-		btnObjDetail.setBackground(R.color.grey_dark);
-		btnPeopleList.setBackground(R.color.grey_dark);
+		setUpWindow.setBackgroundColor(R.color.grey_dark);
+		btnObjDetail.setBackgroundColor(R.color.grey_dark);
+		btnPeopleList.setBackgroundColor(R.color.grey_dark);
 		
 		switch(type){
 			case 1:
 				windows = (View) findViewById(R.id.ViewTimeSetUp); 
 				windows.setVisibility(View.VISIBLE);
-				setUpWindow.setBackground(R.color.grey_clear);
+				setUpWindow.setBackgroundColor(R.color.grey_clear);
 				break;
 			case 2:
 				windows = (View) findViewById(R.id.ViewObjectiveDetail); 
 				windows.setVisibility(View.VISIBLE);
-				btnObjDetail.setBackground(R.color.grey_clear);
+				btnObjDetail.setBackgroundColor(R.color.grey_clear);
 				break;
 			case 3:
 				windows = (View) findViewById(R.id.ViewPeopleList); 
 				windows.setVisibility(View.VISIBLE);
-				btnPeopleList.setBackground(R.color.grey_clear);
+				btnPeopleList.setBackgroundColor(R.color.grey_clear);
 				break;
 		}	
 	}
@@ -374,7 +371,7 @@ public class MeetingView extends ListActivity {
 		cl.setTime(date);
 		new DatePickerDialog(this,mDateSetListener, 
 				cl.get(Calendar.YEAR), cl.get(Calendar.MONTH),
-				cl.get(Calendar.DAY_OF_MONTH),Calendar.SUNDAY).show();
+				cl.get(Calendar.DAY_OF_MONTH)).show();
 	}
 	
 	public void  ChangeTime(int nType){ 
@@ -382,18 +379,18 @@ public class MeetingView extends ListActivity {
 		switch(nType){
 			case 1:
 				new TimePickerDialog(this,
-						mTimeSetListener, "Set Start Meeting time",
+						mTimeSetListener,
 						newMeeting.getMeetingID().getStartHour(), newMeeting.getMeetingID().getStartMin(), true).show();
 				break;
 			case 2:
 				new TimePickerDialog(this,
-						mTimeSetListener, "Set Start Meeting time",
+						mTimeSetListener,
 						newMeeting.getMeetingID().getEndHour(), newMeeting.getMeetingID().getEndMin(), true).show();
 					
 				break;
 			default:
 				new TimePickerDialog(this,
-						mTimeSetListener, "Set Start Meeting time",
+						mTimeSetListener,
 						newMeeting.getMeetingID().getStartHour(), newMeeting.getMeetingID().getStartMin(), true).show();
 		}		
 	}
@@ -402,7 +399,6 @@ public class MeetingView extends ListActivity {
 	// add People
 	//---------------------------------------------------------------------
 	public void  AddPeople(){
-		//TODO: finalize passing list of people
     	Intent i = new Intent(this, ContactsList.class);
     	String strTmp = "";
     	String strCointactsIDs="";
@@ -414,12 +410,13 @@ public class MeetingView extends ListActivity {
 			strCointactsIDs = strTmp.substring(0, strTmp.length()-1);
 			i.putExtra(ContactsList.CONTACTS_IDS, strCointactsIDs);
 		}
-    	startSubActivity(i,ADD_PEOPLE);
+    	startActivityForResult(i,ADD_PEOPLE);
 	}
 	@Override
-	protected void onActivityResult(int requestCode, int resultCode, String data, Bundle extras){
-		super.onActivityResult(requestCode, resultCode, data, extras);
-		
+	protected void onActivityResult(int requestCode, int resultCode, Intent intent){
+		super.onActivityResult(requestCode, resultCode, intent);
+		Bundle extras = intent.getExtras();
+	
 		if (resultCode != android.app.ActivityGroup.RESULT_CANCELED){
 			String IDList  	= extras.getString(ContactsList.CONTACTS_IDS);	
 			String NamesList  	= extras.getString(ContactsList.CONTACTS_NAMES);	
@@ -443,24 +440,23 @@ public class MeetingView extends ListActivity {
 	//---------------------------------------------------------------------
 	// events handlers
 	//---------------------------------------------------------------------
-	 private DatePicker.OnDateSetListener mDateSetListener =
-         new DatePicker.OnDateSetListener() {
-             public void dateSet(DatePicker view, int year, int monthOfYear,
-                     int dayOfMonth) {
+	 private DatePickerDialog.OnDateSetListener mDateSetListener =
+         new DatePickerDialog.OnDateSetListener() {
+             public void onDateSet(DatePicker view, int year, int monthOfYear,int dayOfMonth) {
             	 newMeeting.getMeetingID().setUID((short)year, (short)(monthOfYear+1), (short)dayOfMonth);
             	 UpdateLabels();
              }
          };
     
-         private TimePicker.OnTimeSetListener mTimeSetListener =
-         new TimePicker.OnTimeSetListener() {
-             public void timeSet(TimePicker view, int hourOfDay, int minute) {
+         private TimePickerDialog.OnTimeSetListener mTimeSetListener =
+         new TimePickerDialog.OnTimeSetListener() {
+             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
             	 switch(currentOperation){
             	 	case 1:
-            	 		newMeeting.setStartTimeFrame((short)hourOfDay,(short)minute);
+            	 		newMeeting.setStartTimeFrame((short)hourOfDay,(short)minute,true);
             	 		break;
             	 	case 2:
-              	 		newMeeting.setEndTimeFrame((short)hourOfDay,(short)minute);
+              	 		newMeeting.setEndTimeFrame((short)hourOfDay,(short)minute,true);
               	 		break;
                 }
             	currentOperation = SETUP_NULL;

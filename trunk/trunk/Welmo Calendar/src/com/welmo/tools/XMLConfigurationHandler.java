@@ -16,14 +16,11 @@ import org.xml.sax.helpers.LocatorImpl;
 import android.content.Context;
 import android.util.Log;
 
-import com.welmo.dbhelper.AgendaDBHelper;
 import com.welmo.dbhelper.WelmoConfigDBHelper;
-import com.welmo.meeting.Meeting;
-import com.welmo.meeting.MeetingUID;
 
 public class XMLConfigurationHandler implements ContentHandler {
 
-	private Locator locator;
+	Locator locator;
 	private static final String TAG = "XMLConfigurationHandler";
 	//---------------------------------------------------------
 	Context mContext = null;
