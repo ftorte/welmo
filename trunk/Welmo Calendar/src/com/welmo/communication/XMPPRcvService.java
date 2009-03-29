@@ -31,6 +31,7 @@ import org.jivesoftware.smack.util.StringUtils;
 
 import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.os.Bundle;
@@ -82,7 +83,7 @@ public class XMPPRcvService extends Service implements Runnable
 	
 
 	@Override
-	protected void onCreate()
+	public void onCreate()
 	{
 		mNM = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
 		//start the service
@@ -157,13 +158,12 @@ public class XMPPRcvService extends Service implements Runnable
     	}
     	mConnection=null;
     }
-    @Override    
     protected void onStart(int startId, Bundle arguments){        
     	//serviceHandler = new Handler();
   	  	//serviceHandler.postDelayed( new RunTask(),1000L );
     }
     @Override
-    protected void onDestroy()
+	public void onDestroy()
     {
 		Log.i("XMPPRcvService", "[onDestroy] recived onDestroy");          
 		CloseConnection();
@@ -296,24 +296,19 @@ public class XMPPRcvService extends Service implements Runnable
      * Show a notification while this service is running.
      */
     private void showNotification(String Message, int notificationID, String CLSID) {
+    	Notification notif = new Notification();
+    	
     	// This is who should be launched if the user selects our notification.
     	Intent contentIntent = new Intent(this, com.welmo.communication.XMPPRcvMessageHandler.class);
     	contentIntent.putExtra("NotifID", notificationID);
     	contentIntent.putExtra("CLSID", CLSID);
     	contentIntent.putExtra("Caller", this.CLSID);
-    	// This is who should be launched if the user selects the app icon in the notification,
-    	Intent appIntent = new Intent(this, com.welmo.communication.XMPPRcvMessageHandler.class);
-    	contentIntent.putExtra("NotifID", notificationID);
-    	contentIntent.putExtra("CLSID", CLSID);
-    	contentIntent.putExtra("Caller", this.CLSID);
+    	notif.contentIntent = PendingIntent.getActivity(this, 0,contentIntent,0);
 
     	//cancel the notification with the same type
     	mNM.cancel(notificationID);
     	//create a notification updated
-    	mNM.notify(notificationID, new Notification(this,R.drawable.stat_sample,      
-    			getText(R.string.recived_messge), System.currentTimeMillis(),getText(R.string.recived_messge), 
-    			Message,contentIntent,R.drawable.appointmentnew32x32,getText(R.string.activity_sample_code), // the name of the app
-    			appIntent));                 
+    	mNM.notify(notificationID, notif);
     }
    
     // No need to import IRemoteService if it's in the same project.

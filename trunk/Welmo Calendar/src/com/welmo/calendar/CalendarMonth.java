@@ -27,8 +27,8 @@ public class CalendarMonth extends TableLayout{
 		mCMV = mcmv;
 	}
 
-	public CalendarMonth(Context context, AttributeSet attrs, Map inflateParams) {
-		super(context, attrs, inflateParams);
+	public CalendarMonth(Context context, AttributeSet attrs) {
+		super(context, attrs);
 		setOnClickListener(new OnClickListener (){ 
 			@Override
 			public void onClick(View arg0) {
@@ -49,12 +49,12 @@ public class CalendarMonth extends TableLayout{
 	}
 
 	public CalendarMonth(Context context) {
-		this(context,null,null);
+		this(context,null);
 		// TODO Auto-generated constructor stub
 	}
 
 	void ShowMessge(String Msg){
-        Toast.makeText(mContext,Msg,Toast.LENGTH_SHORT).show();
+        Toast.makeText(this.getContext(),Msg,Toast.LENGTH_SHORT).show();
 	}
 	@Override    
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec){

@@ -11,12 +11,13 @@ import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewInflate;
+import android.view.LayoutInflater;
 import android.view.Window;
-import android.view.Menu.Item;
+import android.view.MenuItem;
 import android.widget.BaseAdapter;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
@@ -117,8 +118,8 @@ public class MeetingDayView extends ListActivity {
         {
         	super(context);
         	this.setOrientation(VERTICAL);
-        	ViewInflate inf =(ViewInflate)getSystemService(INFLATE_SERVICE);
-        	theView = inf.inflate(R.layout.meetingdayrows, null, false, null); 
+        	LayoutInflater  inf =(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        	theView = inf.inflate(R.layout.meetingdayrows, null, false); 
         	mTitle = (TextView) theView.findViewById(R.id.MeetingShortDesc); 
         	mDialogue = (TextView) theView.findViewById(R.id.MeetingLongDesc); 
         	addView(theView, new LinearLayout.LayoutParams(
@@ -199,13 +200,13 @@ public class MeetingDayView extends ListActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu){
 		boolean result = super.onCreateOptionsMenu(menu);
-		menu.add(0, NEW_ID, R.string.menu_insert_meeting);
-		menu.add(1, UPDATE_ID, R.string.menu_update_meeting);
-		menu.add(1, DELETE_ID, R.string.menu_delete_meeting);
+		menu.add(0, NEW_ID, 0, R.string.menu_insert_meeting);
+		menu.add(1, UPDATE_ID, 0, R.string.menu_update_meeting);
+		menu.add(1, DELETE_ID, 0, R.string.menu_delete_meeting);
 		return result;
 	}
 	@Override
-	public boolean onMenuItemSelected(int featureId, Item item){
+	public boolean onMenuItemSelected(int featureId, MenuItem item){
 		MeetingUID theUID = null;
 		super.onMenuItemSelected(featureId, item);
 		int itemPosition = getSelectedItemPosition();
@@ -213,7 +214,7 @@ public class MeetingDayView extends ListActivity {
 			ShowMessge("No Meeting Selected");
 			return false;
 		}
-		switch(item.getId()) {
+		switch(item.getItemId()) {
 			case NEW_ID:
 				theUID =new MeetingUID(getListAdapter().getItemId(itemPosition));
 				MeetingEdit(MEETING_CREATE,theUID);
@@ -235,22 +236,23 @@ public class MeetingDayView extends ListActivity {
 	private void MeetingEdit(int type, MeetingUID MtgUID) {
 		//TODO: finalize graphics
     	Intent i = new Intent(this, MeetingView.class); 
-    	i.putExtra(com.welmo.meeting.MeetingView.CALLER, com.welmo.meeting.MeetingView.CALENDAR_DAY);
     	Meeting currMeeting = theDay.getMeeting(MtgUID);
     	String UID =((Long)currMeeting.getMeetingID().UID).toString();
     	i.putExtra(MEETING_UID_OLD, currMeeting.getMeetingID().UID);
     	switch(type){
     		case MEETING_CREATE:
-    		    startSubActivity(i, MEETING_CREATE);
+    			startActivityForResult(i, MEETING_CREATE);
     			break;
 		    case MEETING_EDIT:
-		    	startSubActivity(i, MEETING_EDIT);
+		    	startActivityForResult(i, MEETING_EDIT);
     	}
     }
 	@Override
-	protected void onActivityResult(int requestCode, int resultCode, String data, Bundle extras){
-		super.onActivityResult(requestCode, resultCode, data, extras);
+	protected void onActivityResult(int requestCode, int resultCode, Intent intent){
+		super.onActivityResult(requestCode, resultCode, intent);
 		
+		Bundle extras = intent.getExtras();
+
 		Meeting newMeeting = new Meeting();
 		MeetingUID MUID_OLD = new MeetingUID();
 		MeetingUID MUID_NEW = new MeetingUID();
@@ -301,8 +303,7 @@ public class MeetingDayView extends ListActivity {
 						mDateSetListener,
 						newDayUID.getYear(), 
 						newDayUID.getMonth()-1, 
-						newDayUID.getDayNB(), 
-						Calendar.SUNDAY).show();
+						newDayUID.getDayNB()).show();				
 			break;
 		}
 		MeetingDay newDay = new MeetingDay(newDayUID.getYear(),
@@ -313,10 +314,10 @@ public class MeetingDayView extends ListActivity {
 	
 	
 		
-	private DatePicker.OnDateSetListener mDateSetListener =
-        new DatePicker.OnDateSetListener() {
+	private DatePickerDialog.OnDateSetListener mDateSetListener =
+        new DatePickerDialog.OnDateSetListener() {
 
-            public void dateSet(DatePicker view, int year, int monthOfYear,
+            public void onDateSet(DatePicker view, int year, int monthOfYear,
                     int dayOfMonth) {
             	MeetingDay newDay = new MeetingDay(year,monthOfYear+1,dayOfMonth,dbAgenda);
         		setDay(newDay);

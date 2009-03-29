@@ -1,6 +1,5 @@
 package com.welmo.tools;
 
-import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
@@ -22,14 +21,14 @@ public class ToolBar extends TableLayout{
 	 protected	int				nButtons=0;
 
 	  
-     public ToolBar(Context context,AttributeSet attrs, Map inflateParams){
-         super(context,attrs, inflateParams);
+     public ToolBar(Context context,AttributeSet attrs){
+         super(context,attrs);
          mContext = context;
          row = new TableRow(mContext);
          // Set row background color
-         row.setBackground(getResources().getDrawable(R.drawable.background));
+         row.setBackgroundDrawable(getResources().getDrawable(R.drawable.background));
          // Set row background color
-         row.setBackground(getResources().getDrawable(R.drawable.background));
+         row.setBackgroundDrawable(getResources().getDrawable(R.drawable.background));
          // Add row to table
          addView(row, new TableLayout.LayoutParams(LayoutParams.FILL_PARENT, 
         		 LayoutParams.WRAP_CONTENT));
@@ -45,7 +44,7 @@ public class ToolBar extends TableLayout{
         // Set button Padding l,t,r,b
     	newButton.setPadding(padl, padt,padr, padb);
      	// Set button background
-    	newButton.setBackground(getResources().getDrawable(ButtonBG));
+    	newButton.setBackgroundDrawable(getResources().getDrawable(ButtonBG));
     	// Add buttons to row
     	row.addView(newButton, new TableRow.LayoutParams(
     			LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
@@ -68,7 +67,7 @@ public class ToolBar extends TableLayout{
       	// Set button Padding l,t,r,b
     	newButton.setPadding(padl, padt,padr, padb);
      	// Set button background
-    	newButton.setBackground(getResources().getDrawable(ButtonBG));
+    	newButton.setBackgroundDrawable(getResources().getDrawable(ButtonBG));
     	// Add buttons to row
     	row.addView(newButton, new TableRow.LayoutParams(
     			LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));

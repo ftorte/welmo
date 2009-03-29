@@ -3,14 +3,12 @@
 	<style name="clendarworkingdaylable">
 		<item name="android:textSize">12px</item>
 		<item name="android:textStyle">bold</item>
-		<item name="android:textAlign">center</item>
 		<item name="android:textColor">#FF00FF00</item>
 		<item name="android:background">#5FA40000</item>
 	</style>
 	<style name="clendaremptydaylable">
 		<item name="android:textSize">16px</item>
 		<item name="android:textStyle">bold</item>
-		<item name="android:textAlign">center</item>
 		<item name="android:textColor">#FF00FF00</item>
 		<item name="android:background">#0F000000</item>
 	</style>
@@ -19,13 +17,11 @@
 		<item name="android:textSize">8px</item>
 		<item name="android:layout_height">fill_parent</item>
 		<item name="android:textStyle">bold</item>
-		<item name="android:textAlign">center</item>
 		<item name="android:textColor">#ffedd400</item>
 		<item name="android:background">#0F888A85</item>
 	</style>
 	<style name="clendarworkingday">
 		<item name="android:textSize">12px</item>
-		<item name="android:textAlign">center</item>
 		<item name="android:layout_width">32px</item>
 		<item name="android:layout_height">32px</item>
 		<item name="android:textStyle">bold</item>
@@ -34,7 +30,6 @@
 	</style>
 	<style name="clendarfreeday">
 		<item name="android:textSize">12px</item>
-		<item name="android:textAlign">center</item>
 		<item name="android:textStyle">bold</item>
 		<item name="android:layout_width">32px</item>
 		<item name="android:layout_height">32px</item>
@@ -50,7 +45,6 @@
 	
 	<style name="clendaroutofmonth">
 		<item name="android:textSize">12px</item>
-		<item name="android:textAlign">center</item>
 		<item name="android:textStyle">italic</item>
 		<item name="android:layout_width">32px</item>
 		<item name="android:layout_height">32px</item>
@@ -240,7 +234,6 @@
     </style>
     
     <style name="pref_label">
-        <item name="android:textAlign">end</item>
         <item name="android:textSize">12dip</item>
         <item name="android:paddingTop">5dip</item>
         <item name="android:paddingBottom">5dip</item>
@@ -276,7 +269,6 @@
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:gravity">center_vertical</item>
-        <item name="android:textAlign">center</item>
         <item name="android:textSize">13dip</item>
         <item name="android:textStyle">bold</item>
         <item name="android:text">"copy"</item>

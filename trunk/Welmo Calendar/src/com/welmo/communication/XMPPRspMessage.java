@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.DeadObjectException;
+import android.os.RemoteException;
 import android.os.IBinder;
 import android.util.Log;
 import android.view.View;
@@ -18,8 +19,6 @@ import android.widget.Toast;
 import android.app.ProgressDialog;
 
 import com.welmo.R;
-import com.welmo.meeting.MeetingDayView;
-import com.welmo.meeting.MeetingView;
 
 public class XMPPRspMessage extends Activity{
 
@@ -126,9 +125,14 @@ public class XMPPRspMessage extends Activity{
 		catch( DeadObjectException ex ){
 			Log.e(LOG_TAG, "DeadObjectException" );
 		}
+		catch( RemoteException ex ){
+			Log.e(LOG_TAG, "DeadObjectException" );
+		}
 		Bundle extra = new Bundle();
 		extra.putLong("UID",lUID);
-		setResult(result, null, extra);
+		Intent intent = new Intent();
+		intent.putExtras(extra);
+		setResult(result, intent);
 		finish();
 	} 
 

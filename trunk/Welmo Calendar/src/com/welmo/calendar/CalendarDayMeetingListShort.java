@@ -5,7 +5,7 @@ import java.util.Map;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.ViewInflate;
+import android.view.LayoutInflater; 
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -48,8 +48,9 @@ public class CalendarDayMeetingListShort extends ListView implements IMeetingDis
 			mContext = context;
 			this.setOrientation(VERTICAL);
 			
-			ViewInflate inf =(ViewInflate)mContext.getSystemService(android.content.Context.INFLATE_SERVICE);
-			theView = inf.inflate(R.layout.meetingdayrows, null, false, null); 
+			LayoutInflater  inf =(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        	theView = inf.inflate(R.layout.meetingpeoplelistrow, null, false); 
+        
 			mMeetingDescription = (TextView) theView.findViewById(R.id.MeetingShortDesc); 
 			mMeetingLongDescription = (TextView) theView.findViewById(R.id.MeetingLongDesc); 
 			
@@ -88,8 +89,8 @@ public class CalendarDayMeetingListShort extends ListView implements IMeetingDis
 		return newDispaly;
 	}	
 	//---------------------------------------------
-	public CalendarDayMeetingListShort(Context context, AttributeSet attrs, Map inflateParams) {
-		super(context,attrs,inflateParams);
+	public CalendarDayMeetingListShort(Context context, AttributeSet attrs) {
+		super(context,attrs);
 		setOnItemClickListener(new OnItemClickListener (){ 
 			@Override
 			public void onItemClick(AdapterView av, View v, int n, long l) {

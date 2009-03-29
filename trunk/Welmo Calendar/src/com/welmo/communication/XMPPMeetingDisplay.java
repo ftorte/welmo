@@ -1,5 +1,6 @@
 package com.welmo.communication;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Iterator;
 
@@ -8,7 +9,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewInflate;
+import android.view.LayoutInflater;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -34,8 +35,8 @@ public class XMPPMeetingDisplay extends LinearLayout implements IMeetingDisplay 
 		mContext = context;
 		this.setOrientation(VERTICAL);
 		
-		ViewInflate inf =(ViewInflate)mContext.getSystemService(android.content.Context.INFLATE_SERVICE);
-		theView = inf.inflate(R.layout.xmppinvitationshandler, null, false, null); 
+		LayoutInflater  inf =(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    	theView = inf.inflate(R.layout.xmppinvitationshandler, null, false); 
 		addView(theView, new LinearLayout.LayoutParams(
 				LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
 		header = (View)theView.findViewById(R.id.header);
@@ -51,7 +52,7 @@ public class XMPPMeetingDisplay extends LinearLayout implements IMeetingDisplay 
 		});
 		setOnFocusChangeListener(new OnFocusChangeListener (){
 			@Override
-			public void onFocusChanged(View v, boolean b){
+			public void onFocusChange(View v, boolean b){
 				/*if(b){
 					v.setBackground(R.drawable.listselector);
 				}
@@ -82,7 +83,11 @@ public class XMPPMeetingDisplay extends LinearLayout implements IMeetingDisplay 
 		
 		Calendar c = Calendar.getInstance();
 		c.setTimeInMillis(currMeeting.getTimestamp());
-		CharSequence MessgeDate = android.util.DateFormat.format("E-dd/MM/yy",c);
+		CharSequence MessgeDate ="";
+		//[FT] android.text.DateFormat.format("E-dd/MM/yy",c);
+		
+		
+		
 		((TextView)header.findViewById(R.id.MessageDate)).setText(MessgeDate);
 		((TextView)header.findViewById(R.id.MessageSender)).setText(currMeeting.getOwner());
 		((TextView)header.findViewById(R.id.MeetingTime)).setText(currMeeting.getStart_h()+":"+currMeeting.getStart_m());

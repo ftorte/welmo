@@ -22,11 +22,13 @@ import com.welmo.R;
 
 import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
 import android.os.Parcel;
+import android.os.RemoteException;
 import android.widget.Toast;
 
 /**
@@ -42,7 +44,7 @@ public class AlarmService2_Service extends Service
     NotificationManager mNM;
 
     @Override
-    protected void onCreate()
+	public void onCreate()
     {
         mNM = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
 
@@ -57,7 +59,7 @@ public class AlarmService2_Service extends Service
     }
 
     @Override
-    protected void onDestroy()
+	public void onDestroy()
     {
         // Cancel the notification -- we use the same ID that we had used to start it
         mNM.cancel(R.string.alarm_service_started);
@@ -99,30 +101,16 @@ public class AlarmService2_Service extends Service
      * Show a notification while this service is running.
      */
     private void showNotification() {
-        // This is who should be launched if the user selects our notification.
+    	Notification notif = new Notification();
+    	// This is who should be launched if the user selects our notification.
         Intent contentIntent = new Intent(this, AlarmService2.class);
 
-        // This is who should be launched if the user selects the app icon in the notification,
-        // (in this case, we launch the same activity for both)
-        Intent appIntent = new Intent(this, AlarmService2.class);
-
+        notif.contentIntent = PendingIntent.getActivity(this, 0,contentIntent,0);
+        
         // In this sample, we'll use the same text for the ticker and the expanded notification
         CharSequence text = getText(R.string.alarm_service_started);
 
-        mNM.notify(R.string.alarm_service_started,  // we use a string id because it is a unique
-                                                    // number.  we use it later to cancel the
-                                                    // notification
-                   new Notification(
-                       this,                        // our context
-                       R.drawable.stat_sample,      // the icon for the status bar
-                       text,                        // the text to display in the ticker
-                       System.currentTimeMillis(),  // the timestamp for the notification
-                       getText(R.string.alarm_service_label), // the title for the notification
-                       text,                        // the details to display in the notification
-                       contentIntent,               // the contentIntent (see above)
-                       R.drawable.allert16x16,  // the app icon
-                       getText(R.string.activity_sample_code), // the name of the app
-                       appIntent));                 // the appIntent (see above)
+        mNM.notify(R.string.alarm_service_started,notif);                 // the appIntent (see above)
     }
 
     /**
@@ -133,7 +121,14 @@ public class AlarmService2_Service extends Service
     {
         @Override
 		protected boolean onTransact(int code, Parcel data, Parcel reply, int flags) {
-            return super.onTransact(code, data, reply, flags);
+            try{
+            	super.onTransact(code, data, reply, flags);
+            }
+            catch(RemoteException excp)
+            {
+            	return false;
+            }
+			return true;
         }
     };
 }

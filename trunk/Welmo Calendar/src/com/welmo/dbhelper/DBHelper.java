@@ -11,27 +11,22 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 
 public class DBHelper {
-
-    
-	private static final int DATABASE_VERSION = 1;  
     private String strDatabaseName = "";
     private SQLiteDatabase db = null;
-    Vector<String> TableList = new Vector();
+    Vector<String> TableList = new Vector<String>();
   
 
 	public DBHelper(Context ctx, String DBName) {
 		super();
 		try {
 			strDatabaseName = DBName;
-            db = ctx.openDatabase(strDatabaseName, null);
-        } catch (FileNotFoundException e) {
-            try {
-                db = ctx.createDatabase(strDatabaseName, DATABASE_VERSION, 0,null);
-            } catch (FileNotFoundException e1) {
-                db = null;
-            }
+            db = ctx.openOrCreateDatabase(strDatabaseName,android.content.Context.MODE_WORLD_WRITEABLE,null);
+        }
+		catch (SQLiteException e) {
+                 db = null;
         }
 	}
 	
@@ -110,8 +105,8 @@ public class DBHelper {
 	{
 		if (db == null || !TableList.contains(databaseTable))
        		throw new IllegalArgumentException ("Inpossible to open or crate the table " + databaseTable);
-		Cursor cur = db.query(true, databaseTable, columns, "rowid=" + rowId, null, null, null, null);
-		if (cur.count() > 0)
+		Cursor cur = db.query(true, databaseTable, columns, "rowid=" + rowId, null, null, null, null, null);
+		if (cur.getCount() > 0)
 				return cur;
 		else{
 			if(cur != null)
@@ -123,8 +118,8 @@ public class DBHelper {
 	{
 		if (db == null || !TableList.contains(databaseTable))
        		throw new IllegalArgumentException ("Inpossible to open or crate the table " + databaseTable);
-		Cursor cur = db.query(true, databaseTable, columns, whereClause, null, null, null, null);
-		if (cur.count() > 0)
+		Cursor cur = db.query(true, databaseTable, columns, whereClause, null,null, null, null, null);
+		if (cur.getCount() > 0)
 				return cur;
 		else{
 			if(cur != null)
@@ -140,15 +135,15 @@ public class DBHelper {
 		try{		
 			Cursor cur = db.query(true, databaseTable,new String[]{"rowid"}, 
 					"rowid BETWEEN " + rowIdMin + " AND " + rowIdMax, 
-					null, null,null, "rowid");
+					null, null,null,null, "rowid");
 			
-			if (cur.count() > 0)
+			if (cur.getCount() > 0)
 			{
-				cur.first();
+				cur.moveToFirst();
 				while (!cur.isLast())
 				{
 					ret.add(cur.getLong(0));
-					cur.next();
+					cur.moveToNext();
 				}
 				ret.add(cur.getLong(0));
 			}

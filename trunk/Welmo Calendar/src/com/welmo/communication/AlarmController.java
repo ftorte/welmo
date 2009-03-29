@@ -22,6 +22,7 @@ import com.welmo.R;
 
 import android.app.Activity;
 import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.SystemClock;
 import android.os.Bundle;
@@ -90,8 +91,8 @@ public class AlarmController extends Activity
             // goes off.  We just create an intent with an explicit class name
             // to have our own receiver (which has been published in
             // AndroidManifest.xml) instantiated and called.
-            Intent intent = new Intent(AlarmController.this, OneShotAlarm.class);
-
+        	Intent intent = new Intent(AlarmController.this, OneShotAlarm.class);
+            PendingIntent sender = PendingIntent.getBroadcast(AlarmController.this,0, intent, 0);     
             // We want the alarm to go off 30 seconds from now.
             Calendar calendar = Calendar.getInstance();
             calendar.setTimeInMillis(System.currentTimeMillis());
@@ -99,7 +100,7 @@ public class AlarmController extends Activity
 
             // Schedule the alarm!
             AlarmManager am = (AlarmManager)getSystemService(ALARM_SERVICE);
-            am.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), intent);
+            am.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), sender);
 
             // Tell the user about what we did.
             if (mToast != null) {
@@ -120,7 +121,9 @@ public class AlarmController extends Activity
             // to have our own receiver (which has been published in
             // AndroidManifest.xml) instantiated and called.
             Intent intent = new Intent(AlarmController.this, RepeatingAlarm.class);
-
+            PendingIntent sender = PendingIntent.getBroadcast(AlarmController.this,0, intent, 0);     
+            
+            
             // We want the alarm to go off 30 seconds from now.
             long firstTime = SystemClock.elapsedRealtime();
             firstTime += 15*1000;
@@ -128,7 +131,7 @@ public class AlarmController extends Activity
             // Schedule the alarm!
             AlarmManager am = (AlarmManager)getSystemService(ALARM_SERVICE);
             am.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                            firstTime, 15*1000, intent);
+                            firstTime, 15*1000, sender);
 
             // Tell the user about what we did.
             if (mToast != null) {
@@ -146,10 +149,11 @@ public class AlarmController extends Activity
         {
             // Create the same intent that was scheduled.
             Intent intent = new Intent(AlarmController.this, RepeatingAlarm.class);
-
+            PendingIntent sender = PendingIntent.getBroadcast(AlarmController.this,0, intent, 0);
+            
             // And cancel the alarm.
             AlarmManager am = (AlarmManager)getSystemService(ALARM_SERVICE);
-            am.cancel(intent);
+            am.cancel(sender);
 
             // Tell the user about what we did.
             if (mToast != null) {

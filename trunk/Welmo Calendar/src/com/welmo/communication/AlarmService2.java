@@ -21,6 +21,7 @@ package com.welmo.communication;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.content.Context;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -73,6 +74,7 @@ App/Service/Alarm Service
 public class AlarmService2 extends Activity
 {
     Context mContext;
+    private PendingIntent mAlarmSender;
     @Override
 	protected void onCreate(Bundle icicle)
     {
@@ -91,25 +93,19 @@ public class AlarmService2 extends Activity
     {
         public void onClick(View v)
         {
-            // This is the intent receiver who will be run when the alarm
-            // goes off.  We just create an intent with an explicit class name
-            // to have our own receiver (which has been published in
-            // AndroidManifest.xml) instantiated and called.
-            Intent intent = new Intent(AlarmService2.this, AlarmService2_Alarm.class);
-
             // We want the alarm to go off 30 seconds from now.
             long firstTime = SystemClock.elapsedRealtime();
 
             // Schedule the alarm!
             AlarmManager am = (AlarmManager)getSystemService(ALARM_SERVICE);
             am.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                            firstTime, 30*1000, intent);
+                            firstTime, 30*1000, mAlarmSender);
 
             // Tell the user about what we did.
             Toast.makeText(AlarmService2.this, R.string.repeating_scheduled,
                     Toast.LENGTH_LONG).show();
             
-            mContext.startService(new Intent(mContext, AlarmService2_Service.class),null);
+            mContext.startService(new Intent(mContext, AlarmService2_Service.class));
         }
     };
 
@@ -118,11 +114,12 @@ public class AlarmService2 extends Activity
         public void onClick(View v)
         {
             // Create the same intent that was scheduled.
-            Intent intent = new Intent(AlarmService2.this, AlarmService2_Alarm.class);
+        	Intent intent = new Intent(AlarmService2.this, AlarmService2_Alarm.class);
+            PendingIntent sender = PendingIntent.getBroadcast(AlarmService2.this,0, intent, 0);     
 
             // And cancel the alarm.
             AlarmManager am = (AlarmManager)getSystemService(ALARM_SERVICE);
-            am.cancel(intent);
+            am.cancel(sender);
 
             // Tell the user about what we did.
             Toast.makeText(AlarmService2.this, R.string.repeating_unscheduled,

@@ -26,9 +26,8 @@ public class MeetingDayViewToolBar extends ToolBar {
 	 
 	private static Button dateLabel=null;
 	
-	public MeetingDayViewToolBar(Context context, AttributeSet attrs,
-			Map inflateParams) {
-		super(context, attrs, inflateParams);
+	public MeetingDayViewToolBar(Context context, AttributeSet attrs) {
+		super(context, attrs);
 		// TODO Auto-generated constructor stub
 		//create 
         CreateImageButton(GO_MIN7,R.drawable.go_previousdoub, 0, 3, 0, 0, R.drawable.background);
@@ -68,12 +67,11 @@ public class MeetingDayViewToolBar extends ToolBar {
     
     private static ImageButton.OnFocusChangeListener toolbarFocusListener =
         new ImageButton.OnFocusChangeListener() {
-
-        public void onFocusChanged(View arg0, boolean arg1) {
+        public void onFocusChange(View arg0, boolean arg1) {
             if(arg1) {
-                arg0.setBackground(R.drawable.background2);
+                arg0.setBackgroundResource(R.drawable.background2);
             } else {
-                arg0.setBackground(R.drawable.background);
+                arg0.setBackgroundResource(R.drawable.background);
             }
         }
     };

@@ -333,7 +333,6 @@
 		<ImageButton android:id="@+id/confirm"
 			android:background="@color/sky_blu_dark"
 			android:padding="3dip"
-			android:layout_toLeft="@+id/cancel"
             android:layout_alignTop="@+id/cancel"
 			android:layout_width="wrap_content" 
 			android:layout_height="wrap_content"

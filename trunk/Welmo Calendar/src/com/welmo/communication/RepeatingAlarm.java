@@ -22,17 +22,17 @@ import com.welmo.R;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentReceiver;
+import android.content.BroadcastReceiver;
 import android.widget.Toast;
 
 /**
  * This is an example of implement an {@link IntentReceiver} for an alarm that
  * should occur once.
  */
-public class RepeatingAlarm extends IntentReceiver
+public class RepeatingAlarm extends BroadcastReceiver
 {
     @Override
-    public void onReceiveIntent(Context context, Intent intent)
+    public void onReceive(Context context, Intent intent)
     {
         Toast.makeText(context, "repeated recived", Toast.LENGTH_SHORT).show();
     }

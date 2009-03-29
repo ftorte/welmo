@@ -42,7 +42,7 @@ public class XMLContentContactHandler implements ContentHandler {
 	contactTypePhone	thePhones 	= new contactTypePhone();
 	contactTypeEmals	theEmails 	= new contactTypeEmals();
 	//---------------------------------------------------------
-	private Locator locator;
+	Locator locator;
 	private static final String TAG = "XMLConfigurationHandler";
 
 	public XMLContentContactHandler(Context ctx) {
@@ -173,8 +173,8 @@ public class XMLContentContactHandler implements ContentHandler {
 		theContent.put(ContactMethods.PERSON_ID,tokens[0]);
 		theContent.put(ContactMethods.LABEL,"XMPP");
 		theContent.put(ContactMethods.DATA,tokens[1]);
-		theContent.put(ContactMethods.KIND,ContactMethods.EMAIL_KIND);
-		theContent.put(ContactMethods.TYPE,ContactMethods.EMAIL_KIND_OTHER_TYPE);
+		//[FT ver 0.51] theContent.put(ContactMethods.KIND,ContactMethods.EMAIL_KIND);
+		//[FT ver 0.51] theContent.put(ContactMethods.TYPE,ContactMethods.EMAIL_KIND_OTHER_TYPE);
 		return theContent;
 	}
 	@Override

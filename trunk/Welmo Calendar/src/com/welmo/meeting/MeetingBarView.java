@@ -41,9 +41,8 @@ public class MeetingBarView extends View{
    
 	String mMsgDescription = "";
 	
-	public MeetingBarView(Context context, AttributeSet attrs, Map inflateParams) {
-		super(context, attrs, inflateParams);
-		mContext = context;
+	public MeetingBarView(Context context, AttributeSet attrs) {
+		super(context, attrs);
 		setOnClickListener(new OnClickListener (){ 
 			@Override
 			public void onClick(View arg0) {
@@ -52,14 +51,14 @@ public class MeetingBarView extends View{
 		});
 		setOnFocusChangeListener(new OnFocusChangeListener (){
 			@Override
-			public void onFocusChanged(View v, boolean b){
+			public void onFocusChange(View v, boolean b){
 				//ShowMessge("Calendar Day On Focus Catched: "+id);
 				if(b){
-					v.setBackground(focusBackground);
+					v.setBackgroundDrawable(focusBackground);
 					ShowMessge(mMsgDescription);	
 				}
 				else{
-					v.setBackground(defaultBackground);
+					v.setBackgroundDrawable(defaultBackground);
 				}
 			}		
 		});
@@ -70,9 +69,9 @@ public class MeetingBarView extends View{
 				return true;
 			}
 		});
-		setBackground(R.drawable.mtg_bar_small);
+		setBackgroundResource(R.drawable.mtg_bar_small);
 		focusBackground = getBackground();
-		setBackground(R.drawable.mtg_bar_focus);
+		setBackgroundResource(R.drawable.mtg_bar_focus);
 		defaultBackground = getBackground();
 		setFocusableInTouchMode(true);
 		setFocusable(true);
@@ -80,18 +79,18 @@ public class MeetingBarView extends View{
 	}
 
 	public MeetingBarView(Context context, int w, int h) {
-		this(context,null,null);
+		this(context,null);
 		mParentWidth = w;
 		mParentHeigth = h;
 		// TODO Auto-generated constructor stub
 	}
 	public MeetingBarView(Context context) {
-		this(context,null,null);
+		this(context,null);
 		// TODO Auto-generated constructor stub
 	}
 	
 	void ShowMessge(String Msg){
-        Toast.makeText(mContext,Msg,Toast.LENGTH_SHORT).show();
+        Toast.makeText(this.getContext(),Msg,Toast.LENGTH_SHORT).show();
 	}
 	public boolean HasConflict(int start_h, int start_m, int end_h,int end_m){
 		
@@ -194,9 +193,9 @@ public class MeetingBarView extends View{
 		return true;
 	}
 	public void ReDrawView(){
-		mWidth = (int)(mParentWidth * mTickRatio) - mPaddingLeft - mPaddingRight;
+		mWidth = (int)(mParentWidth * mTickRatio);
 		mHeight = mParentHeigth * (mEnd-mStart)/daydimension;
-		mPosX = mColumnPosition*(mWidth+mPaddingLeft) + mPaddingRight ;
+		mPosX = mColumnPosition*(mWidth) ;
 		mPosY = mParentHeigth * mStart/daydimension;		
 		setLayoutParams(new AbsoluteLayout.LayoutParams(mWidth,mHeight,mPosX,mPosY));
 	}

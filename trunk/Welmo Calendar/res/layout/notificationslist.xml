@@ -22,7 +22,6 @@
 				android:minHeight="24px" 
 				android:textColor="@color/alluminium_clear"
 				android:textStyle="bold"
-				android:textAlign="center" 
 				android:gravity="center_vertical"
 				android:text="Messages" 
 				android:paddingTop="3dip"

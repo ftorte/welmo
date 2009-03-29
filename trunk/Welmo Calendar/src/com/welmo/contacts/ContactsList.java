@@ -4,13 +4,15 @@ import java.util.ArrayList;
 
 import android.app.ListActivity;
 import android.content.Context;
+import android.content.Intent;
+
 import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.Contacts.People;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewInflate;
+import android.view.LayoutInflater;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
@@ -79,8 +81,8 @@ public class ContactsList extends  ListActivity{
 
 		int nContactPositon=0;
 		if(c!= null){
-			if(c.count()>0){
-				c.first();
+			if(c.getCount()>0){
+				c.moveToFirst();
 				while (!c.isAfterLast())
 				{
 					Contact theContact = new Contact();
@@ -89,7 +91,7 @@ public class ContactsList extends  ListActivity{
 					theContact.Selected = false;
 					theContact._pos = nContactPositon;
 					theContactList.add(theContact);
-					c.next();
+					c.moveToNext();
 					nContactPositon++;
 				}
 			}
@@ -106,14 +108,16 @@ public class ContactsList extends  ListActivity{
 				Bundle bundle = new Bundle();
 				bundle.putString(CONTACTS_IDS, getSelectedContactsID());
 				bundle.putString(CONTACTS_NAMES, getSelectedContactsNames());
-				setResult(RESULT_OK, null, bundle);
+				Intent intent = new Intent();
+				intent.putExtras(bundle);
+				setResult(RESULT_OK, intent);
 				finish();
 			}
 		});
 		
 		cancelButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
-				setResult(RESULT_CANCELED, null, null);
+				setResult(RESULT_CANCELED);
 				finish();
 			}
 		});	
@@ -174,8 +178,8 @@ public class ContactsList extends  ListActivity{
         	super(context);
         	Log.v(TAG,"PeopleList Constructor");
         	mContext = context;
-        	ViewInflate inf =(ViewInflate)getSystemService(INFLATE_SERVICE);
-        	mTheView = inf.inflate(R.layout.contactlistrow, null, false, null);
+        	LayoutInflater  inf =(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        	mTheView = inf.inflate(R.layout.contactlistrow, null, false); 
         	mCbContact = (CheckBox) mTheView.findViewById(R.id.cbxSelectItem);
         	mTVName	= (TextView) mTheView.findViewById(R.id.txtView);
         	mCbContact.setOnClickListener(mCboxListener);
