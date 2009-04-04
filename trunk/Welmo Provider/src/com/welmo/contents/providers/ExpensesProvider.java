@@ -26,7 +26,7 @@ import android.database.Cursor;
 import android.net.Uri;
 
 import com.welmo.contents.DBHelper;
-import com.welmo.contents.Expenses;
+import com.welmo.contents.ExpensesManager;
 import com.welmo.contents.providers.*;
 
 public class ExpensesProvider extends ContentProvider{
@@ -37,17 +37,17 @@ public class ExpensesProvider extends ContentProvider{
 		private String ATTENDS_TABLE = "Attends";
 
 		public static final String EXPENSES_TABLE_CREATE_CONDITIONS = 
-	        "(" +  Expenses._ID + "INTEGER PRIMARY KEY," +
-	        	Expenses.DSCRIPTION +", TEXT, " +
-	        	Expenses.GROUP +", TEXT," +
-	        	Expenses.OWNER +", TEXT, " +
-	        	Expenses.DATE +", INTEGER, " +
-	        	Expenses.VAL +", INTEGER, " +
-	        	Expenses.VALCURR +", TEXT, " +
-	        	Expenses.COVTAUX +" , Val)";
+	        "(" +  ExpensesManager._ID + "INTEGER PRIMARY KEY," +
+	        	Expenses.ExpensesManager +", TEXT, " +
+	        	Expenses.ExpensesManager +", TEXT," +
+	        	Expenses.ExpensesManager +", TEXT, " +
+	        	Expenses.ExpensesManager +", INTEGER, " +
+	        	Expenses.ExpensesManager +", INTEGER, " +
+	        	Expenses.ExpensesManager +", TEXT, " +
+	        	Expenses.ExpensesManager +" , Val)";
 		
 		public static final String ATTENDS_TABLE_CREATE_CONDITIONS = 
-	        "(" + Expenses._ID + " INTEGER," 
+	        "(" + ExpensesManager._ID + " INTEGER," 
 			+ " ID INTEGER, Name TEXT, Response INTEGER, Message TEXT, isMe INTEGER, PRIMARY KEY(UID,ID))";
 		
 		public ExpensesDBHelper(Context ctx,String DBName) {
@@ -152,7 +152,7 @@ public class ExpensesProvider extends ContentProvider{
 		case EVENT_ID:
 			String sUID = sgmt.get(1);
 			long UID = Long.parseLong(sUID);
-			values.put(Expenses._ID, UID);
+			values.put(ExpensesManager._ID, UID);
 			UID  = eventDB.createMeetingsRow(values);
 			break;
 		default:
@@ -163,7 +163,7 @@ public class ExpensesProvider extends ContentProvider{
 
 	@Override
 	public boolean onCreate() {
-		eventDB = new ExpensesDBHelper(this.getContext(),Expenses.DATABASE_NAME);
+		eventDB = new ExpensesDBHelper(this.getContext(),ExpensesManager.DATABASE_NAME);
 		if(eventDB != null)
 			return true;
 		else
@@ -215,7 +215,7 @@ public class ExpensesProvider extends ContentProvider{
 
 	static
 	{
-		String strAutority = Expenses.CONTENT_URI.getAuthority();
+		String strAutority = ExpensesManager.CONTENT_URI.getAuthority();
 		sURIMatcher.addURI(strAutority, "event/#", EVENT_ID);
 		sURIMatcher.addURI(strAutority, "event", EVENT);
 	}
