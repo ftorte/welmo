@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<resources>
+    <!-- Used in View/Spinner1.java -->
+    <string-array name="colors">
+        <item>red</item>
+        <item>orange</item>
+        <item>yellow</item>
+        <item>green</item>
+        <item>blue</item>
+        <item>violet</item>
+    </string-array>
+
+    <!-- Used in View/Spinner1.java -->
+    <string-array name="planets">
+        <item>Mercury</item>
+        <item>Venus</item>
+        <item>Earth</item>
+        <item>Mars</item>
+        <item>Jupiter</item>
+        <item>Saturn</item>
+        <item>Uranus</item>
+        <item>Neptune</item>
+        <item>Pluto</item>
+    </string-array>
+
+    <!-- Used in App/SearchInvoke.java -->
+    <string-array name="search_menuModes">
+        <item>Search Key</item>
+        <item>Menu Item</item>
+        <item>Type-To-Search</item>
+        <item>Disabled</item>
+    </string-array>
+
+    <!-- Used in app/dialog examples -->
+    <string-array name="select_dialog_items">
+        <item>Command one</item>
+        <item>Command two</item>
+        <item>Command three</item>
+        <item>Command four</item>
+    </string-array>
+
+    <string-array name="select_dialog_items2">
+        <item>Map</item>
+        <item>Satellite</item>
+        <item>Traffic</item>
+        <item>Street view</item>
+    </string-array>
+
+    <string-array name="select_dialog_items3">
+        <item>Every Monday</item>
+        <item>Every Tuesday</item>
+        <item>Every Wednesday</item>
+        <item>Every Thursday</item>
+        <item>Every Friday</item>
+        <item>Every Saturday</item>
+        <item>Every Sunday</item>
+    </string-array>
+
+    <!-- Used in app/menu examples -->
+    <string-array name="entries_list_preference">
+        <item>Alpha Option 01</item>
+        <item>Beta Option 02</item>
+        <item>Charlie Option 03</item>  
+    </string-array>
+
+    <!-- Used in app/menu examples -->
+    <string-array name="entryvalues_list_preference">
+        <item>alpha</item>
+        <item>beta</item>
+        <item>charlie</item>  
+    </string-array>
+    <!-- 
+    	array contains the possible sources
+    	each string is coded as follow
+    	@Currency Name, @Currency Symbol, @Currency ISO3 code
+     -->
+    <string-array name="source_currencies_labels">
+        <item>Euro € (EUR)</item>
+        <item>US Dollar $ (USD)</item>
+        <item>Japan Yen  ¥ (JPY)</item>
+        <item>China RMB (CNY)</item>
+        <item>GB Pound £ (GBP)</item>
+        <item>Swiss Franc (CHF)</item>
+    </string-array>
+    <!-- 
+    	array contains the possible sources
+    	each string is coded as follow
+    	@Currency Name, @Currency Symbol, @Currency ISO3 code
+     //source.setTarget(CountryName, CountryISO2, tCurrISO3, sCurrISO3, rateScrVSTrg)
+     -->
+    <string-array name="source_currencies_configstring">
+        <item>Euro Zone,EU,EUR,EUR</item>
+        <item>Unated States,US,USD,USD</item>
+        <item>Japan,JP,JPY,JPY</item>
+        <item>China,CN,CNY,CNY</item>
+        <item>United Kingdom,UK,GBP,GBP</item>
+        <item>Swiss,SW,CHF,CHF</item>
+    </string-array>
+    <string-array name="synch_sources">
+        <item>European Central Bank (BCE)</item>
+        <item>Yahoo </item>
+        <item>Manual Update</item>
+    </string-array> 
+    <string-array name="synch_sources_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array> 
+    <string-array name="prf_source_default_amounts">
+        <item>1</item>
+        <item>10</item>
+        <item>20</item>
+        <item>50</item>
+        <item>100</item>
+        <item>500</item>
+        <item>1000</item>
+        <item>10000</item>
+        <item>100000</item>
+    </string-array>
+</resources>

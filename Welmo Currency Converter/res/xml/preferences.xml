@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" android:persistent="true" android:enabled="true">
+	<PreferenceCategory android:title="Source Currency"
+		android:summary="@string/prf_source_curr" 
+		android:defaultValue="@string/prf_synch_source" 
+		android:persistent="true">
+		<com.welmo.travel.tracking.CustomListPreference
+			android:title="@string/prf_source_curr" 
+			android:dialogTitle="@string/prf_source_curr"
+			android:key="@string/prfkey_source_curr" 
+			android:entries="@array/source_currencies_labels"
+			android:entryValues="@array/source_currencies_configstring" 
+			android:summary="@string/prf_source_curr" 
+			android:persistent="true"
+			android:defaultValue="Euro Zone,EU,EUR,EUR"/>
+		<com.welmo.travel.tracking.CustomListPreference
+			android:title="@string/prf_source_default_ammount" 
+			android:dialogTitle="@string/prf_source_default_ammount"
+			android:key="@string/prfkey_source_default_ammount" 
+			android:entries="@array/prf_source_default_amounts"
+			android:entryValues="@array/prf_source_default_amounts" 
+			android:summary="@string/prf_source_default_ammount" 
+			android:persistent="true"
+			android:defaultValue="1000"/>
+	</PreferenceCategory>
+
+	<PreferenceCategory android:title="Synchronization Source">
+		<com.welmo.travel.tracking.CustomListPreference 
+			android:entries="@array/synch_sources"
+			android:entryValues="@array/synch_sources_values" 
+			android:key="@string/prfkey_synch_source"
+			android:title="@string/prf_synch_source" 
+			android:dialogTitle="@string/prf_synch_source" 
+			android:persistent="true"
+			android:enabled="false"
+			android:defaultValue="1"/>
+</PreferenceCategory>
+	
+</PreferenceScreen>
