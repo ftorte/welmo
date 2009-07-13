@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+
+	<RelativeLayout android:id="@+id/source"
+		android:layout_width="fill_parent" android:layout_height="?android:attr/listPreferredItemHeight"
+		android:visibility="visible" android:soundEffectsEnabled="true"
+		android:focusableInTouchMode="false" android:focusable="false">
+		<ImageView android:id="@+id/srcflag" android:padding="1dip"
+			android:layout_marginTop="8dip" android:layout_marginLeft="8dip"
+			android:layout_marginRight="8dip" android:layout_alignParentTop="true"
+			android:layout_alignParentLeft="true" android:layout_width="30dip"
+			android:layout_height="20dip" android:src="@drawable/ad"
+			android:layout_marginBottom="8dip">
+		</ImageView>
+		<TextView android:id="@+id/srcvalue" android:text="1000.00 "
+			android:layout_alignTop="@+id/srcflag" android:layout_toRightOf="@+id/srcflag"
+			android:gravity="right" android:typeface="sans" android:textStyle="normal|bold"
+			android:lines="1" android:visibility="visible" android:layout_width="230dip"
+			android:textColor="@color/sky_blu_clear" android:textSize="16dip"
+			android:layout_height="20dip">
+		</TextView>
+
+		<!--
+			<EditText android:id="@+id/srcvalue" android:text="1000.00 "
+			style="?android:attr/textViewStyle"
+			android:layout_alignTop="@+id/srcflag"
+			android:layout_toRightOf="@+id/srcflag" android:gravity="right"
+			android:typeface="sans" android:textStyle="normal|bold"
+			android:lines="1" android:visibility="visible"
+			android:layout_width="230dip"
+			android:textColor="@color/sky_blu_clear" android:textSize="16dip"
+			android:layout_height="20dip" android:background="@null"
+			android:imeOptions="actionDone"
+			android:inputType="number|numberDecimal"
+			android:includeFontPadding="true"
+			android:imeActionLabel="@string/hello"> </EditText>
+		-->
+		<TextView android:id="@+id/srccurrcode"
+			android:layout_alignTop="@+id/srcvalue" android:layout_toRightOf="@+id/srcvalue"
+			android:layout_marginRight="8dp" android:layout_marginBottom="8dp"
+			android:typeface="sans" android:textStyle="bold"
+			android:layout_height="20dip" android:textColor="@color/alluminium_clear"
+			android:text=" EUR" android:textSize="16dip" android:layout_width="60dip">
+		</TextView>
+		<TextView android:id="@+id/srccountryname"
+			android:layout_width="150dip" android:layout_height="20dip"
+			android:text="Country Test" android:textSize="16sp" android:typeface="monospace"
+			android:textStyle="bold" android:layout_toRightOf="@+id/srcflag"
+			android:layout_below="@+id/srcflag" android:layout_marginTop="1dip"
+			android:layout_alignParentLeft="true" android:paddingLeft="3dip">
+		</TextView>
+
+
+
+
+	</RelativeLayout>
+	<TextView android:id="@+id/separator" android:layout_width="fill_parent"
+		android:layout_height="24dip" android:background="@android:drawable/bottom_bar"
+		android:text="In Currencies" android:gravity="center_vertical|center_horizontal"
+		android:textStyle="bold" android:textColor="@color/alluminium_clear" />
+
+	<FrameLayout android:layout_width="fill_parent"
+		android:layout_height="0dip" android:layout_weight="1"
+		android:stackFromBottom="true" android:transcriptMode="normal"
+		android:layout_gravity="top">
+		<ListView android:id="@android:id/list" android:layout_width="fill_parent"
+			android:layout_height="fill_parent" android:drawSelectorOnTop="false" />
+
+
+	</FrameLayout>
+	<TextView android:layout_width="fill_parent"
+		android:background="@android:drawable/bottom_bar" android:gravity="center_vertical|center_horizontal"
+		android:textColor="@color/alluminium_clear" android:textSize="12dip"
+		android:layout_height="18dip" android:text="@string/statusbar"
+		android:id="@+id/statusbar" />
+		
+<android.inputmethodservice.KeyboardView
+	android:id="@+id/EditKeyboard01"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content" 
+	android:visibility="gone"
+	android:orientation="horizontal" 
+	android:background="@android:drawable/bottom_bar"
+/>
+</LinearLayout>
