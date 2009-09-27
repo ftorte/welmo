@@ -39,9 +39,6 @@ public class ChangeValue extends Activity{
 	        mValue.setText(Double.toString(extras.getDouble(ExpenseTracker.VALUE)));
 	        position = extras.getInt(ExpenseTracker.POSITION);
 	        
-	      /*[FT] Toast.makeText(this, "get vaalues" + extras.getString(ExpenseTracker.CURRENCY)
-	    			+ " " + (Double.toString(extras.getDouble(ExpenseTracker.VALUE)))
-	    			+ " " + position, Toast.LENGTH_SHORT).show();*/
 	    }
 	   
 	    confirmButton.setOnClickListener(new View.OnClickListener() {
