@@ -43,20 +43,30 @@ class CurrencyListAdapter extends BaseAdapter {
 		// TODO Auto-generated method stub
 		super.unregisterDataSetObserver(observer);
 	}
-
+	// list of possible changes can be done in the adapter
 	public static final int CHANGED_VALUE_TARGET = 1;
 	public static final int CHANGED_VALUE_SOURCE = 2;
 	public static final int CHANGED_RATE_TRG_VS_SRC = 3;
 	public static final int CHANGED_RATE_SRC_VS_TRG = 4;
+	public static final int SET_VALUE_TARGET_FOR_INPUT = 6;
+	public static final int CANCEL_VALUE_TARGET_FOR_INPUT = 7;
+	public static final int CHANGED_VALUE_TARGET_WO_UPDATE =8;
+	public static final int INPUT_VALUE_TARGET =9;
+
 	
 	private LayoutInflater mInflater;
 	private ArrayList<CurrencyConv> mCurrencyList = new ArrayList<CurrencyConv>();
 	static String FLAGS_PATH = "android.resource://com.welmo.travel.tracking/R.drawable.";
 	private Context mContext;
+	private int colorTextDefault;
+	private int colorTextEdit;
 	
 	public CurrencyListAdapter(Context context) {
+	
 		mContext = context;
 		mInflater = LayoutInflater.from(context);
+		colorTextDefault = mContext.getResources().getColor(R.color.butter_clear);
+		colorTextEdit = mContext.getResources().getColor(R.color.chamaleon_clear);
 	}
 	public int getCount() {
 		return mCurrencyList.size();
@@ -98,17 +108,27 @@ class CurrencyListAdapter extends BaseAdapter {
 
 		holder.CountryName.setText(currency.getTrgCountryName());
 		holder.CurrCode.setText(" " + currency.getTrgCurrISO3());
-		
-		 NumberFormat f = NumberFormat.getInstance(Locale.US);
-		 if (f instanceof DecimalFormat) {
-		     ((DecimalFormat) f).setGroupingUsed(true);
-		 }
-		 
+
+		NumberFormat f = NumberFormat.getInstance();
+		f.setMaximumFractionDigits(4);
+		if (f instanceof DecimalFormat) {
+			((DecimalFormat) f).setGroupingUsed(true);
+		}
+
 		if(currency.getTrgValue() != -1)
 			holder.TargetValue.setText(""+f.format(currency.getTrgValue()));
 		else
 			holder.TargetValue.setText("--");
 		
+		//If currency selected for edit change color and for display use the text value
+		if(currency.selected){
+			holder.TargetValue.setText(currency.trgTxtValue);
+			holder.TargetValue.setTextColor(colorTextEdit);
+			holder.TargetValue.setCursorVisible(true);
+			}
+		else
+			holder.TargetValue.setTextColor(colorTextDefault);
+			
 		holder.SurceRate.setText("[1 "+currency.getTrgCurrISO3()+" = " + (currency.getTrgVSSrcRate()!=-1?f.format(currency.getTrgVSSrcRate()):"--") 
 				+" "+ currency.getSrcCurrISO3() + "]");
 		holder.flag.setImageResource(mContext.getResources().getIdentifier(currency.getTargFlagIDTrg(), "drawable","com.welmo.travel.tracking"));
@@ -156,11 +176,18 @@ class CurrencyListAdapter extends BaseAdapter {
 		}
 	}
 	
-	double ChangeValueInArray(int ChangeType ,double newValue,int position){
+	double ChangeValueInArray(int ChangeType ,double newValue, String newStrValue,int position){
 		double source=0.0;
 		switch(ChangeType){
 		case CHANGED_VALUE_TARGET:
 			mCurrencyList.get(position).setTargetValue(newValue);
+			source = mCurrencyList.get(position).getSrcValue();
+			for(int index = 0; index < mCurrencyList.size(); index++ )
+				mCurrencyList.get(index).setSourceValue(source);
+			break;
+		case INPUT_VALUE_TARGET:
+			mCurrencyList.get(position).setTargetValue(newValue);
+			mCurrencyList.get(position).trgTxtValue=newStrValue;
 			source = mCurrencyList.get(position).getSrcValue();
 			for(int index = 0; index < mCurrencyList.size(); index++ )
 				mCurrencyList.get(index).setSourceValue(source);
@@ -178,6 +205,19 @@ class CurrencyListAdapter extends BaseAdapter {
 			for(int index = 0; index < mCurrencyList.size(); index++ )
 				mCurrencyList.get(index).setSourceValue(source);
 			break;
+		case SET_VALUE_TARGET_FOR_INPUT:
+			for(int index = 0; index < mCurrencyList.size(); index++ )
+				mCurrencyList.get(index).selected = false;
+			mCurrencyList.get(position).selected = true;
+			mCurrencyList.get(position).trgTxtValue=newStrValue;
+			break;
+		case CANCEL_VALUE_TARGET_FOR_INPUT:
+			source = mCurrencyList.get(position).getSrcValue();
+			for(int index = 0; index < mCurrencyList.size(); index++ )
+				mCurrencyList.get(index).selected = false;
+			break;
+		case CHANGED_VALUE_TARGET_WO_UPDATE:
+			mCurrencyList.get(position).setTargetValue(newValue);
 		default:
 			break;
 		}

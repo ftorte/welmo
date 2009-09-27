@@ -18,7 +18,9 @@ class CurrencyConv {
 	private String srcCurrISO3;		// Ex: EUR
 	private double srcValue;		// Ex: 100
 	private double srcVSTrgRate; 	// Ex:1,34	
-
+	//helper for list
+	public boolean selected = false;
+	public String trgTxtValue = "";
 
 	CurrencyConv(){
 		targFlagIDTrg="";
@@ -27,10 +29,10 @@ class CurrencyConv {
 		trgCurrISO3="";
 		trgValue=0;
 		trgVSSrcRate=0;
-
 		srcCurrISO3="";
 		srcValue=0;
 		srcVSTrgRate=0;
+		selected = false;
 	}
 	CurrencyConv(String CountryName, String CountryISO2, String tCurrISO3){
 		trgCountryName=CountryName;
