@@ -1,14 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.welmo.contents">
-    <application android:icon="@drawable/icon" android:label="@string/app_name">
-        <activity android:name=".testapp.WelmoTestProviders" android:label="@string/app_name">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-    <provider android:name=".providers.CalendarProvider" android:multiprocess="true" 
-    android:authorities="com.welmo.contents.providers.calendar"></provider>
+	package="com.welmo.contents">
+
+
+	<!-- Test Application -->
+	<uses-permission android:name="android.permission.RUN_INSTRUMENTATION" />
+	<uses-permission android:name="android.permission.INTERNET" />
+	<instrumentation android:name="android.test.InstrumentationTestRunner"
+		android:targetPackage="com.welmo.contents" android:label="Tests for Welmo Content Packag Demos III." />
+
+	<!--  Test Application -->
+
+	<application android:icon="@drawable/icon" android:label="@string/app_name">
+		<!-- Test Application -->
+		<uses-library android:name="android.test.runner" />
+		<!--  Test Application -->
+
+		
+		<activity android:name="WelmoTestProviders">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
 </application>
 </manifest> 
