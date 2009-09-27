@@ -23,101 +23,32 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.UriMatcher;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.net.Uri;
 
 import com.welmo.contents.DBHelper;
-import com.welmo.contents.Calendar;
-import com.welmo.contents.providers.*;
+import com.welmo.contents.WelmoCalendar;
 
 public class CalendarProvider extends ContentProvider{
 
-	public class CalendarDBHelper extends DBHelper{
+	private String EVENT_TABLE = "Events";
+	private String ATTENDS_TABLE = "Attends";
 
-		private String EVENT_TABLE = "Events";
-		private String ATTENDS_TABLE = "Attends";
+	public static final String MEETING_TABLE_CREATE_CONDITIONS = 
+		"(" + WelmoCalendar._ID + " INTEGER PRIMARY KEY," 
+		+ " Object TEXT, Description TEXT, Owner TEXT, Duration INTEGER, Timestamp INTEGER)";
 
-		public static final String MEETING_TABLE_CREATE_CONDITIONS = 
-	        "(" + Calendar._ID + " INTEGER PRIMARY KEY," 
-			+ " Object TEXT, Description TEXT, Owner TEXT, Duration INTEGER, Timestamp INTEGER)";
-		
-		public static final String ATTENDS_TABLE_CREATE_CONDITIONS = 
-	        "(" + Calendar._ID + " INTEGER," 
-			+ " ID INTEGER, Name TEXT, Response INTEGER, Message TEXT, isMe INTEGER, PRIMARY KEY(UID,ID))";
-		
-		public CalendarDBHelper(Context ctx,String DBName) {
-			super(ctx,DBName);
-			CreateTableIfNotExists(EVENT_TABLE,MEETING_TABLE_CREATE_CONDITIONS);
-			CreateTableIfNotExists(ATTENDS_TABLE,ATTENDS_TABLE_CREATE_CONDITIONS);
-		}
-		public long createAttendsRow(ContentValues content) {
-			return super.createRow(ATTENDS_TABLE, content);
-		}
-		public long createMeetingsRow(ContentValues content) {
-			return super.createRow(EVENT_TABLE, content);
-		}
-		public int deleteAttensRageOfRowsByID(long rowIdMin,long rowIdMax) {
-			return super.deleteRageOfRowsByID(ATTENDS_TABLE, rowIdMin, rowIdMax);
-		}
-		public int deleteMeetingsRageOfRowsByID(long rowIdMin,long rowIdMax) {
-			return super.deleteRageOfRowsByID(EVENT_TABLE, rowIdMin, rowIdMax);
-		}
-		public long deleteAttedsRageOfRowsByWhere(String whereClause, long rowIdMax) {
-			return super.deleteRageOfRowsByWhere(ATTENDS_TABLE, whereClause, rowIdMax);
-		}
-		public long deleteMeetingsRageOfRowsByWhere(String whereClause, long rowIdMax) {
-			return super.deleteRageOfRowsByWhere(EVENT_TABLE, whereClause, rowIdMax);
-		}
-		public int deleteAttendsRowByID(long rowId) {
-			return super.deleteRowByID(ATTENDS_TABLE, rowId);
-		}
-		public int deleteMeetingsRowByID(long rowId) {
-			return super.deleteRowByID(EVENT_TABLE, rowId);
-		}
-		public int deleteAttendsRowByWhere(String whereClause) {
-			return super.deleteRowByWhere(ATTENDS_TABLE, whereClause);
-		}
-		public int deleteMeetingsRowByWhere(String whereClause) {
-			return super.deleteRowByWhere(EVENT_TABLE, whereClause);
-		}
-		public List<Long> fetchAttendsRowIdListByID(long rowIdMin, long rowIdMax) {
-			return super.fetchRowIdListByID(ATTENDS_TABLE, rowIdMin, rowIdMax);
-		}
-		public List<Long> fetchMeetingsRowIdListByID(long rowIdMin, long rowIdMax) {
-			return super.fetchRowIdListByID(EVENT_TABLE, rowIdMin, rowIdMax);
-		}
-		public Cursor fetchAttendsRowsByID(long rowId,String[] columns) {
-			return super.fetchRowsByID(ATTENDS_TABLE, rowId, columns);
-		}
-		public Cursor fetchMeetingsRowsByID(long rowId,String[] columns) {
-			return super.fetchRowsByID(EVENT_TABLE, rowId, columns);
-		}
-		public Cursor fetchAttendsRowsByWhere(String whereClause,String[] columns) {
-			return super.fetchRowsByWhere(ATTENDS_TABLE, whereClause, columns);
-		}
-		public Cursor fetchMeetignsRowsByWhere(String whereClause,String[] columns) {
-			return super.fetchRowsByWhere(EVENT_TABLE, whereClause, columns);
-		}
-		public long updateAttendsRowByID(long rowId,ContentValues content) {
-			return super.updateRowByID(ATTENDS_TABLE, rowId, content);
-		}
-		public long updateMeetingsRowByID(long rowId,ContentValues content) {
-			return super.updateRowByID(EVENT_TABLE, rowId, content);
-		}
-		public long updateAttendsRowByWhere(String whareCaluse,ContentValues content) {
-			return super.updateRowByWhere(ATTENDS_TABLE, whareCaluse, content);
-		}
-		public long updateMeetingsRowByWhere(String whareCaluse,ContentValues content) {
-			return super.updateRowByWhere(EVENT_TABLE, whareCaluse, content);
-		}
-	}
+	public static final String ATTENDS_TABLE_CREATE_CONDITIONS = 
+		"(" + WelmoCalendar._ID + " INTEGER," 
+		+ " UID INTEGER, Name TEXT, Response INTEGER, Message TEXT, isMe INTEGER, PRIMARY KEY(UID,_ID))";
 
-	
+
 	private static final String TAG = "CaledarProvider";
-	private	CalendarDBHelper CalendarDB	= null;	
-	
-	
+	private	DBHelper CalendarDB	= null;	
+
+
 	// TODO Handling database version
-	
+
 	@Override
 	public int delete(Uri arg0, String arg1, String[] arg2) {
 		// TODO Auto-generated method stub
@@ -142,13 +73,13 @@ public class CalendarProvider extends ContentProvider{
 	public Uri insert(Uri uri, ContentValues values) {
 		List<String> sgmt = null;
 		sgmt =  uri.getPathSegments(); 
-		
+
 		switch (sURIMatcher.match(uri)) {
 		case EVENT_ID:
 			String sUID = sgmt.get(1);
 			long UID = Long.parseLong(sUID);
-			values.put(Calendar._ID, UID);
-			UID  = CalendarDB.createMeetingsRow(values);
+			values.put(WelmoCalendar._ID, UID);
+			UID  = CalendarDB.createAndReplaceRow(EVENT_TABLE,values);
 			break;
 		default:
 			throw new IllegalArgumentException("Unknown URL " + uri);
@@ -158,9 +89,12 @@ public class CalendarProvider extends ContentProvider{
 
 	@Override
 	public boolean onCreate() {
-		CalendarDB = new CalendarDBHelper(this.getContext(),Calendar.DATABASE_NAME);
-		if(CalendarDB != null)
+		CalendarDB = new DBHelper(this.getContext(),WelmoCalendar.DATABASE_NAME);
+		if(CalendarDB != null){
+			CalendarDB.CreateTableIfNotExists(EVENT_TABLE,MEETING_TABLE_CREATE_CONDITIONS);
+			CalendarDB.CreateTableIfNotExists(ATTENDS_TABLE,ATTENDS_TABLE_CREATE_CONDITIONS);
 			return true;
+		}
 		else
 			return false;
 	}
@@ -174,11 +108,11 @@ public class CalendarProvider extends ContentProvider{
 		int match = sURIMatcher.match(uri);
 		switch (sURIMatcher.match(uri)) {
 		case EVENT:
-			c = CalendarDB.fetchMeetignsRowsByWhere(selection, projection);
+			c = CalendarDB.fetchRowsByWhere(EVENT_TABLE,projection,selection, null,null);
 			break;
 		case EVENT_ID:
 			sgmt =  uri.getPathSegments(); 
-			c = CalendarDB.fetchMeetingsRowsByID(Long.parseLong(sgmt.get(1)), projection);
+			c = CalendarDB.fetchRowsByID(EVENT_TABLE,Long.parseLong(sgmt.get(1)), projection);
 			break;
 		default:
 			throw new IllegalArgumentException("Unknown URL " + uri);
@@ -191,10 +125,10 @@ public class CalendarProvider extends ContentProvider{
 			String[] selectionArgs) {
 		List<String> sgmt = null;
 		sgmt =  uri.getPathSegments(); 
-		
+
 		switch (sURIMatcher.match(uri)) {
 		case EVENT_ID:
-			CalendarDB.updateMeetingsRowByID(Long.parseLong(sgmt.get(1)), values);
+			CalendarDB.updateRowByID(EVENT_TABLE,Long.parseLong(sgmt.get(1)), values);
 			break;
 		default:
 			throw new IllegalArgumentException("Unknown URL " + uri);
@@ -202,15 +136,15 @@ public class CalendarProvider extends ContentProvider{
 		return 0;
 	}
 
-	
+
 	private static final int EVENT = 100;
 	private static final int EVENT_ID = 101;
-	
+
 	private static final UriMatcher sURIMatcher = new UriMatcher(EVENT);
 
 	static
 	{
-		String strAutority = Calendar.AUTORITY.getAuthority();
+		String strAutority = WelmoCalendar.AUTORITY.getAuthority();
 		sURIMatcher.addURI(strAutority, "event/#", EVENT_ID);
 		sURIMatcher.addURI(strAutority, "event", EVENT);
 	}

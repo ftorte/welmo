@@ -22,21 +22,22 @@ import android.provider.BaseColumns;
  * Definition for content provider related to location.
  *
  */
-public final class Calendar implements BaseColumns{
+public final class WelmoCalendar implements BaseColumns{
 	private static final String TAG = "Calenadar";
 
 	public static final Uri AUTORITY = Uri.parse( "content://com.welmo.contents.providers.calendar"); 
 
 	public static final String DEFAULT_SORT_ORDER = "modified DESC";
 
-	public static final String 	DATABASE_NAME 		= "Calendar.db";
+	public static final String 	DATABASE_NAME 		= "WelmoCalendar.db";
 	public static final int 	DATABASE_VERSION 	= 1;
 
 	public interface EventColumns {
 		public static final String OBJECT = "Object";
 		public static final String DSCRIPTION = "Description";
+		public static final String OWNER = "Owner";
 	}
 	public static final class Event implements BaseColumns, EventColumns {
-        public static final Uri CONTENT_URI = Uri.parse("content://com.welmo.contents.providers.calendar/events");
+        public static final Uri CONTENT_URI = Uri.parse("content://com.welmo.contents.test.providers.calendar/events");
     }
 }
